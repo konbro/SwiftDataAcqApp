@@ -13,9 +13,13 @@
 		6580DE4F264C144900EC8EB9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6580DE4D264C144900EC8EB9 /* Main.storyboard */; };
 		6580DE51264C144A00EC8EB9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6580DE50264C144A00EC8EB9 /* Assets.xcassets */; };
 		6580DE54264C144A00EC8EB9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6580DE52264C144A00EC8EB9 /* LaunchScreen.storyboard */; };
+		A8D2C057F1A8FD6984AF089E /* Pods_SwiftDataAcquisition.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C21265EF47BF8FBAD6969BB /* Pods_SwiftDataAcquisition.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		46371620BD58896A3A4DE3EF /* Pods-SwiftDataAcquisition.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftDataAcquisition.release.xcconfig"; path = "Target Support Files/Pods-SwiftDataAcquisition/Pods-SwiftDataAcquisition.release.xcconfig"; sourceTree = "<group>"; };
+		4AEC4B8AF8EAE14E73611C2A /* Pods-SwiftDataAcquisition.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftDataAcquisition.debug.xcconfig"; path = "Target Support Files/Pods-SwiftDataAcquisition/Pods-SwiftDataAcquisition.debug.xcconfig"; sourceTree = "<group>"; };
+		5C21265EF47BF8FBAD6969BB /* Pods_SwiftDataAcquisition.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftDataAcquisition.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6580DE44264C144900EC8EB9 /* SwiftDataAcquisition.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftDataAcquisition.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6580DE47264C144900EC8EB9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6580DE49264C144900EC8EB9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -31,17 +35,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A8D2C057F1A8FD6984AF089E /* Pods_SwiftDataAcquisition.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1566B745D20556B89F6AA27D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4AEC4B8AF8EAE14E73611C2A /* Pods-SwiftDataAcquisition.debug.xcconfig */,
+				46371620BD58896A3A4DE3EF /* Pods-SwiftDataAcquisition.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		6580DE3B264C144900EC8EB9 = {
 			isa = PBXGroup;
 			children = (
 				6580DE46264C144900EC8EB9 /* SwiftDataAcquisition */,
 				6580DE45264C144900EC8EB9 /* Products */,
+				1566B745D20556B89F6AA27D /* Pods */,
+				E111C1674519A1BD74C756B9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -67,6 +84,14 @@
 			path = SwiftDataAcquisition;
 			sourceTree = "<group>";
 		};
+		E111C1674519A1BD74C756B9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5C21265EF47BF8FBAD6969BB /* Pods_SwiftDataAcquisition.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -74,9 +99,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6580DE58264C144A00EC8EB9 /* Build configuration list for PBXNativeTarget "SwiftDataAcquisition" */;
 			buildPhases = (
+				B5F515DF2B3F84406FFC5425 /* [CP] Check Pods Manifest.lock */,
 				6580DE40264C144900EC8EB9 /* Sources */,
 				6580DE41264C144900EC8EB9 /* Frameworks */,
 				6580DE42264C144900EC8EB9 /* Resources */,
+				2FB58C450EDC3E8F840DD8A7 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -131,6 +158,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2FB58C450EDC3E8F840DD8A7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SwiftDataAcquisition/Pods-SwiftDataAcquisition-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SwiftDataAcquisition/Pods-SwiftDataAcquisition-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SwiftDataAcquisition/Pods-SwiftDataAcquisition-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B5F515DF2B3F84406FFC5425 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SwiftDataAcquisition-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		6580DE40264C144900EC8EB9 /* Sources */ = {
@@ -283,6 +352,7 @@
 		};
 		6580DE59264C144A00EC8EB9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4AEC4B8AF8EAE14E73611C2A /* Pods-SwiftDataAcquisition.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -301,6 +371,7 @@
 		};
 		6580DE5A264C144A00EC8EB9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 46371620BD58896A3A4DE3EF /* Pods-SwiftDataAcquisition.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
