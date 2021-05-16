@@ -16,6 +16,7 @@
 		6580DE69264C196F00EC8EB9 /* BarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6580DE68264C196F00EC8EB9 /* BarChartView.swift */; };
 		6580DE6B264ED64E00EC8EB9 /* FilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6580DE6A264ED64D00EC8EB9 /* FilesView.swift */; };
 		6580DE6D264ED66000EC8EB9 /* MeasurmentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6580DE6C264ED66000EC8EB9 /* MeasurmentsView.swift */; };
+		6580DE702651A94100EC8EB9 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6580DE6F2651A94100EC8EB9 /* AboutView.swift */; };
 		A8D2C057F1A8FD6984AF089E /* Pods_SwiftDataAcquisition.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C21265EF47BF8FBAD6969BB /* Pods_SwiftDataAcquisition.framework */; };
 /* End PBXBuildFile section */
 
@@ -52,6 +53,7 @@
 		6580DE68264C196F00EC8EB9 /* BarChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartView.swift; sourceTree = "<group>"; };
 		6580DE6A264ED64D00EC8EB9 /* FilesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesView.swift; sourceTree = "<group>"; };
 		6580DE6C264ED66000EC8EB9 /* MeasurmentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurmentsView.swift; sourceTree = "<group>"; };
+		6580DE6F2651A94100EC8EB9 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,14 +100,11 @@
 			children = (
 				6580DE47264C144900EC8EB9 /* AppDelegate.swift */,
 				6580DE49264C144900EC8EB9 /* SceneDelegate.swift */,
-				6580DE4B264C144900EC8EB9 /* ViewController.swift */,
+				6580DE6E2651A91600EC8EB9 /* Views */,
 				6580DE4D264C144900EC8EB9 /* Main.storyboard */,
 				6580DE50264C144A00EC8EB9 /* Assets.xcassets */,
 				6580DE52264C144A00EC8EB9 /* LaunchScreen.storyboard */,
 				6580DE55264C144A00EC8EB9 /* Info.plist */,
-				6580DE68264C196F00EC8EB9 /* BarChartView.swift */,
-				6580DE6A264ED64D00EC8EB9 /* FilesView.swift */,
-				6580DE6C264ED66000EC8EB9 /* MeasurmentsView.swift */,
 			);
 			path = SwiftDataAcquisition;
 			sourceTree = "<group>";
@@ -117,6 +116,18 @@
 				6580DE63264C16F700EC8EB9 /* Pods_SwiftDataAcquisition.framework */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		6580DE6E2651A91600EC8EB9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				6580DE4B264C144900EC8EB9 /* ViewController.swift */,
+				6580DE68264C196F00EC8EB9 /* BarChartView.swift */,
+				6580DE6A264ED64D00EC8EB9 /* FilesView.swift */,
+				6580DE6C264ED66000EC8EB9 /* MeasurmentsView.swift */,
+				6580DE6F2651A94100EC8EB9 /* AboutView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		E111C1674519A1BD74C756B9 /* Frameworks */ = {
@@ -266,6 +277,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6580DE4C264C144900EC8EB9 /* ViewController.swift in Sources */,
+				6580DE702651A94100EC8EB9 /* AboutView.swift in Sources */,
 				6580DE48264C144900EC8EB9 /* AppDelegate.swift in Sources */,
 				6580DE4A264C144900EC8EB9 /* SceneDelegate.swift in Sources */,
 				6580DE69264C196F00EC8EB9 /* BarChartView.swift in Sources */,

@@ -1,13 +1,15 @@
 //
-//  BarChartView.swift
+//  AboutView.swift
 //  SwiftDataAcquisition
 //
-//  Created by Konrad von Broen on 12/05/2021.
+//  Created by Konrad von Broen on 16/05/2021.
 //
 
 import UIKit
 
-class BarChartView: UIViewController {
+//Static view which informs user what is this app for and names of authors
+
+class AboutView: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
