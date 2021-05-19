@@ -9,6 +9,8 @@ import UIKit
 
 class MeasurmentsView: UIViewController {
 
+    var viewModel: FilesHandlerViewModel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
