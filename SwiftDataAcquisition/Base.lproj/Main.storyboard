@@ -200,14 +200,47 @@
                     <view key="view" contentMode="scaleToFill" id="vTC-4f-Rw1">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pop-sd-85p">
+                                <rect key="frame" x="20" y="58" width="374" height="496"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Measurements results" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="gRZ-8Y-KOx">
+                                <rect key="frame" x="20" y="20" width="374" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mmp-D2-dsZ">
+                                <rect key="frame" x="20" y="576" width="374" height="42"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="Back"/>
+                                <connections>
+                                    <segue destination="aVI-7A-KfL" kind="unwind" unwindAction="handleExit:" id="adM-XI-waK"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="0wS-j1-PxI"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="0wS-j1-PxI" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="Mmp-D2-dsZ" secondAttribute="trailing" constant="20" id="2Uw-Pw-8vW"/>
+                            <constraint firstItem="0wS-j1-PxI" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="pop-sd-85p" secondAttribute="trailing" constant="20" id="9oB-6p-lrA"/>
+                            <constraint firstItem="gRZ-8Y-KOx" firstAttribute="top" secondItem="0wS-j1-PxI" secondAttribute="top" constant="20" id="N5A-qV-4M2"/>
+                            <constraint firstItem="Mmp-D2-dsZ" firstAttribute="leading" relation="lessThanOrEqual" secondItem="0wS-j1-PxI" secondAttribute="leading" constant="20" id="Xek-cL-85C"/>
+                            <constraint firstItem="0wS-j1-PxI" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="gRZ-8Y-KOx" secondAttribute="trailing" constant="20" id="i4M-IF-DdT"/>
+                            <constraint firstItem="0wS-j1-PxI" firstAttribute="bottom" relation="lessThanOrEqual" secondItem="Mmp-D2-dsZ" secondAttribute="bottom" constant="112" id="l7h-R6-Au3"/>
+                            <constraint firstItem="Mmp-D2-dsZ" firstAttribute="top" secondItem="pop-sd-85p" secondAttribute="bottom" constant="8" symbolic="YES" id="nUG-pC-vj6"/>
+                            <constraint firstItem="pop-sd-85p" firstAttribute="top" secondItem="gRZ-8Y-KOx" secondAttribute="bottom" constant="8" symbolic="YES" id="rmj-Hm-Tpk"/>
+                            <constraint firstItem="gRZ-8Y-KOx" firstAttribute="leading" relation="lessThanOrEqual" secondItem="0wS-j1-PxI" secondAttribute="leading" constant="20" id="rpM-pl-Zz5"/>
+                            <constraint firstItem="pop-sd-85p" firstAttribute="leading" relation="lessThanOrEqual" secondItem="0wS-j1-PxI" secondAttribute="leading" constant="20" id="vOi-Tp-aHk"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="0bA-Vr-d5F"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="miI-H3-g4B" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="aVI-7A-KfL" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-1033" y="390"/>
+            <point key="canvasLocation" x="-1033.3333333333335" y="389.67391304347831"/>
         </scene>
         <!--About View-->
         <scene sceneID="YrV-aP-5dC">
