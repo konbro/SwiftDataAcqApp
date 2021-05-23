@@ -9,9 +9,19 @@ import UIKit
 
 class FilesView: UIViewController {
 
+    @IBOutlet weak var fileTable: UITableView!
+    
+    var files = [String] ()
+    var newFile: String = ""
+    /*override func numberOfSection(in tableView: UITableView)->Int
+    {
+        return 1;
+    }*/
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        //var filesList = ["2021-05-20_10-23-25_Measurement_A.txt","2021-05-20_10-30-25_Measurement_A.txt","2021-05-20_10-50-25_Measurement_A.txt","2021-05-20_11-23-25_Measurement_A.txt"];
+        
         // Do any additional setup after loading the view.
     }
     

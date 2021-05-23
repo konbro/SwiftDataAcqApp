@@ -119,6 +119,9 @@
                                 <rect key="frame" x="57" y="452.66666666666674" width="300" height="42"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Start measurement"/>
+                                <connections>
+                                    <action selector="startMeasurements:" destination="KSU-bc-leI" eventType="touchUpInside" id="SNG-Vc-xzQ"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Measurement time:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="HFD-UA-ZJ6">
                                 <rect key="frame" x="20" y="147" width="246" height="46"/>
@@ -236,6 +239,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="0bA-Vr-d5F"/>
+                    <connections>
+                        <outlet property="fileTable" destination="pop-sd-85p" id="yZT-Hk-mFw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="miI-H3-g4B" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="aVI-7A-KfL" userLabel="Exit" sceneMemberID="exit"/>
