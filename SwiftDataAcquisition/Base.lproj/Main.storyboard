@@ -33,7 +33,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Data Acquisition" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="none" minimumFontSize="15" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9de-Ga-4Uf">
-                                <rect key="frame" x="20" y="343" width="374" height="50"/>
+                                <rect key="frame" x="20" y="343" width="374" height="50.333333333333314"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="42"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -135,11 +135,11 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <slider opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="aXx-5B-kHN">
-                                <rect key="frame" x="18" y="315.66666666666663" width="378" height="30.999999999999972"/>
+                            <slider opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="aXx-5B-kHN">
+                                <rect key="frame" x="18" y="315.66666666666663" width="378" height="31"/>
                             </slider>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="NC2-V5-AVG">
-                                <rect key="frame" x="57" y="539" width="300" height="46"/>
+                                <rect key="frame" x="57" y="578" width="300" height="46"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Back"/>
                                 <connections>
@@ -152,6 +152,14 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="anx-nR-YUL">
+                                <rect key="frame" x="57" y="512" width="300" height="42"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="View chart"/>
+                                <connections>
+                                    <segue destination="UaX-8M-tzo" kind="presentation" id="C9u-bO-jde"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="rhN-Rm-K19"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -173,6 +181,7 @@
                             <constraint firstItem="sMP-zi-IAZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="QgX-ex-NwF" secondAttribute="trailing" constant="23" id="Tlq-Fx-zpV"/>
                             <constraint firstItem="33l-WD-PcU" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="TKh-ZI-xaF" secondAttribute="trailing" constant="23" id="UUv-L2-CgZ"/>
                             <constraint firstItem="NC2-V5-AVG" firstAttribute="leading" secondItem="rhN-Rm-K19" secondAttribute="leading" constant="57" id="VlO-y6-ff1"/>
+                            <constraint firstItem="anx-nR-YUL" firstAttribute="top" relation="lessThanOrEqual" secondItem="4oF-AE-lLg" secondAttribute="bottom" constant="18" id="YHJ-oi-xDD"/>
                             <constraint firstItem="aXx-5B-kHN" firstAttribute="leading" secondItem="rhN-Rm-K19" secondAttribute="leading" constant="20" id="Ztz-5q-1Q4"/>
                             <constraint firstItem="SgN-1Z-naL" firstAttribute="top" secondItem="HFD-UA-ZJ6" secondAttribute="bottom" constant="9" id="aVq-w9-1BZ"/>
                             <constraint firstItem="TKh-ZI-xaF" firstAttribute="leading" secondItem="rhN-Rm-K19" secondAttribute="leading" constant="20" id="cRv-hK-hiu"/>
@@ -180,11 +189,13 @@
                             <constraint firstItem="rhN-Rm-K19" firstAttribute="trailing" secondItem="NC2-V5-AVG" secondAttribute="trailing" constant="57" id="gLL-SY-wIT"/>
                             <constraint firstItem="rhN-Rm-K19" firstAttribute="trailing" secondItem="aXx-5B-kHN" secondAttribute="trailing" constant="20" id="jV5-Mj-tcJ"/>
                             <constraint firstItem="QgX-ex-NwF" firstAttribute="top" secondItem="rhN-Rm-K19" secondAttribute="top" constant="40" id="lrc-8x-6O1"/>
+                            <constraint firstItem="NC2-V5-AVG" firstAttribute="top" relation="lessThanOrEqual" secondItem="anx-nR-YUL" secondAttribute="bottom" constant="24" id="mRZ-zf-x2f"/>
                             <constraint firstItem="rhN-Rm-K19" firstAttribute="trailing" secondItem="lTn-9M-t33" secondAttribute="trailing" constant="40" id="oO4-UO-aek"/>
+                            <constraint firstItem="anx-nR-YUL" firstAttribute="leading" relation="lessThanOrEqual" secondItem="rhN-Rm-K19" secondAttribute="leading" constant="57" id="pl1-It-KjQ"/>
                             <constraint firstItem="4oF-AE-lLg" firstAttribute="leading" relation="lessThanOrEqual" secondItem="rhN-Rm-K19" secondAttribute="leading" constant="57" id="svp-1o-JpG"/>
                             <constraint firstItem="SgN-1Z-naL" firstAttribute="leading" secondItem="rhN-Rm-K19" secondAttribute="leading" constant="20" id="tJ7-TH-Vnu"/>
-                            <constraint firstItem="NC2-V5-AVG" firstAttribute="top" relation="greaterThanOrEqual" secondItem="4oF-AE-lLg" secondAttribute="bottom" constant="55" id="uLQ-FV-arL"/>
                             <constraint firstItem="lTn-9M-t33" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="HFD-UA-ZJ6" secondAttribute="trailing" constant="23" id="uO7-wU-HSR"/>
+                            <constraint firstItem="rhN-Rm-K19" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="anx-nR-YUL" secondAttribute="trailing" constant="57" id="xg8-F9-dQd"/>
                             <constraint firstItem="hhp-kQ-KIt" firstAttribute="top" secondItem="lTn-9M-t33" secondAttribute="bottom" constant="8" symbolic="YES" id="yRW-89-StC"/>
                             <constraint firstItem="rhN-Rm-K19" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="4oF-AE-lLg" secondAttribute="trailing" constant="57" id="yRy-RD-ciy"/>
                         </constraints>
@@ -195,6 +206,31 @@
                 <exit id="42Q-kt-hEO" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-1030.4347826086957" y="-334.23913043478262"/>
+        </scene>
+        <!--Charts View Controller-->
+        <scene sceneID="hgt-cK-qjo">
+            <objects>
+                <viewController id="UaX-8M-tzo" customClass="ChartsViewController" customModule="SwiftDataAcquisition" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="84g-CD-bWh">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MQ7-nc-Daj" customClass="BarChartView" customModule="Charts">
+                                <rect key="frame" x="20" y="20" width="374" height="379"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="XTR-Sz-H8G"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <connections>
+                        <outlet property="barChart" destination="MQ7-nc-Daj" id="zjF-F7-MUs"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="B4E-i0-mHc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="0.0" y="-334.23913043478262"/>
         </scene>
         <!--Files View-->
         <scene sceneID="wWk-tT-HXH">
@@ -266,7 +302,7 @@
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="14" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rSt-qf-U8P">
                                 <rect key="frame" x="20" y="65" width="374" height="332"/>
-                                <mutableString key="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ultricies vitae arcu ac egestas. Aenean sed enim vehicula, molestie nibh non, varius sapien. Etiam volutpat ipsum velit, quis euismod justo rutrum eu. Vestibulum aliquet orci luctus pellentesque tempor. Vivamus vitae bibendum sem. Integer diam turpis, gravida et venenatis ut, rhoncus at arcu. Donec sagittis suscipit tortor, vel pulvinar sapien cursus fringilla. Donec mi ligula, ultrices in convallis et, fermentum sit amet lectus. In hac habitasse platea dictumst. Integer in tincidunt elit, elementum elementum sapien. Sed elementum tincidunt placerat.</mutableString>
+                                <string key="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ultricies vitae arcu ac egestas. Aenean sed enim vehicula, molestie nibh non, varius sapien. Etiam volutpat ipsum velit, quis euismod justo rutrum eu. Vestibulum aliquet orci luctus pellentesque tempor. Vivamus vitae bibendum sem. Integer diam turpis, gravida et venenatis ut, rhoncus at arcu. Donec sagittis suscipit tortor, vel pulvinar sapien cursus fringilla. Donec mi ligula, ultrices in convallis et, fermentum sit amet lectus. In hac habitasse platea dictumst. Integer in tincidunt elit, elementum elementum sapien. Sed elementum tincidunt placerat.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>

@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		651C5A4B265CDEC40031B7C0 /* ChartsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651C5A4A265CDEC40031B7C0 /* ChartsViewController.swift */; };
 		6580DE48264C144900EC8EB9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6580DE47264C144900EC8EB9 /* AppDelegate.swift */; };
 		6580DE4A264C144900EC8EB9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6580DE49264C144900EC8EB9 /* SceneDelegate.swift */; };
 		6580DE4C264C144900EC8EB9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6580DE4B264C144900EC8EB9 /* ViewController.swift */; };
 		6580DE4F264C144900EC8EB9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6580DE4D264C144900EC8EB9 /* Main.storyboard */; };
 		6580DE51264C144A00EC8EB9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6580DE50264C144A00EC8EB9 /* Assets.xcassets */; };
 		6580DE54264C144A00EC8EB9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6580DE52264C144A00EC8EB9 /* LaunchScreen.storyboard */; };
-		6580DE69264C196F00EC8EB9 /* BarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6580DE68264C196F00EC8EB9 /* BarChartView.swift */; };
 		6580DE6B264ED64E00EC8EB9 /* FilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6580DE6A264ED64D00EC8EB9 /* FilesView.swift */; };
 		6580DE6D264ED66000EC8EB9 /* MeasurmentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6580DE6C264ED66000EC8EB9 /* MeasurmentsView.swift */; };
 		6580DE702651A94100EC8EB9 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6580DE6F2651A94100EC8EB9 /* AboutView.swift */; };
@@ -43,6 +43,7 @@
 		46371620BD58896A3A4DE3EF /* Pods-SwiftDataAcquisition.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftDataAcquisition.release.xcconfig"; path = "Target Support Files/Pods-SwiftDataAcquisition/Pods-SwiftDataAcquisition.release.xcconfig"; sourceTree = "<group>"; };
 		4AEC4B8AF8EAE14E73611C2A /* Pods-SwiftDataAcquisition.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftDataAcquisition.debug.xcconfig"; path = "Target Support Files/Pods-SwiftDataAcquisition/Pods-SwiftDataAcquisition.debug.xcconfig"; sourceTree = "<group>"; };
 		5C21265EF47BF8FBAD6969BB /* Pods_SwiftDataAcquisition.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftDataAcquisition.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		651C5A4A265CDEC40031B7C0 /* ChartsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsViewController.swift; sourceTree = "<group>"; };
 		6580DE44264C144900EC8EB9 /* SwiftDataAcquisition.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftDataAcquisition.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6580DE47264C144900EC8EB9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6580DE49264C144900EC8EB9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -52,7 +53,6 @@
 		6580DE53264C144A00EC8EB9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6580DE55264C144A00EC8EB9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6580DE5B264C16F700EC8EB9 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = Pods/Pods.xcodeproj; sourceTree = "<group>"; };
-		6580DE68264C196F00EC8EB9 /* BarChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartView.swift; sourceTree = "<group>"; };
 		6580DE6A264ED64D00EC8EB9 /* FilesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesView.swift; sourceTree = "<group>"; };
 		6580DE6C264ED66000EC8EB9 /* MeasurmentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurmentsView.swift; sourceTree = "<group>"; };
 		6580DE6F2651A94100EC8EB9 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
@@ -128,10 +128,10 @@
 			isa = PBXGroup;
 			children = (
 				6580DE4B264C144900EC8EB9 /* ViewController.swift */,
-				6580DE68264C196F00EC8EB9 /* BarChartView.swift */,
 				6580DE6A264ED64D00EC8EB9 /* FilesView.swift */,
 				6580DE6C264ED66000EC8EB9 /* MeasurmentsView.swift */,
 				6580DE6F2651A94100EC8EB9 /* AboutView.swift */,
+				651C5A4A265CDEC40031B7C0 /* ChartsViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -299,12 +299,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				6580DE772655B42100EC8EB9 /* FilesGroupModel.swift in Sources */,
+				651C5A4B265CDEC40031B7C0 /* ChartsViewController.swift in Sources */,
 				6580DE4C264C144900EC8EB9 /* ViewController.swift in Sources */,
 				6580DE702651A94100EC8EB9 /* AboutView.swift in Sources */,
 				6580DE48264C144900EC8EB9 /* AppDelegate.swift in Sources */,
 				6580DE742655444700EC8EB9 /* FilesHandlerViewModel.swift in Sources */,
 				6580DE4A264C144900EC8EB9 /* SceneDelegate.swift in Sources */,
-				6580DE69264C196F00EC8EB9 /* BarChartView.swift in Sources */,
 				6580DE6B264ED64E00EC8EB9 /* FilesView.swift in Sources */,
 				6580DE6D264ED66000EC8EB9 /* MeasurmentsView.swift in Sources */,
 			);
