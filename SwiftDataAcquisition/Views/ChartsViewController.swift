@@ -16,8 +16,8 @@ class ChartsViewController: UIViewController {
     func barChartUpdate()
     {
         let entry1 = BarChartDataEntry(x: 1.0, y: 2.5)
-        let entry2 = BarChartDataEntry(x: 2.0, y: 2.5)
-        let entry3 = BarChartDataEntry(x: 3.0, y: 2.5)
+        let entry2 = BarChartDataEntry(x: 2.0, y: 2.0)
+        let entry3 = BarChartDataEntry(x: 3.0, y: 5.5)
         
         let dataSet = BarChartDataSet(entries: [entry1,entry2,entry3], label: "Example data in bar chart")
         let data = BarChartData(dataSets: [dataSet])

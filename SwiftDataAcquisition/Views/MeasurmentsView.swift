@@ -11,6 +11,12 @@ class MeasurmentsView: UIViewController {
 
     var viewModel: FilesHandlerViewModel!
     
+    @IBAction func handleExitMeasurements(_ segue:UIStoryboardSegue)
+    {
+        
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
