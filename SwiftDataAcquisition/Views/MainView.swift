@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class MainView: UIViewController {
 
     var viewModel: FilesHandlerViewModel!
     

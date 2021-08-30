@@ -107,10 +107,10 @@ class CustomFilesHandler {
         return resultArray
     }
     
-    private func listFilesGroups() -> Array<NSString>
+    public func listFilesGroups() -> Array<NSString>
     {
         let docDir = self.getDocumentDirectory()
-        var foundGroups = [String]();
+        var foundGroups = [NSString]();
         var filesInDir = [NSString]();
         filesInDir = listFilesInDir();
         if(filesInDir.isEmpty)
@@ -140,19 +140,22 @@ class CustomFilesHandler {
                     //TODO LEARN HOW TO HANDLE EXCEPTIONS IN SWIFT
                     //throw
                     print("NOT COMPLETE MEASUREMENT FOUND!")
-                }
+                }	
                 else
                 {
                     let tmpFileName = file as String
                     let measurementNamePartStartIndex = tmpFileName.index(tmpFileName.endIndex, offsetBy: -18);
 //                    let measurementGroupName = tmpFileName.prefix(upTo: measurementNamePartStartIndex))
                     let measurementGroupName = String(tmpFileName.prefix(upTo: measurementNamePartStartIndex))
-                    foundGroups.append(measurementGroupName);
+                    
+                    //TODO MAKE SURE THAT THOSE BATCHES ARE COMPLETE????
+                    
+                    foundGroups.append(measurementGroupName as NSString);
                     
                 }
             }
         }
-        
+        return foundGroups;
     }
     
     

@@ -9,9 +9,13 @@ import UIKit
 
 class MeasurmentsView: UIViewController {
 
-    var filesHandler = CustomFilesHandler();
+    @IBOutlet var tableView: UITableView!
+    
+    let filesHandler = CustomFilesHandler();
     var viewModel: FilesHandlerViewModel!
     var pathToDocumentsDir: String = "";
+    let userDefaults = UserDefaults.standard;
+
     
     @IBAction func handleExitMeasurements(_ segue:UIStoryboardSegue)
     {
@@ -21,6 +25,8 @@ class MeasurmentsView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        userDefaults.set("testUserDefaults", forKey: "userName")
+        let darkmodeEnabled = userDefaults.bool(forKey: "darkModeEnabled");
     }
     
     /* NOTE
@@ -34,7 +40,9 @@ class MeasurmentsView: UIViewController {
         
         
         //END MEASURING MAGIC
-        filesHandler.saveDataBatch(dataToSave: <#T##String#>, timeOfMeasurement: now)
+//        filesHandler.saveDataBatch(dataToSave: <#T##String#>, timeOfMeasurement: now)
+        
+        
 //        let fileName = now + "_Measurement_" + "A"
 //        let DocumentDirURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
 ////        let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("myFile")
