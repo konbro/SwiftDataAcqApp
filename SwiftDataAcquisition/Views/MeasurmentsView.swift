@@ -25,8 +25,8 @@ class MeasurmentsView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        userDefaults.set("testUserDefaults", forKey: "userName")
-        let darkmodeEnabled = userDefaults.bool(forKey: "darkModeEnabled");
+//        userDefaults.set("testUserDefaults", forKey: "userName")
+//        let darkmodeEnabled = userDefaults.bool(forKey: "darkModeEnabled");
     }
     
     /* NOTE
@@ -36,6 +36,8 @@ class MeasurmentsView: UIViewController {
     @IBAction func startMeasurements(_ sender: Any)
     {
         let now = getCurrentTime();
+        
+        filesHandler.saveDataBatch(dataToSave: "LoremIpsumPLACEHOLDER", timeOfMeasurement: now);
         //DO MEASURING MAGIC
         
         

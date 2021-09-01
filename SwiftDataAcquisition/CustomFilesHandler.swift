@@ -50,7 +50,8 @@ class CustomFilesHandler {
     
     private func saveToFile(text: String, targetDir: String, targetFileName: String)
     {
-        let filename = targetDir + "\\" + targetFileName
+        let filename = targetDir + "/" + targetFileName
+//        let fileURL = URL(string: filename)!;
         do {
             try text.write(toFile: filename, atomically: true, encoding: .utf8);
         }
@@ -58,7 +59,16 @@ class CustomFilesHandler {
             print("Error", error)
             return
         }
-        print("Successufull save of file")
+//        do {
+//            try text.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8)
+//        }
+//        catch let error as NSError
+//        {
+//            print("Failed to write to file to URL: \(filename), Error: " + error.localizedDescription)
+//        }
+        print("Successufull save of file \(targetFileName)");
+        
+        
         /*
          private func save(text: String,
          toDirectory directory: String,
@@ -94,7 +104,9 @@ class CustomFilesHandler {
         var resultArray = [NSString]();
         print("DocumentsDir:")
         do{
-            let items = try fm.contentsOfDirectory(atPath: docDir)
+            var items = try fm.contentsOfDirectory(atPath: docDir)
+            //sorting of list in order to get list in which we can get element by using simple [x+1] operand
+            items.sort()
             for item in items{
                 print("FOUND: \(item)")
                 resultArray.append(item as NSString)

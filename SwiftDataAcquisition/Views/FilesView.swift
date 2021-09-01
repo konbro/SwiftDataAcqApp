@@ -49,8 +49,8 @@ class FilesView: UIViewController, UITableViewDataSource {
     
     private func updateResultList()
     {
-//        measurementGroupsList = fileHandler.listFilesGroups();
-        measurementGroupsList = ["test1", "test2", "test3"];
+        measurementGroupsList = fileHandler.listFilesGroups();
+//        measurementGroupsList = ["test1", "test2", "test3"];
     }
     
 
