@@ -121,7 +121,7 @@ class CustomFilesHandler {
     
     public func listFilesGroups() -> Array<NSString>
     {
-        let docDir = self.getDocumentDirectory()
+//        let docDir = self.getDocumentDirectory()
         var foundGroups = [NSString]();
         var filesInDir = [NSString]();
         filesInDir = listFilesInDir();
