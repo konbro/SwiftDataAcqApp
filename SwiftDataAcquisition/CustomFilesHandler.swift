@@ -96,7 +96,7 @@ class CustomFilesHandler {
     /**
      
      
-     - Returns: Array of NSString object which represent each filename in documents directory
+     - Returns: Sorted array of NSString object which represent each filename in documents directory
      */
     private func listFilesInDir() -> Array<NSString>
     {
@@ -121,7 +121,6 @@ class CustomFilesHandler {
     
     public func listFilesGroups() -> Array<NSString>
     {
-//        let docDir = self.getDocumentDirectory()
         var foundGroups = [NSString]();
         var filesInDir = [NSString]();
         filesInDir = listFilesInDir();
@@ -170,6 +169,28 @@ class CustomFilesHandler {
         return foundGroups;
     }
     
+    public func getFilesInGroup(fileGroup: String) -> Set<URL>
+    {
+        var filesInDir = [NSString]();
+        filesInDir = listFilesInDir();
+        var filesInGroup = Set<URL>();
+        for file in filesInDir{
+            if(file.contains(fileGroup)){
+                if(filesInGroup.count >= 4)
+                {
+                    //found 4 files so theres no need to check further
+                    break;
+                }
+                filesInGroup.insert(URL(string: file as String)!)
+            }
+        }
+        if(filesInGroup.count != 4)
+        {
+            print("ERROR: FOUND NUMBER DIFFERENT THAN 4 IN SET OF FILES")
+        }
+        print(filesInGroup);
+        return filesInGroup;
+    }
     
     
     
