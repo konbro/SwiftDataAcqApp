@@ -67,30 +67,6 @@ class CustomFilesHandler {
 //            print("Failed to write to file to URL: \(filename), Error: " + error.localizedDescription)
 //        }
         print("Successufull save of file \(targetFileName)");
-        
-        
-        /*
-         private func save(text: String,
-         toDirectory directory: String,
-         withFileName fileName: String) {
-         guard let filePath = self.append(toPath: directory,
-         withPathComponent: fileName) else {
-         return
-         }
-         
-         do {
-         try text.write(toFile: filePath,
-         atomically: true,
-         encoding: .utf8)
-         } catch {
-         print("Error", error)
-         return
-         }
-         
-         print("Save successful")
-         print("FilePath: \(filePath)")
-         }
-         */
     }
     
     /**
@@ -108,7 +84,6 @@ class CustomFilesHandler {
             //sorting of list in order to get list in which we can get element by using simple [x+1] operand
             items.sort()
             for item in items{
-                print("FOUND: \(item)")
                 resultArray.append(item as NSString)
             }
         }
@@ -156,7 +131,6 @@ class CustomFilesHandler {
                 {
                     let tmpFileName = file as String
                     let measurementNamePartStartIndex = tmpFileName.index(tmpFileName.endIndex, offsetBy: -18);
-//                    let measurementGroupName = tmpFileName.prefix(upTo: measurementNamePartStartIndex))
                     let measurementGroupName = String(tmpFileName.prefix(upTo: measurementNamePartStartIndex))
                     
                     //TODO MAKE SURE THAT THOSE BATCHES ARE COMPLETE????
@@ -171,8 +145,10 @@ class CustomFilesHandler {
     
     public func getFilesInGroup(fileGroup: String) -> Set<URL>
     {
-        var filesInDir = [NSString]();
-        filesInDir = listFilesInDir();
+//        var filesInDir = Array<NSString>();
+//        var filesInDir = [NSString]();
+        var filesInDir = listFilesInDir();
+//        filesInDir.sort(by: <#T##(NSString, NSString) throws -> Bool#>);
         var filesInGroup = Set<URL>();
         for file in filesInDir{
             if(file.contains(fileGroup)){
@@ -192,6 +168,19 @@ class CustomFilesHandler {
         return filesInGroup;
     }
     
-    
-    
+    public func deleteFilesInGroup(fileGroup: String)
+    {
+     var filesInDir = getFilesInGroup(fileGroup: fileGroup)
+        let pathToDocumentsDir = self.getDocumentDirectory() as String;
+        for file in filesInDir{
+            do {
+                //let filename = targetDir + "/" + targetFileName
+                let filePath = pathToDocumentsDir + "/" + file.absoluteString;
+                try FileManager.default.removeItem(atPath: filePath)
+            } catch let error as NSError {
+                print("YOU FUCKED UP BOI");
+                print(error);
+            }
+        }
+    }
 }

@@ -33,24 +33,15 @@ class SettingsView: UIViewController
         super.viewDidLoad()
     }
     
+    //NOTE IT WAS CHANGED TO DeviceWiFi
     @IBAction func DeviceIPEditBtnPressed(_ sender: UIButton) {
-        let userDefaultsKey = "DeviceIP"
+        let userDefaultsKey = "DeviceWiFi"
         var deviceIP = self.userDefaults.string(forKey: userDefaultsKey)
         if(deviceIP == nil)
         {
             deviceIP = "NOT SET"
         }
-        showEditAlert(alertTitle: "Edit device IP", alertMessage: "Please enter new device IP", alertTextFieldValue: deviceIP!, userDefaultsKey: userDefaultsKey)
-    }
-    
-    @IBAction func DevicePortEditBtnPressed(_ sender: UIButton) {
-        let userDefaultsKey = "DevicePort"
-        var devicePort = self.userDefaults.string(forKey: userDefaultsKey)
-        if(devicePort == nil)
-        {
-            devicePort = "NOT SET"
-        }
-        showEditAlert(alertTitle: "Edit device port", alertMessage: "Please enter new device port", alertTextFieldValue: devicePort!, userDefaultsKey: userDefaultsKey)
+        showEditAlert(alertTitle: "Edit device WiFi", alertMessage: "Please enter new device WiFi", alertTextFieldValue: deviceIP!, userDefaultsKey: userDefaultsKey)
     }
     
     @IBAction func DeviceWifiPassEditBtnPressed(_ sender: UIButton) {
@@ -90,19 +81,13 @@ class SettingsView: UIViewController
     
     private func refreshLabels()
     {
-        var devIP =  userDefaults.string(forKey: "DeviceIP")
-        if(devIP == nil)
+        var deviceWifi =  userDefaults.string(forKey: "DeviceWiFi")
+        if(deviceWifi == nil)
         {
-            devIP = "NOT SET"
+            deviceWifi = "NOT SET"
         }
-        DeviceIPLabel.text = devIP
+        DeviceIPLabel.text = deviceWifi
         
-        var devPort = userDefaults.string(forKey: "DevicePort")
-        if(devPort == nil)
-        {
-            devPort = "NOT SET"
-        }
-        DevicePortLabel.text = devPort
         var devWifiPass = userDefaults.string(forKey: "DeviceWifiPassword")
         if(devWifiPass == nil)
         {

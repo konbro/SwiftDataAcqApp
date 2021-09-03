@@ -272,25 +272,12 @@
                                 <rect key="frame" x="20" y="58" width="374" height="488"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MyCell" id="6un-r3-aJu">
-                                        <rect key="frame" x="0.0" y="24.333333969116211" width="374" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MyCell" id="ZYm-92-d0o">
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="374" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6un-r3-aJu" id="1Fc-gP-y5Q">
-                                            <rect key="frame" x="0.0" y="0.0" width="374" height="44"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZYm-92-d0o" id="Khr-bE-cWY">
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="43.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="0Wy-i7-mj8">
-                                                    <rect key="frame" x="307" y="7" width="49" height="31"/>
-                                                    <connections>
-                                                        <action selector="ElementSwitchToggle:" destination="704-2P-t5E" eventType="valueChanged" id="1mc-Wz-gBf"/>
-                                                    </connections>
-                                                </switch>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="0Wy-i7-mj8" secondAttribute="bottom" constant="5.6666679382324219" id="Fuh-rI-oZF"/>
-                                                <constraint firstItem="0Wy-i7-mj8" firstAttribute="top" secondItem="1Fc-gP-y5Q" secondAttribute="top" constant="7" id="NkQ-dw-oEA"/>
-                                                <constraint firstAttribute="trailing" secondItem="0Wy-i7-mj8" secondAttribute="trailing" constant="20" symbolic="YES" id="drZ-Ee-x1b"/>
-                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
@@ -323,6 +310,9 @@
                                 <state key="normal" title="Delete">
                                     <color key="titleColor" systemColor="systemRedColor"/>
                                 </state>
+                                <connections>
+                                    <action selector="DeleteBtnPressed:" destination="704-2P-t5E" eventType="touchDown" id="9xz-jT-hNj"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="0wS-j1-PxI"/>
@@ -347,6 +337,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="0bA-Vr-d5F"/>
                     <connections>
+                        <outlet property="DeleteBtn" destination="0o2-9h-Pta" id="Kli-8c-gGh"/>
                         <outlet property="ShareBtn" destination="1gk-o2-A7p" id="qfz-Rb-M4t"/>
                         <outlet property="fileTable" destination="pop-sd-85p" id="yZT-Hk-mFw"/>
                     </connections>
@@ -372,8 +363,8 @@
                                     <segue destination="4t6-wH-Sna" kind="unwind" unwindAction="handleExit:" id="7Di-v1-zPf"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Device IP:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="aXT-Xf-MvF">
-                                <rect key="frame" x="20" y="30" width="98" height="27.666666666666671"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Device WiFi:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="aXT-Xf-MvF">
+                                <rect key="frame" x="20" y="30" width="123" height="28"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -384,48 +375,28 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="0000" textAlignment="center" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="1ii-ww-sxS">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="PaSsWoRd" textAlignment="center" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="EkO-he-s9c">
                                 <rect key="frame" x="20" y="182" width="374" height="46"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="PaSsWoRd" textAlignment="center" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="EkO-he-s9c">
-                                <rect key="frame" x="20" y="290" width="374" height="46"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Device wifi password:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="Tbh-QL-1Zf">
-                                <rect key="frame" x="21" y="236" width="221" height="46"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Device port:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="Odj-DJ-CgB">
-                                <rect key="frame" x="20" y="128" width="185" height="46"/>
+                                <rect key="frame" x="21" y="128" width="221" height="46"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="28F-25-aPd">
-                                <rect key="frame" x="126" y="23" width="268" height="40"/>
+                                <rect key="frame" x="151" y="23.000000000000004" width="243" height="40.333333333333343"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <state key="normal" title="Edit"/>
                                 <connections>
                                     <action selector="DeviceIPEditBtnPressed:" destination="YLP-oH-dxS" eventType="touchDown" id="udf-Rz-cGc"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1XI-8V-sVY">
-                                <rect key="frame" x="355" y="131.66666666666674" width="39" height="40"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
-                                <state key="normal" title="Edit"/>
-                                <connections>
-                                    <action selector="DevicePortEditBtnPressed:" destination="YLP-oH-dxS" eventType="touchDown" id="BfM-II-UZY"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="21A-6O-HHg">
-                                <rect key="frame" x="348" y="239.33333333333348" width="46" height="40"/>
+                                <rect key="frame" x="348" y="130.33333333333326" width="46" height="40"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <state key="normal" title="Edit"/>
                                 <connections>
@@ -437,40 +408,29 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="EkO-he-s9c" firstAttribute="centerX" secondItem="Q39-9g-30m" secondAttribute="centerX" id="13a-YU-Zlo"/>
-                            <constraint firstItem="1XI-8V-sVY" firstAttribute="top" secondItem="JWE-N9-Z21" secondAttribute="bottom" constant="11" id="1Yl-8N-Aqb"/>
-                            <constraint firstItem="1XI-8V-sVY" firstAttribute="height" secondItem="Odj-DJ-CgB" secondAttribute="height" multiplier="0.869565" id="1fK-zF-VhB"/>
-                            <constraint firstItem="Odj-DJ-CgB" firstAttribute="top" secondItem="JWE-N9-Z21" secondAttribute="bottom" constant="8" symbolic="YES" id="1uN-qR-voz"/>
                             <constraint firstItem="dhX-EX-wZE" firstAttribute="centerX" secondItem="Q39-9g-30m" secondAttribute="centerX" id="3Wj-iK-d3T"/>
                             <constraint firstItem="Q39-9g-30m" firstAttribute="bottom" secondItem="dhX-EX-wZE" secondAttribute="bottom" constant="60" id="BW0-OG-AVZ"/>
                             <constraint firstItem="Q39-9g-30m" firstAttribute="trailing" secondItem="21A-6O-HHg" secondAttribute="trailing" constant="20" id="JMe-xr-rKJ"/>
-                            <constraint firstItem="1ii-ww-sxS" firstAttribute="centerX" secondItem="Q39-9g-30m" secondAttribute="centerX" id="KtB-aI-X9A"/>
-                            <constraint firstItem="Tbh-QL-1Zf" firstAttribute="top" secondItem="1ii-ww-sxS" secondAttribute="bottom" constant="8" symbolic="YES" id="Q6e-QV-MSY"/>
                             <constraint firstItem="JWE-N9-Z21" firstAttribute="centerX" secondItem="Q39-9g-30m" secondAttribute="centerX" id="UVm-Ry-WpZ"/>
-                            <constraint firstItem="1XI-8V-sVY" firstAttribute="leading" relation="lessThanOrEqual" secondItem="Odj-DJ-CgB" secondAttribute="trailing" constant="150" id="Umi-xx-R9I"/>
-                            <constraint firstItem="21A-6O-HHg" firstAttribute="top" secondItem="1ii-ww-sxS" secondAttribute="bottom" constant="11" id="W38-GR-tyS"/>
                             <constraint firstItem="aXT-Xf-MvF" firstAttribute="top" secondItem="Q39-9g-30m" secondAttribute="top" constant="30" id="WSb-zX-ddR"/>
                             <constraint firstItem="EkO-he-s9c" firstAttribute="top" secondItem="21A-6O-HHg" secondAttribute="bottom" constant="10.666666666666515" id="c5F-jn-zPz"/>
                             <constraint firstItem="21A-6O-HHg" firstAttribute="height" secondItem="Tbh-QL-1Zf" secondAttribute="height" multiplier="0.869565" id="etz-bs-Sdo"/>
-                            <constraint firstItem="Q39-9g-30m" firstAttribute="trailing" secondItem="1XI-8V-sVY" secondAttribute="trailing" constant="20" id="gqa-wI-Y4O"/>
-                            <constraint firstItem="Odj-DJ-CgB" firstAttribute="leading" secondItem="Q39-9g-30m" secondAttribute="leading" constant="20" id="hLb-x9-rU2"/>
                             <constraint firstItem="EkO-he-s9c" firstAttribute="top" secondItem="Tbh-QL-1Zf" secondAttribute="bottom" constant="8" symbolic="YES" id="hz4-Sk-IQs"/>
                             <constraint firstItem="28F-25-aPd" firstAttribute="top" secondItem="Q39-9g-30m" secondAttribute="top" constant="23" id="if0-FY-lqL"/>
-                            <constraint firstItem="1ii-ww-sxS" firstAttribute="top" secondItem="1XI-8V-sVY" secondAttribute="bottom" constant="10.333333333333258" id="jhu-8O-eZu"/>
-                            <constraint firstItem="1ii-ww-sxS" firstAttribute="top" secondItem="Odj-DJ-CgB" secondAttribute="bottom" constant="8" symbolic="YES" id="kEY-UO-S3f"/>
                             <constraint firstItem="Tbh-QL-1Zf" firstAttribute="leading" secondItem="Q39-9g-30m" secondAttribute="leading" constant="21" id="lYn-fV-dlv"/>
                             <constraint firstItem="28F-25-aPd" firstAttribute="leading" relation="lessThanOrEqual" secondItem="aXT-Xf-MvF" secondAttribute="trailing" constant="8" symbolic="YES" id="mQN-pM-Vpl"/>
                             <constraint firstItem="Q39-9g-30m" firstAttribute="trailing" secondItem="28F-25-aPd" secondAttribute="trailing" constant="20" id="o3r-AL-J55"/>
                             <constraint firstItem="JWE-N9-Z21" firstAttribute="top" secondItem="aXT-Xf-MvF" secondAttribute="bottom" constant="16.333333333333329" id="oQF-26-pRy"/>
                             <constraint firstItem="21A-6O-HHg" firstAttribute="leading" relation="lessThanOrEqual" secondItem="Tbh-QL-1Zf" secondAttribute="trailing" constant="113" id="qNM-ly-GnT"/>
                             <constraint firstItem="JWE-N9-Z21" firstAttribute="top" secondItem="28F-25-aPd" secondAttribute="bottom" constant="11" id="qtC-WU-MXW"/>
+                            <constraint firstItem="Tbh-QL-1Zf" firstAttribute="top" secondItem="JWE-N9-Z21" secondAttribute="bottom" constant="8" symbolic="YES" id="sKV-G9-6zM"/>
                             <constraint firstItem="aXT-Xf-MvF" firstAttribute="leading" secondItem="Q39-9g-30m" secondAttribute="leading" constant="20" id="zhu-Gm-bty"/>
+                            <constraint firstItem="21A-6O-HHg" firstAttribute="top" secondItem="JWE-N9-Z21" secondAttribute="bottom" constant="10.333333333333258" id="zyE-iE-A10"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="DeviceIPEditBtn" destination="28F-25-aPd" id="HWA-dw-WlD"/>
                         <outlet property="DeviceIPLabel" destination="JWE-N9-Z21" id="O7P-HZ-D5Q"/>
-                        <outlet property="DevicePortEditBtn" destination="1XI-8V-sVY" id="GDy-Uo-iWz"/>
-                        <outlet property="DevicePortLabel" destination="1ii-ww-sxS" id="WM6-aO-bt6"/>
                         <outlet property="DeviceWifiPasswordEditBtn" destination="21A-6O-HHg" id="buo-5c-SgL"/>
                         <outlet property="DeviceWifiPasswordLabel" destination="EkO-he-s9c" id="Igb-iF-fe2"/>
                     </connections>
