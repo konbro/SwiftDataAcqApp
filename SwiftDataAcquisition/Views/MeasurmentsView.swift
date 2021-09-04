@@ -9,23 +9,42 @@ import UIKit
 
 class MeasurmentsView: UIViewController {
 
-    @IBOutlet var tableView: UITableView!
+//    @IBOutlet var tableView: UITableView!
+    
+    
+    @IBOutlet weak var FramesCounterLabel: UILabel!
+    
+    @IBOutlet weak var LostFramesCounterLabel: UILabel!
+    
+    @IBOutlet weak var MeasurementTimeLabel: UILabel!
+    
+    @IBOutlet weak var TimeTargetLabel: UILabel!
+    
+    @IBOutlet weak var TimeSlider: UISlider!
+    
+    @IBAction func TimeSliderValueChanged(_ sender: UISlider) {
+        print("VALUE: \(sender.value) ROUNDED: \(sender.value.rounded())")
+        var minutesCount = String(Int(sender.value.rounded()));
+        minutesCount.append(":00");
+        TimeTargetLabel.text = minutesCount
+    }
     
     let filesHandler = CustomFilesHandler();
     var viewModel: FilesHandlerViewModel!
     var pathToDocumentsDir: String = "";
     let userDefaults = UserDefaults.standard;
-
+    var timer = Timer()
+    var seconds = 0
+    var isTimerOn = false
     
-    @IBAction func handleExitMeasurements(_ segue:UIStoryboardSegue)
-    {
-        
-    }
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
+    /*
+     Measurement timer:
+     if !isTimerOn
+     {
+         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(tick), userInfo: nil, repeats: true)
+         isTimerOn = true
+     }
+     */
     
     @IBAction func startMeasurements(_ sender: Any)
     {
@@ -37,10 +56,38 @@ class MeasurmentsView: UIViewController {
         //END MEASURING MAGIC
         
         //ALSO BY THE USE OF MAGIC SOMEHOW DISPLAY THIS DATA ON A CHART
+        
+        if !isTimerOn
+        {
+            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(incrementTimer), userInfo: nil, repeats: true)
+            isTimerOn = true
+        }
         filesHandler.saveDataBatch(dataToSave: "LoremIpsumPLACEHOLDER", timeOfMeasurement: now);
         
         
     }
+    
+    @objc func incrementTimer()
+    {
+        seconds += 1
+        MeasurementTimeLabel.text = "\(seconds)"
+        
+    }
+    
+    @IBAction func handleExitMeasurements(_ segue:UIStoryboardSegue)
+    {
+        
+    }
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        seconds = 0;
+        timer.invalidate();
+        isTimerOn = false;
+    }
+    
+
     
 
     /**

@@ -146,8 +146,11 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <slider opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="aXx-5B-kHN">
+                            <slider opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="60" translatesAutoresizingMaskIntoConstraints="NO" id="aXx-5B-kHN">
                                 <rect key="frame" x="18" y="315.66666666666663" width="378" height="31"/>
+                                <connections>
+                                    <action selector="TimeSliderValueChanged:" destination="KSU-bc-leI" eventType="valueChanged" id="JCd-gd-wSL"/>
+                                </connections>
                             </slider>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="NC2-V5-AVG">
                                 <rect key="frame" x="57" y="578" width="300" height="46"/>
@@ -212,6 +215,13 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="IoT-35-ocp"/>
+                    <connections>
+                        <outlet property="FramesCounterLabel" destination="sMP-zi-IAZ" id="WdZ-YZ-2x8"/>
+                        <outlet property="LostFramesCounterLabel" destination="33l-WD-PcU" id="J23-7B-t5f"/>
+                        <outlet property="MeasurementTimeLabel" destination="lTn-9M-t33" id="E2f-Yt-BNG"/>
+                        <outlet property="TimeSlider" destination="aXx-5B-kHN" id="1Pb-CL-bYB"/>
+                        <outlet property="TimeTargetLabel" destination="hhp-kQ-KIt" id="hTX-yW-sfe"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZVg-at-0cs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="42Q-kt-hEO" userLabel="Exit" sceneMemberID="exit"/>
@@ -381,7 +391,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Device wifi password:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="Tbh-QL-1Zf">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Device WiFi password:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="Tbh-QL-1Zf">
                                 <rect key="frame" x="21" y="128" width="221" height="46"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <nil key="textColor"/>
@@ -392,7 +402,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <state key="normal" title="Edit"/>
                                 <connections>
-                                    <action selector="DeviceIPEditBtnPressed:" destination="YLP-oH-dxS" eventType="touchDown" id="udf-Rz-cGc"/>
+                                    <action selector="DeviceWiFiEditBtnPressed:" destination="YLP-oH-dxS" eventType="touchDown" id="ws9-lM-7MX"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="21A-6O-HHg">
@@ -400,28 +410,56 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <state key="normal" title="Edit"/>
                                 <connections>
-                                    <action selector="DeviceWifiPassEditBtnPressed:" destination="YLP-oH-dxS" eventType="touchDown" id="6ws-k5-rpP"/>
+                                    <action selector="DeviceWifiPassEditBtnPressed:" destination="YLP-oH-dxS" eventType="touchDown" id="1D8-FO-XMn"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Device IP:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="e0l-hL-8hd">
+                                <rect key="frame" x="20" y="236" width="98" height="46"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0sg-7F-OW5">
+                                <rect key="frame" x="348" y="236" width="46" height="47"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <state key="normal" title="Edit"/>
+                                <connections>
+                                    <action selector="DeviceIPEditBtnPressed:" destination="YLP-oH-dxS" eventType="touchDown" id="eZd-Fp-amm"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="DeViCeIp" textAlignment="center" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="Ac0-DD-7aB">
+                                <rect key="frame" x="20" y="291" width="374" height="46"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Q39-9g-30m"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="EkO-he-s9c" firstAttribute="centerX" secondItem="Q39-9g-30m" secondAttribute="centerX" id="13a-YU-Zlo"/>
                             <constraint firstItem="dhX-EX-wZE" firstAttribute="centerX" secondItem="Q39-9g-30m" secondAttribute="centerX" id="3Wj-iK-d3T"/>
+                            <constraint firstItem="Ac0-DD-7aB" firstAttribute="top" secondItem="0sg-7F-OW5" secondAttribute="bottom" constant="8" symbolic="YES" id="6va-aJ-ZN6"/>
                             <constraint firstItem="Q39-9g-30m" firstAttribute="bottom" secondItem="dhX-EX-wZE" secondAttribute="bottom" constant="60" id="BW0-OG-AVZ"/>
                             <constraint firstItem="Q39-9g-30m" firstAttribute="trailing" secondItem="21A-6O-HHg" secondAttribute="trailing" constant="20" id="JMe-xr-rKJ"/>
+                            <constraint firstItem="e0l-hL-8hd" firstAttribute="leading" secondItem="Q39-9g-30m" secondAttribute="leading" constant="20" id="Jzo-ui-EB8"/>
+                            <constraint firstItem="Ac0-DD-7aB" firstAttribute="centerX" secondItem="Q39-9g-30m" secondAttribute="centerX" id="LeL-Pg-4pk"/>
+                            <constraint firstItem="Ac0-DD-7aB" firstAttribute="top" secondItem="e0l-hL-8hd" secondAttribute="bottom" constant="9" id="N9h-xp-U7Q"/>
                             <constraint firstItem="JWE-N9-Z21" firstAttribute="centerX" secondItem="Q39-9g-30m" secondAttribute="centerX" id="UVm-Ry-WpZ"/>
                             <constraint firstItem="aXT-Xf-MvF" firstAttribute="top" secondItem="Q39-9g-30m" secondAttribute="top" constant="30" id="WSb-zX-ddR"/>
                             <constraint firstItem="EkO-he-s9c" firstAttribute="top" secondItem="21A-6O-HHg" secondAttribute="bottom" constant="10.666666666666515" id="c5F-jn-zPz"/>
                             <constraint firstItem="21A-6O-HHg" firstAttribute="height" secondItem="Tbh-QL-1Zf" secondAttribute="height" multiplier="0.869565" id="etz-bs-Sdo"/>
+                            <constraint firstItem="0sg-7F-OW5" firstAttribute="top" secondItem="EkO-he-s9c" secondAttribute="bottom" constant="8" symbolic="YES" id="gFk-iY-GsG"/>
                             <constraint firstItem="EkO-he-s9c" firstAttribute="top" secondItem="Tbh-QL-1Zf" secondAttribute="bottom" constant="8" symbolic="YES" id="hz4-Sk-IQs"/>
                             <constraint firstItem="28F-25-aPd" firstAttribute="top" secondItem="Q39-9g-30m" secondAttribute="top" constant="23" id="if0-FY-lqL"/>
                             <constraint firstItem="Tbh-QL-1Zf" firstAttribute="leading" secondItem="Q39-9g-30m" secondAttribute="leading" constant="21" id="lYn-fV-dlv"/>
                             <constraint firstItem="28F-25-aPd" firstAttribute="leading" relation="lessThanOrEqual" secondItem="aXT-Xf-MvF" secondAttribute="trailing" constant="8" symbolic="YES" id="mQN-pM-Vpl"/>
+                            <constraint firstItem="0sg-7F-OW5" firstAttribute="leading" relation="lessThanOrEqual" secondItem="e0l-hL-8hd" secondAttribute="trailing" constant="107" id="mS1-IS-xcE"/>
+                            <constraint firstItem="Q39-9g-30m" firstAttribute="trailing" secondItem="0sg-7F-OW5" secondAttribute="trailing" constant="20" id="nwr-qA-kb7"/>
                             <constraint firstItem="Q39-9g-30m" firstAttribute="trailing" secondItem="28F-25-aPd" secondAttribute="trailing" constant="20" id="o3r-AL-J55"/>
                             <constraint firstItem="JWE-N9-Z21" firstAttribute="top" secondItem="aXT-Xf-MvF" secondAttribute="bottom" constant="16.333333333333329" id="oQF-26-pRy"/>
                             <constraint firstItem="21A-6O-HHg" firstAttribute="leading" relation="lessThanOrEqual" secondItem="Tbh-QL-1Zf" secondAttribute="trailing" constant="113" id="qNM-ly-GnT"/>
+                            <constraint firstItem="e0l-hL-8hd" firstAttribute="top" secondItem="EkO-he-s9c" secondAttribute="bottom" constant="8" symbolic="YES" id="qSa-wY-Xff"/>
                             <constraint firstItem="JWE-N9-Z21" firstAttribute="top" secondItem="28F-25-aPd" secondAttribute="bottom" constant="11" id="qtC-WU-MXW"/>
                             <constraint firstItem="Tbh-QL-1Zf" firstAttribute="top" secondItem="JWE-N9-Z21" secondAttribute="bottom" constant="8" symbolic="YES" id="sKV-G9-6zM"/>
                             <constraint firstItem="aXT-Xf-MvF" firstAttribute="leading" secondItem="Q39-9g-30m" secondAttribute="leading" constant="20" id="zhu-Gm-bty"/>
@@ -429,10 +467,12 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="DeviceIPEditBtn" destination="28F-25-aPd" id="HWA-dw-WlD"/>
-                        <outlet property="DeviceIPLabel" destination="JWE-N9-Z21" id="O7P-HZ-D5Q"/>
-                        <outlet property="DeviceWifiPasswordEditBtn" destination="21A-6O-HHg" id="buo-5c-SgL"/>
-                        <outlet property="DeviceWifiPasswordLabel" destination="EkO-he-s9c" id="Igb-iF-fe2"/>
+                        <outlet property="DeviceIPEditBtn" destination="0sg-7F-OW5" id="Uzg-aN-Vff"/>
+                        <outlet property="DeviceIPLabel" destination="Ac0-DD-7aB" id="XuV-AC-ngA"/>
+                        <outlet property="DeviceWiFiEditBtn" destination="28F-25-aPd" id="naW-sJ-Ckt"/>
+                        <outlet property="DeviceWiFiLabel" destination="JWE-N9-Z21" id="Lcf-cl-89g"/>
+                        <outlet property="DeviceWifiPasswordEditBtn" destination="21A-6O-HHg" id="6Uz-FS-aw3"/>
+                        <outlet property="DeviceWifiPasswordLabel" destination="EkO-he-s9c" id="Fgv-hL-tOg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M3O-yM-cnG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

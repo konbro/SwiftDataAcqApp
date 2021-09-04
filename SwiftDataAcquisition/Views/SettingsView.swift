@@ -12,16 +12,15 @@ class SettingsView: UIViewController
 {
     let userDefaults = UserDefaults.standard;
     
-    @IBOutlet weak var DeviceIPLabel: UILabel!
-    @IBOutlet weak var DeviceIPEditBtn: UIButton!
+    @IBOutlet weak var DeviceWiFiLabel: UILabel!
+    @IBOutlet weak var DeviceWiFiEditBtn: UIButton!
     
-    @IBOutlet weak var DevicePortLabel: UILabel!
-    @IBOutlet weak var DevicePortEditBtn: UIButton!
     
     @IBOutlet weak var DeviceWifiPasswordLabel: UILabel!
     @IBOutlet weak var DeviceWifiPasswordEditBtn: UIButton!
     
-    
+    @IBOutlet weak var DeviceIPLabel: UILabel!
+    @IBOutlet weak var DeviceIPEditBtn: UIButton!
     
     @IBAction func handleExitSettings(_ segue:UIStoryboardSegue)
     {
@@ -33,8 +32,7 @@ class SettingsView: UIViewController
         super.viewDidLoad()
     }
     
-    //NOTE IT WAS CHANGED TO DeviceWiFi
-    @IBAction func DeviceIPEditBtnPressed(_ sender: UIButton) {
+    @IBAction func DeviceWiFiEditBtnPressed(_ sender: UIButton) {
         let userDefaultsKey = "DeviceWiFi"
         var deviceIP = self.userDefaults.string(forKey: userDefaultsKey)
         if(deviceIP == nil)
@@ -52,6 +50,17 @@ class SettingsView: UIViewController
             deviceWifiPass = "NOT SET"
         }
         showEditAlert(alertTitle: "Edit device wifi password", alertMessage: "Please enter new device wifi password", alertTextFieldValue: deviceWifiPass!, userDefaultsKey: userDefaultsKey)
+    }
+    
+    @IBAction func DeviceIPEditBtnPressed(_ sender: UIButton)
+    {
+        let userDefaultsKey = "DeviceIP"
+        var deviceIP = self.userDefaults.string(forKey: userDefaultsKey)
+        if(deviceIP == nil)
+        {
+            deviceIP = "NOT SET"
+        }
+        showEditAlert(alertTitle: "Edit device IP", alertMessage: "Please enter new device IP", alertTextFieldValue: deviceIP!, userDefaultsKey: userDefaultsKey)
     }
     
     
@@ -86,7 +95,7 @@ class SettingsView: UIViewController
         {
             deviceWifi = "NOT SET"
         }
-        DeviceIPLabel.text = deviceWifi
+        DeviceWiFiLabel.text = deviceWifi
         
         var devWifiPass = userDefaults.string(forKey: "DeviceWifiPassword")
         if(devWifiPass == nil)
@@ -94,5 +103,12 @@ class SettingsView: UIViewController
             devWifiPass = "NOT SET"
         }
         DeviceWifiPasswordLabel.text = devWifiPass
+        
+        var devIP = userDefaults.string(forKey: "DeviceIP")
+        if(devIP == nil)
+        {
+            devIP = "NOT SET"
+        }
+        DeviceIPLabel.text = devIP
     }
 }
