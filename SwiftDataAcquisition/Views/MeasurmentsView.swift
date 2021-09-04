@@ -30,6 +30,7 @@ class MeasurmentsView: UIViewController {
     }
     
     let filesHandler = CustomFilesHandler();
+    let wifiHandler = WiFiHandler();
     var viewModel: FilesHandlerViewModel!
     var pathToDocumentsDir: String = "";
     let userDefaults = UserDefaults.standard;
@@ -52,6 +53,7 @@ class MeasurmentsView: UIViewController {
         //DO MEASURING MAGIC
         
         //GET DATA HERE
+        var receivedData = wifiHandler.beginUDPConnection();
         
         //END MEASURING MAGIC
         

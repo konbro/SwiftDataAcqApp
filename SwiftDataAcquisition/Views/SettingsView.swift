@@ -22,6 +22,9 @@ class SettingsView: UIViewController
     @IBOutlet weak var DeviceIPLabel: UILabel!
     @IBOutlet weak var DeviceIPEditBtn: UIButton!
     
+    @IBOutlet weak var DevicePortLabel: UILabel!
+    @IBOutlet weak var DevicePortEditBtn: UIButton!
+    
     @IBAction func handleExitSettings(_ segue:UIStoryboardSegue)
     {
         
@@ -63,6 +66,15 @@ class SettingsView: UIViewController
         showEditAlert(alertTitle: "Edit device IP", alertMessage: "Please enter new device IP", alertTextFieldValue: deviceIP!, userDefaultsKey: userDefaultsKey)
     }
     
+    @IBAction func DevicePortEditBtnPressed(_ sender: UIButton) {
+        let userDefaultsKey = "DevicePort";
+        var devicePort = self.userDefaults.string(forKey: userDefaultsKey)
+        if(devicePort == nil){
+            devicePort = "NOT SET";
+        }
+        showEditAlert(alertTitle: "Edit device port", alertMessage: "Please enter new device port", alertTextFieldValue: devicePort!, userDefaultsKey: userDefaultsKey)
+        
+    }
     
     private func showEditAlert(alertTitle: String, alertMessage: String, alertTextFieldValue: String, userDefaultsKey: String)
     {
@@ -110,5 +122,11 @@ class SettingsView: UIViewController
             devIP = "NOT SET"
         }
         DeviceIPLabel.text = devIP
+        
+        var devPort = userDefaults.string(forKey: "DevicePort")
+        if(devPort == nil){
+            devPort = "NOT SET";
+        }
+        DevicePortLabel.text = devPort;
     }
 }

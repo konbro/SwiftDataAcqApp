@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		651C5A4B265CDEC40031B7C0 /* ChartsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651C5A4A265CDEC40031B7C0 /* ChartsViewController.swift */; };
 		652F98B726DBCE400072E8E5 /* CustomFilesHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652F98B626DBCE400072E8E5 /* CustomFilesHandler.swift */; };
+		6537336026E3D808006B3307 /* WiFiHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6537335F26E3D808006B3307 /* WiFiHandler.swift */; };
 		6553B8A626E0E87D008EAA32 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6553B8A526E0E87D008EAA32 /* SettingsView.swift */; };
 		6580DE48264C144900EC8EB9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6580DE47264C144900EC8EB9 /* AppDelegate.swift */; };
 		6580DE4A264C144900EC8EB9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6580DE49264C144900EC8EB9 /* SceneDelegate.swift */; };
@@ -47,6 +48,7 @@
 		5C21265EF47BF8FBAD6969BB /* Pods_SwiftDataAcquisition.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftDataAcquisition.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		651C5A4A265CDEC40031B7C0 /* ChartsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsViewController.swift; sourceTree = "<group>"; };
 		652F98B626DBCE400072E8E5 /* CustomFilesHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFilesHandler.swift; sourceTree = "<group>"; };
+		6537335F26E3D808006B3307 /* WiFiHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WiFiHandler.swift; sourceTree = "<group>"; };
 		6553B8A526E0E87D008EAA32 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		6580DE44264C144900EC8EB9 /* SwiftDataAcquisition.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftDataAcquisition.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6580DE47264C144900EC8EB9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				6580DE52264C144A00EC8EB9 /* LaunchScreen.storyboard */,
 				6580DE55264C144A00EC8EB9 /* Info.plist */,
 				652F98B626DBCE400072E8E5 /* CustomFilesHandler.swift */,
+				6537335F26E3D808006B3307 /* WiFiHandler.swift */,
 			);
 			path = SwiftDataAcquisition;
 			sourceTree = "<group>";
@@ -305,6 +308,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				652F98B726DBCE400072E8E5 /* CustomFilesHandler.swift in Sources */,
+				6537336026E3D808006B3307 /* WiFiHandler.swift in Sources */,
 				6580DE772655B42100EC8EB9 /* FilesGroupModel.swift in Sources */,
 				651C5A4B265CDEC40031B7C0 /* ChartsViewController.swift in Sources */,
 				6580DE4C264C144900EC8EB9 /* MainView.swift in Sources */,
@@ -463,6 +467,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = WR8B84PNDV;
 				INFOPLIST_FILE = SwiftDataAcquisition/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -482,6 +487,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = WR8B84PNDV;
 				INFOPLIST_FILE = SwiftDataAcquisition/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

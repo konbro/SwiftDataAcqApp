@@ -413,6 +413,12 @@
                                     <action selector="DeviceWifiPassEditBtnPressed:" destination="YLP-oH-dxS" eventType="touchDown" id="1D8-FO-XMn"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="DeViCeIp" textAlignment="center" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="Ac0-DD-7aB">
+                                <rect key="frame" x="20" y="291" width="374" height="46"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Device IP:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="e0l-hL-8hd">
                                 <rect key="frame" x="20" y="236" width="98" height="46"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
@@ -427,8 +433,22 @@
                                     <action selector="DeviceIPEditBtnPressed:" destination="YLP-oH-dxS" eventType="touchDown" id="eZd-Fp-amm"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="DeViCeIp" textAlignment="center" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="Ac0-DD-7aB">
-                                <rect key="frame" x="20" y="291" width="374" height="46"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="DevicePort" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="3a1-Po-2KN">
+                                <rect key="frame" x="20" y="400" width="374" height="46"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q0k-y0-9fh">
+                                <rect key="frame" x="355" y="345" width="39" height="40"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <state key="normal" title="Edit"/>
+                                <connections>
+                                    <action selector="DevicePortEditBtnPressed:" destination="YLP-oH-dxS" eventType="touchDown" id="5ha-1x-eUJ"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Device port:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="9bc-eO-jle">
+                                <rect key="frame" x="15" y="341" width="98" height="27.666666666666686"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -439,12 +459,18 @@
                         <constraints>
                             <constraint firstItem="EkO-he-s9c" firstAttribute="centerX" secondItem="Q39-9g-30m" secondAttribute="centerX" id="13a-YU-Zlo"/>
                             <constraint firstItem="dhX-EX-wZE" firstAttribute="centerX" secondItem="Q39-9g-30m" secondAttribute="centerX" id="3Wj-iK-d3T"/>
+                            <constraint firstItem="3a1-Po-2KN" firstAttribute="top" secondItem="q0k-y0-9fh" secondAttribute="bottom" constant="12" id="3ht-Q7-r33"/>
+                            <constraint firstItem="9bc-eO-jle" firstAttribute="top" secondItem="Ac0-DD-7aB" secondAttribute="bottom" constant="4" id="4aV-Q8-rVF"/>
                             <constraint firstItem="Ac0-DD-7aB" firstAttribute="top" secondItem="0sg-7F-OW5" secondAttribute="bottom" constant="8" symbolic="YES" id="6va-aJ-ZN6"/>
+                            <constraint firstItem="q0k-y0-9fh" firstAttribute="top" secondItem="Ac0-DD-7aB" secondAttribute="bottom" constant="11" id="7Vd-PY-e57"/>
                             <constraint firstItem="Q39-9g-30m" firstAttribute="bottom" secondItem="dhX-EX-wZE" secondAttribute="bottom" constant="60" id="BW0-OG-AVZ"/>
+                            <constraint firstItem="3a1-Po-2KN" firstAttribute="centerX" secondItem="Q39-9g-30m" secondAttribute="centerX" id="GI6-U7-lDR"/>
                             <constraint firstItem="Q39-9g-30m" firstAttribute="trailing" secondItem="21A-6O-HHg" secondAttribute="trailing" constant="20" id="JMe-xr-rKJ"/>
                             <constraint firstItem="e0l-hL-8hd" firstAttribute="leading" secondItem="Q39-9g-30m" secondAttribute="leading" constant="20" id="Jzo-ui-EB8"/>
                             <constraint firstItem="Ac0-DD-7aB" firstAttribute="centerX" secondItem="Q39-9g-30m" secondAttribute="centerX" id="LeL-Pg-4pk"/>
                             <constraint firstItem="Ac0-DD-7aB" firstAttribute="top" secondItem="e0l-hL-8hd" secondAttribute="bottom" constant="9" id="N9h-xp-U7Q"/>
+                            <constraint firstItem="Q39-9g-30m" firstAttribute="trailing" secondItem="q0k-y0-9fh" secondAttribute="trailing" constant="20" id="R2r-0w-ZZv"/>
+                            <constraint firstItem="3a1-Po-2KN" firstAttribute="top" secondItem="9bc-eO-jle" secondAttribute="bottom" constant="9" id="U7b-mx-HuH"/>
                             <constraint firstItem="JWE-N9-Z21" firstAttribute="centerX" secondItem="Q39-9g-30m" secondAttribute="centerX" id="UVm-Ry-WpZ"/>
                             <constraint firstItem="aXT-Xf-MvF" firstAttribute="top" secondItem="Q39-9g-30m" secondAttribute="top" constant="30" id="WSb-zX-ddR"/>
                             <constraint firstItem="EkO-he-s9c" firstAttribute="top" secondItem="21A-6O-HHg" secondAttribute="bottom" constant="10.666666666666515" id="c5F-jn-zPz"/>
@@ -469,6 +495,8 @@
                     <connections>
                         <outlet property="DeviceIPEditBtn" destination="0sg-7F-OW5" id="Uzg-aN-Vff"/>
                         <outlet property="DeviceIPLabel" destination="Ac0-DD-7aB" id="XuV-AC-ngA"/>
+                        <outlet property="DevicePortEditBtn" destination="q0k-y0-9fh" id="saV-Wi-l7e"/>
+                        <outlet property="DevicePortLabel" destination="3a1-Po-2KN" id="Px2-2b-4NQ"/>
                         <outlet property="DeviceWiFiEditBtn" destination="28F-25-aPd" id="naW-sJ-Ckt"/>
                         <outlet property="DeviceWiFiLabel" destination="JWE-N9-Z21" id="Lcf-cl-89g"/>
                         <outlet property="DeviceWifiPasswordEditBtn" destination="21A-6O-HHg" id="6Uz-FS-aw3"/>
