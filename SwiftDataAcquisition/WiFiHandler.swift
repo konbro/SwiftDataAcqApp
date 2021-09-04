@@ -23,7 +23,7 @@ class WiFiHandler {
       func connectToUDP(_ hostUDP: NWEndpoint.Host, _ portUDP: NWEndpoint.Port) {
           // Transmited message:
        
-        let messageToUDP = "7773010509060602040701000001010d0a"
+        let messageToUDP = "****"
           self.connection = NWConnection(host: hostUDP, port: portUDP, using: .udp)
           self.connection?.stateUpdateHandler = { (newState) in
               print("This is stateUpdateHandler:")
@@ -69,13 +69,28 @@ class WiFiHandler {
       }
 
       func receiveUDP() {
-          self.connection?.receiveMessage { (data, context, isComplete, error) in
+          self.connection?.receiveMessage {
+            (data, context, isComplete, error) in
             if (isComplete) {
                   print("Receive is complete")
-                 DispatchQueue.main.async { print("Receive is complete") }
+                
+                 DispatchQueue.main.async {
+                    print("Receive is complete")
+                    
+                 }
                   if (data != nil) {
-                      let backToString = String(decoding: data!, as: UTF8.self)
-                      print("Received message: \(backToString)")
+                    let backToString = String(decoding: data!, as: UTF8.self);
+                    print("Received message: \(backToString)");
+                    print("NOT DECODED: \(data)");
+//                    let decoded = UInt8(data);
+                    let decodedData = self.decodeData(inputData: data!)
+                    print("DECODED: \(decodedData)");
+                    
+//                    print("DDDD: \(data?.split(separator: 109))")
+//                    print("element at 0: \(data![0])");
+//                    let decodedTable =
+//                        assert(a.count * MemoryLayout<UInt8>.stride >= MemoryLayout<Int>.size)
+//                        let b = UnsafeRawPointer(a).assumingMemoryBound(to: Int.self).pointee.littleEndian
                     DispatchQueue.main.async { print(backToString) }
                     
                   } else {
@@ -84,6 +99,16 @@ class WiFiHandler {
               }
           }
       }
+    
+    private func decodeData(inputData: Data) -> Array<UInt8>
+    {
+        
+        var resultArr = Array<UInt8>();
+        for i in 0..<inputData.count{
+            resultArr.append(inputData[i]);
+        }
+        return resultArr;
+    }
 
     
     public func beginUDPConnection() -> String
