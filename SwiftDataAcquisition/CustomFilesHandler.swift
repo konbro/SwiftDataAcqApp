@@ -17,9 +17,49 @@ class CustomFilesHandler {
         return documentDirectory[0]
     }
     
-    public func saveDataBatch(dataToSave: String, timeOfMeasurement: String)
+    public func saveDataBatch(dataToSave: [UInt8], timeOfMeasurement: String)
     {
         let pathToDocumentsDir = self.getDocumentDirectory();
+//        dataToSave.split(separator: [0,0] as [UInt8]);
+        var measurementDataA = Array<UInt8>();
+        var measurementDataB = Array<UInt8>();
+        var measurementDataC = Array<UInt8>();
+        var measurementDataD = Array<UInt8>();
+        //licznik na 128 i 129 indeksie
+        var i: Int;
+        var framesCount: Int;
+        i = 0;
+        framesCount = 0;
+        while i < dataToSave.count{
+//                //TU ZACZYNA SIE SEPARATOR
+//                //index:      128   129 130  131  132  133  134  135
+//                //value:      0,    0,  171, 172, 173, 174, 171, 170
+//                //CZYLI TRZEBA
+            //PROBLEM WHEN I IS 8, 16, 24, 40, 48 ETC. IT ENTERS THIS
+            if( ( i - framesCount * 8 ) % 32 == 0 && i != 0 && ( i - framesCount * 8 ) != 0 ){
+                //od 0 do 31 jest czuj 0
+                //od 32 do 63 jest czuj 1
+                //od 64 do 95 jest czuj 2
+                //od 96 do 127 jest czuj 3
+                i+=104;
+                framesCount += 1;
+                // i - 8*liczbaRamek % 32
+            }
+            if(i<dataToSave.count){
+                measurementDataA.append(dataToSave[i]);
+                measurementDataA.append(dataToSave[i+1]);
+                
+                measurementDataB.append(dataToSave[i+32]);
+                measurementDataB.append(dataToSave[i+33]);
+                
+                measurementDataC.append(dataToSave[i+64]);
+                measurementDataC.append(dataToSave[i+65]);
+                
+                measurementDataD.append(dataToSave[i+96]);
+                measurementDataD.append(dataToSave[i+97]);
+                i+=2;
+            }
+        }
         //TODO
         // divide dataToSave in 4 parts and save into
         // Filename_a.txt
@@ -51,7 +91,6 @@ class CustomFilesHandler {
     private func saveToFile(text: String, targetDir: String, targetFileName: String)
     {
         let filename = targetDir + "/" + targetFileName
-//        let fileURL = URL(string: filename)!;
         do {
             try text.write(toFile: filename, atomically: true, encoding: .utf8);
         }
@@ -59,15 +98,22 @@ class CustomFilesHandler {
             print("Error", error)
             return
         }
-//        do {
-//            try text.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8)
-//        }
-//        catch let error as NSError
-//        {
-//            print("Failed to write to file to URL: \(filename), Error: " + error.localizedDescription)
-//        }
         print("Successufull save of file \(targetFileName)");
     }
+    
+//    private func saveUINTToFile(targetDir: String, targetFileName: String, data: [UInt8])
+//    {
+//        let filename = targetDir + "/" + targetFileName
+//        do {
+////            try text.write(toFile: filename, atomically: true, encoding: .utf8);
+//            try
+//        }
+//        catch {
+//            print("Error", error)
+//            return
+//        }
+//        print("Successufull save of file \(targetFileName)");
+//    }
     
     /**
      
