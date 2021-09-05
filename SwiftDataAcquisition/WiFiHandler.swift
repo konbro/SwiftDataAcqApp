@@ -15,17 +15,15 @@ class WiFiHandler {
     let userDefaults = UserDefaults.standard;
     
     var connection: NWConnection?
-//    var hostUDP: NWEndpoint.Host = "192.168.4.1"
     var hostUDP: NWEndpoint.Host = ""
-//    var portUDP: NWEndpoint.Port = 4210
+    
+    var receivedData = Array<UInt8>();
     
     //MARK:- UDP
-      func connectToUDP(_ hostUDP: NWEndpoint.Host, _ portUDP: NWEndpoint.Port) {
+    func connectToUDP(_ hostUDP: NWEndpoint.Host, _ portUDP: NWEndpoint.Port, measurements: Int, semafour: DispatchSemaphore) {
           // Transmited message:
        
         let messageToUDP = "****"
-//        let options = NWProtocolUDP.Options();
-//        options.connectionTimeout = 2;
         
           self.connection = NWConnection(host: hostUDP, port: portUDP, using: .udp)
           self.connection?.stateUpdateHandler = { (newState) in
@@ -34,11 +32,9 @@ class WiFiHandler {
                   case .ready:
                     print("State: Ready\n")
                     self.sendUDP(messageToUDP)
-                    for _ in 0...1000{
+                    for i in 0...measurements{
                         self.receiveUDP()
                     }
-//                    self.sendUDP("####")
-//                      self.receiveUDP()
                   case .setup:
                       print("State: Setup\n")
                   case .cancelled:
@@ -50,7 +46,10 @@ class WiFiHandler {
               }
           }
 
-          self.connection?.start(queue: .global())
+        print("START KJU")
+        self.connection?.start(queue: .global())
+        print("STOP KJU");
+        semafour.signal();
       }
 
       func sendUDP(_ content: Data) {
@@ -80,22 +79,17 @@ class WiFiHandler {
             (data, context, isComplete, error) in
             if (isComplete) {
                   print("Receive is complete")
-                
-                 DispatchQueue.main.async {
-                    print("Receive is complete")
-                    
-                 }
                   if (data != nil) {
                     let backToString = String(decoding: data!, as: UTF8.self);
                     let decodedData = self.decodeData(inputData: data!)
+                    self.receivedData.append(contentsOf: decodedData);
                     print("DECODED: \(decodedData)");
-                    DispatchQueue.main.async { print(backToString) }
+//                    DispatchQueue.main.async { print(backToString) }
                     
                   } else {
                       print("Data == nil")
                   }
               }
-//            return decodedData;
           }
       }
     
@@ -110,22 +104,28 @@ class WiFiHandler {
     }
 
     
-    public func beginUDPConnection() -> String
+    public func beginUDPConnection(secondsToPass: Int, semaphorerere: DispatchSemaphore) -> Array<UInt8>
     {
-        var tmp = userDefaults.string(forKey: "DeviceIP");
-        if(tmp == "NOT SET")
+        var hostIP = userDefaults.string(forKey: "DeviceIP");
+        var hostPort = userDefaults.string(forKey: "DevicePort");
+        if(hostIP == "NOT SET" || hostPort == "NOT SET")
         {
             print("ERROR");
-            return "ERROR";
+            return Array<UInt8>();
+//            return "ERROR";
         }
         else
         {
-            var hostUDP: NWEndpoint.Host = .init(tmp!)
-            connectToUDP(hostUDP, 80)
-            return "test";
+            var hostUDP: NWEndpoint.Host = .init(hostIP!)
+            connectToUDP(hostUDP, NWEndpoint.Port(hostPort!)!, measurements: secondsToPass * 2, semafour: semaphorerere);
+//            semaphorerere.signal();
+            return self.receivedData;
         }
     }
-    
+    public func getResult() -> Array<UInt8>
+    {
+        return self.receivedData;
+    }
     public func endUDPConnection()
     {
         sendUDP("####");

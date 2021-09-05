@@ -14,25 +14,9 @@
             filePath = "SwiftDataAcquisition/WiFiHandler.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "116"
-            endingLineNumber = "116"
-            landmarkName = "beginUDPConnection()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "DB18E71F-1EA9-4FE8-BD84-99F207D9AF5C"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SwiftDataAcquisition/WiFiHandler.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "35"
-            endingLineNumber = "35"
-            landmarkName = "connectToUDP(_:_:)"
+            startingLineNumber = "111"
+            endingLineNumber = "111"
+            landmarkName = "beginUDPConnection(secondsToPass:semaphorerere:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -46,8 +30,8 @@
             filePath = "SwiftDataAcquisition/WiFiHandler.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "67"
-            endingLineNumber = "67"
+            startingLineNumber = "66"
+            endingLineNumber = "66"
             landmarkName = "sendUDP(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -56,14 +40,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "1818B40A-10EA-4980-AFFD-FC7E13E48B42"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftDataAcquisition/WiFiHandler.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "89"
-            endingLineNumber = "89"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
             landmarkName = "receiveUDP()"
             landmarkType = "7">
          </BreakpointContent>
@@ -71,7 +55,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D9BC7020-192E-4DFB-9F61-82B12EDB6DEA"
+            uuid = "47131EAC-0765-4EEC-A500-6717C62E4B33"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -80,55 +64,71 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "38"
             endingLineNumber = "38"
-            landmarkName = "connectToUDP(_:_:)"
+            landmarkName = "connectToUDP(_:_:measurements:semafour:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "97B385C7-23DF-4483-9B6D-FD4FDDDC3A86"
+            uuid = "0AB837A5-1ECF-4085-96DE-C0EAF003E5D9"
             shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SwiftDataAcquisition/Views/MeasurmentsView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "98"
+            endingLineNumber = "98"
+            landmarkName = "startMeasurements(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "16740CDE-6DED-49E8-B557-35316C09DB20"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftDataAcquisition/WiFiHandler.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
-            landmarkName = "connectToUDP(_:_:)"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "connectToUDP(_:_:measurements:semafour:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "9B49D120-2CC6-41F0-94BA-B3CFDDD0FC0F"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SwiftDataAcquisition/Views/MeasurmentsView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "93"
-            endingLineNumber = "93"
-            landmarkName = "incrementTimer()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "F1CBF2DD-2BB8-4D6B-BB7E-C28A266F4C27"
+            uuid = "8D520B0A-3AB0-4826-839A-2E0F91B2A03F"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SwiftDataAcquisition/Views/MeasurmentsView.swift"
+            filePath = "SwiftDataAcquisition/WiFiHandler.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "67"
-            endingLineNumber = "67"
-            landmarkName = "startMeasurements(_:)"
+            startingLineNumber = "36"
+            endingLineNumber = "36"
+            landmarkName = "connectToUDP(_:_:measurements:semafour:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1C327CC1-DCC5-4C50-BD6A-3F8744F69698"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SwiftDataAcquisition/WiFiHandler.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "connectToUDP(_:_:measurements:semafour:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
