@@ -60,21 +60,11 @@ class CustomFilesHandler {
                 i+=2;
             }
         }
-        //TODO
-        // divide dataToSave in 4 parts and save into
-        // Filename_a.txt
-        // Filename_b.txt
-        // Filename_c.txt
-        // Filename_d.txt
-        // Was it supposed to be divided in 4 predefined parts or were there more parts possible?
         
-        // We have 64 measure devices and each file contains data from 16.
-        
-        //TODO - SPLIT RECEIVED DATA
-        let measurementBatch0 = "null";
-        let measurementBatch1 = "null";
-        let measurementBatch2 = "null";
-        let measurementBatch3 = "null";
+        let dataA = Data(bytes: measurementDataA);
+        let dataB = Data(bytes: measurementDataB);
+        let dataC = Data(bytes: measurementDataC);
+        let dataD = Data(bytes: measurementDataD);
         
         let fileName = timeOfMeasurement + "_measurement_";
         let fileNameA = fileName + "A.txt";
@@ -82,17 +72,19 @@ class CustomFilesHandler {
         let fileNameC = fileName + "C.txt";
         let fileNameD = fileName + "D.txt";
         
-        saveToFile(text: measurementBatch0, targetDir: pathToDocumentsDir, targetFileName: fileNameA)
-        saveToFile(text: measurementBatch1, targetDir: pathToDocumentsDir, targetFileName: fileNameB)
-        saveToFile(text: measurementBatch2, targetDir: pathToDocumentsDir, targetFileName: fileNameC)
-        saveToFile(text: measurementBatch3, targetDir: pathToDocumentsDir, targetFileName: fileNameD)
+        saveDataToFile(ourData: dataA, targetDir: pathToDocumentsDir, targetFileName: fileNameA);
+        saveDataToFile(ourData: dataB, targetDir: pathToDocumentsDir, targetFileName: fileNameB);
+        saveDataToFile(ourData: dataC, targetDir: pathToDocumentsDir, targetFileName: fileNameC);
+        saveDataToFile(ourData: dataD, targetDir: pathToDocumentsDir, targetFileName: fileNameD);
     }
     
-    private func saveToFile(text: String, targetDir: String, targetFileName: String)
+    private func saveDataToFile(ourData: Data, targetDir: String, targetFileName: String)
     {
-        let filename = targetDir + "/" + targetFileName
+        let finalURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+            .appendingPathComponent(targetFileName, isDirectory: false)
+        print(finalURL)
         do {
-            try text.write(toFile: filename, atomically: true, encoding: .utf8);
+            try ourData.write(to: finalURL);
         }
         catch {
             print("Error", error)
@@ -100,21 +92,6 @@ class CustomFilesHandler {
         }
         print("Successufull save of file \(targetFileName)");
     }
-    
-//    private func saveUINTToFile(targetDir: String, targetFileName: String, data: [UInt8])
-//    {
-//        let filename = targetDir + "/" + targetFileName
-//        do {
-////            try text.write(toFile: filename, atomically: true, encoding: .utf8);
-//            try
-//        }
-//        catch {
-//            print("Error", error)
-//            return
-//        }
-//        print("Successufull save of file \(targetFileName)");
-//    }
-    
     /**
      
      

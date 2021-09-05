@@ -108,7 +108,7 @@ class WiFiHandler {
     {
         var hostIP = userDefaults.string(forKey: "DeviceIP");
         var hostPort = userDefaults.string(forKey: "DevicePort");
-        if(hostIP == "NOT SET" || hostPort == "NOT SET")
+        if(hostIP == "NOT SET" || hostPort == "NOT SET" || hostIP == nil || hostPort == nil)
         {
             print("ERROR");
             return Array<UInt8>();
