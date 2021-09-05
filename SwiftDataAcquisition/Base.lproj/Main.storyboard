@@ -126,8 +126,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="center" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="4oF-AE-lLg">
-                                <rect key="frame" x="57" y="452.66666666666674" width="300" height="42"/>
+                            <button opaque="NO" contentMode="center" ambiguous="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="4oF-AE-lLg">
+                                <rect key="frame" x="57" y="404.66666666666674" width="300" height="42"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Start measurement"/>
                                 <connections>
@@ -174,12 +174,23 @@
                                     <segue destination="UaX-8M-tzo" kind="presentation" id="C9u-bO-jde"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BXQ-KF-BV4">
+                                <rect key="frame" x="113" y="464" width="188" height="40"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <state key="normal" title="Stop measurement">
+                                    <color key="titleColor" systemColor="systemRedColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="StopBtnPressed:" destination="KSU-bc-leI" eventType="touchDown" id="kLL-yA-m9Q"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="rhN-Rm-K19"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="HFD-UA-ZJ6" firstAttribute="top" secondItem="TKh-ZI-xaF" secondAttribute="bottom" constant="7" id="0zJ-y4-0X5"/>
                             <constraint firstItem="sMP-zi-IAZ" firstAttribute="top" secondItem="rhN-Rm-K19" secondAttribute="top" constant="40" id="56G-Hs-fL0"/>
+                            <constraint firstItem="anx-nR-YUL" firstAttribute="top" secondItem="BXQ-KF-BV4" secondAttribute="bottom" constant="8" symbolic="YES" id="5Bi-Pp-zhw"/>
                             <constraint firstItem="rhN-Rm-K19" firstAttribute="trailing" secondItem="sMP-zi-IAZ" secondAttribute="trailing" priority="999" constant="40" id="7Xk-2H-jVT"/>
                             <constraint firstItem="rhN-Rm-K19" firstAttribute="trailing" secondItem="33l-WD-PcU" secondAttribute="trailing" constant="40" id="84k-Do-Ttk"/>
                             <constraint firstItem="rhN-Rm-K19" firstAttribute="bottom" relation="lessThanOrEqual" secondItem="NC2-V5-AVG" secondAttribute="bottom" constant="90" id="8B2-YD-NbB"/>
@@ -195,7 +206,6 @@
                             <constraint firstItem="sMP-zi-IAZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="QgX-ex-NwF" secondAttribute="trailing" constant="23" id="Tlq-Fx-zpV"/>
                             <constraint firstItem="33l-WD-PcU" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="TKh-ZI-xaF" secondAttribute="trailing" constant="23" id="UUv-L2-CgZ"/>
                             <constraint firstItem="NC2-V5-AVG" firstAttribute="leading" secondItem="rhN-Rm-K19" secondAttribute="leading" constant="57" id="VlO-y6-ff1"/>
-                            <constraint firstItem="anx-nR-YUL" firstAttribute="top" relation="lessThanOrEqual" secondItem="4oF-AE-lLg" secondAttribute="bottom" constant="18" id="YHJ-oi-xDD"/>
                             <constraint firstItem="aXx-5B-kHN" firstAttribute="leading" secondItem="rhN-Rm-K19" secondAttribute="leading" constant="20" id="Ztz-5q-1Q4"/>
                             <constraint firstItem="SgN-1Z-naL" firstAttribute="top" secondItem="HFD-UA-ZJ6" secondAttribute="bottom" constant="9" id="aVq-w9-1BZ"/>
                             <constraint firstItem="TKh-ZI-xaF" firstAttribute="leading" secondItem="rhN-Rm-K19" secondAttribute="leading" constant="20" id="cRv-hK-hiu"/>
@@ -204,11 +214,13 @@
                             <constraint firstItem="rhN-Rm-K19" firstAttribute="trailing" secondItem="aXx-5B-kHN" secondAttribute="trailing" constant="20" id="jV5-Mj-tcJ"/>
                             <constraint firstItem="QgX-ex-NwF" firstAttribute="top" secondItem="rhN-Rm-K19" secondAttribute="top" constant="40" id="lrc-8x-6O1"/>
                             <constraint firstItem="NC2-V5-AVG" firstAttribute="top" relation="lessThanOrEqual" secondItem="anx-nR-YUL" secondAttribute="bottom" constant="24" id="mRZ-zf-x2f"/>
+                            <constraint firstItem="BXQ-KF-BV4" firstAttribute="top" secondItem="4oF-AE-lLg" secondAttribute="bottom" constant="17.333333333333258" id="nlk-Y9-CDw"/>
                             <constraint firstItem="rhN-Rm-K19" firstAttribute="trailing" secondItem="lTn-9M-t33" secondAttribute="trailing" constant="40" id="oO4-UO-aek"/>
                             <constraint firstItem="anx-nR-YUL" firstAttribute="leading" relation="lessThanOrEqual" secondItem="rhN-Rm-K19" secondAttribute="leading" constant="57" id="pl1-It-KjQ"/>
                             <constraint firstItem="4oF-AE-lLg" firstAttribute="leading" relation="lessThanOrEqual" secondItem="rhN-Rm-K19" secondAttribute="leading" constant="57" id="svp-1o-JpG"/>
                             <constraint firstItem="SgN-1Z-naL" firstAttribute="leading" secondItem="rhN-Rm-K19" secondAttribute="leading" constant="20" id="tJ7-TH-Vnu"/>
                             <constraint firstItem="lTn-9M-t33" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="HFD-UA-ZJ6" secondAttribute="trailing" constant="23" id="uO7-wU-HSR"/>
+                            <constraint firstItem="BXQ-KF-BV4" firstAttribute="centerX" secondItem="rhN-Rm-K19" secondAttribute="centerX" id="une-be-frz"/>
                             <constraint firstItem="rhN-Rm-K19" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="anx-nR-YUL" secondAttribute="trailing" constant="57" id="xg8-F9-dQd"/>
                             <constraint firstItem="hhp-kQ-KIt" firstAttribute="top" secondItem="lTn-9M-t33" secondAttribute="bottom" constant="8" symbolic="YES" id="yRW-89-StC"/>
                             <constraint firstItem="rhN-Rm-K19" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="4oF-AE-lLg" secondAttribute="trailing" constant="57" id="yRy-RD-ciy"/>
@@ -219,6 +231,8 @@
                         <outlet property="FramesCounterLabel" destination="sMP-zi-IAZ" id="WdZ-YZ-2x8"/>
                         <outlet property="LostFramesCounterLabel" destination="33l-WD-PcU" id="J23-7B-t5f"/>
                         <outlet property="MeasurementTimeLabel" destination="lTn-9M-t33" id="E2f-Yt-BNG"/>
+                        <outlet property="StartMeasurementBtn" destination="4oF-AE-lLg" id="Y3z-8x-eYz"/>
+                        <outlet property="StopTransmissionBtn" destination="BXQ-KF-BV4" id="4qv-Ut-JEW"/>
                         <outlet property="TimeSlider" destination="aXx-5B-kHN" id="1Pb-CL-bYB"/>
                         <outlet property="TimeTargetLabel" destination="hhp-kQ-KIt" id="hTX-yW-sfe"/>
                     </connections>

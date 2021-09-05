@@ -24,14 +24,21 @@ class WiFiHandler {
           // Transmited message:
        
         let messageToUDP = "****"
+//        let options = NWProtocolUDP.Options();
+//        options.connectionTimeout = 2;
+        
           self.connection = NWConnection(host: hostUDP, port: portUDP, using: .udp)
           self.connection?.stateUpdateHandler = { (newState) in
               print("This is stateUpdateHandler:")
               switch (newState) {
                   case .ready:
-                      print("State: Ready\n")
-                      self.sendUDP(messageToUDP)
-                      self.receiveUDP()
+                    print("State: Ready\n")
+                    self.sendUDP(messageToUDP)
+                    for _ in 0...1000{
+                        self.receiveUDP()
+                    }
+//                    self.sendUDP("####")
+//                      self.receiveUDP()
                   case .setup:
                       print("State: Setup\n")
                   case .cancelled:
@@ -80,23 +87,15 @@ class WiFiHandler {
                  }
                   if (data != nil) {
                     let backToString = String(decoding: data!, as: UTF8.self);
-                    print("Received message: \(backToString)");
-                    print("NOT DECODED: \(data)");
-//                    let decoded = UInt8(data);
                     let decodedData = self.decodeData(inputData: data!)
                     print("DECODED: \(decodedData)");
-                    
-//                    print("DDDD: \(data?.split(separator: 109))")
-//                    print("element at 0: \(data![0])");
-//                    let decodedTable =
-//                        assert(a.count * MemoryLayout<UInt8>.stride >= MemoryLayout<Int>.size)
-//                        let b = UnsafeRawPointer(a).assumingMemoryBound(to: Int.self).pointee.littleEndian
                     DispatchQueue.main.async { print(backToString) }
                     
                   } else {
                       print("Data == nil")
                   }
               }
+//            return decodedData;
           }
       }
     
@@ -125,5 +124,11 @@ class WiFiHandler {
             connectToUDP(hostUDP, 80)
             return "test";
         }
+    }
+    
+    public func endUDPConnection()
+    {
+        sendUDP("####");
+        print("STOPPING CONNECTION")
     }
 }
