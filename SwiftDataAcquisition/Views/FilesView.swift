@@ -64,7 +64,7 @@ class FilesView: UIViewController, UITableViewDelegate, UITableViewDataSource {
     {
         didSet{
             fileTable.dataSource = self;
-            fileTable.allowsMultipleSelection = true;
+            fileTable.allowsMultipleSelection = false;
         }
     }
     
@@ -95,6 +95,7 @@ class FilesView: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     
     @IBAction func ShareBtnPressed(_ sender: UIButton) {
+        print("SHARE BUTTON PRESSED");
         var sharedMeasurementGroups = [String]();
         for id in selectedIdsList
         {
@@ -107,7 +108,6 @@ class FilesView: UIViewController, UITableViewDelegate, UITableViewDataSource {
         super.viewDidLoad()
         updateResultList()
         self.fileTable.delegate = self;
-        // Do any additional setup after loading the view.
     }
     
     private func updateResultList()
@@ -128,15 +128,20 @@ class FilesView: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     private func displayShareSheet(measurementGroups: Array<String>)
     {
-        var filesToShare = [Any]();
+        var filesToShare = [URL]();
         for measurementGroup in measurementGroups{
-            let filesURLS = fileHandler.getFilesInGroup(fileGroup: measurementGroup);
-            filesToShare.append(filesURLS)
+            filesToShare = Array(fileHandler.getFilesInGroup(fileGroup: measurementGroup));
         }
         print("Shared files:")
         print(filesToShare);
+        
         let activityViewController = UIActivityViewController(activityItems: filesToShare, applicationActivities: nil)
         present(activityViewController, animated: true, completion: nil)
+        if let popOver = activityViewController.popoverPresentationController {
+          popOver.sourceView = self.view
+          //popOver.sourceRect =
+          //popOver.barButtonItem
+        }
     }
     
 }

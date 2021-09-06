@@ -7,5 +7,6 @@ target 'SwiftDataAcquisition' do
 
   # Pods for SwiftDataAcquisition
   pod 'Charts'
+  pod 'CocoaAsyncSocket'
 
 end

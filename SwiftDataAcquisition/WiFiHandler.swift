@@ -9,6 +9,7 @@ import Foundation
 
 import UIKit
 import Network
+import CocoaAsyncSocket
 
 class WiFiHandler {
      
@@ -20,9 +21,8 @@ class WiFiHandler {
     var receivedData = Array<UInt8>();
     
     //MARK:- UDP
-    func connectToUDP(_ hostUDP: NWEndpoint.Host, _ portUDP: NWEndpoint.Port, measurements: Int, semafour: DispatchSemaphore) {
-          // Transmited message:
-       
+        func connectToUDP(_ hostUDP: NWEndpoint.Host, _ portUDP: NWEndpoint.Port, measurements: Int) {
+            
         let messageToUDP = "****"
         
           self.connection = NWConnection(host: hostUDP, port: portUDP, using: .udp)
@@ -32,7 +32,7 @@ class WiFiHandler {
                   case .ready:
                     print("State: Ready\n")
                     self.sendUDP(messageToUDP)
-                    for i in 0...measurements{
+                    for _ in 0...measurements{
                         self.receiveUDP()
                     }
                   case .setup:
@@ -49,18 +49,8 @@ class WiFiHandler {
         print("START KJU")
         self.connection?.start(queue: .global())
         print("STOP KJU");
-        semafour.signal();
       }
 
-      func sendUDP(_ content: Data) {
-          self.connection?.send(content: content, completion: NWConnection.SendCompletion.contentProcessed(({ (NWError) in
-              if (NWError == nil) {
-                  print("Data was sent to UDP")
-              } else {
-                  print("ERROR! Error when data (Type: Data) sending. NWError: \n \(NWError!)")
-              }
-          })))
-      }
 
       func sendUDP(_ content: String) {
         let contentToSendUDP = content.data(using: String.Encoding.utf8)
@@ -74,7 +64,7 @@ class WiFiHandler {
           })))
       }
 
-      func receiveUDP() {
+    func receiveUDP() {
           self.connection?.receiveMessage {
             (data, context, isComplete, error) in
             if (isComplete) {
@@ -83,9 +73,6 @@ class WiFiHandler {
                     let backToString = String(decoding: data!, as: UTF8.self);
                     let decodedData = self.decodeData(inputData: data!)
                     self.receivedData.append(contentsOf: decodedData);
-                    print("DECODED: \(decodedData)");
-//                    DispatchQueue.main.async { print(backToString) }
-                    
                   } else {
                       print("Data == nil")
                   }
@@ -95,7 +82,6 @@ class WiFiHandler {
     
     private func decodeData(inputData: Data) -> Array<UInt8>
     {
-        
         var resultArr = Array<UInt8>();
         for i in 0..<inputData.count{
             resultArr.append(inputData[i]);
@@ -104,7 +90,7 @@ class WiFiHandler {
     }
 
     
-    public func beginUDPConnection(secondsToPass: Int, semaphorerere: DispatchSemaphore) -> Array<UInt8>
+    public func beginUDPConnection(secondsToPass: Int) -> Array<UInt8>
     {
         var hostIP = userDefaults.string(forKey: "DeviceIP");
         var hostPort = userDefaults.string(forKey: "DevicePort");
@@ -112,23 +98,24 @@ class WiFiHandler {
         {
             print("ERROR");
             return Array<UInt8>();
-//            return "ERROR";
         }
         else
         {
             var hostUDP: NWEndpoint.Host = .init(hostIP!)
-            connectToUDP(hostUDP, NWEndpoint.Port(hostPort!)!, measurements: secondsToPass * 2, semafour: semaphorerere);
-//            semaphorerere.signal();
+            connectToUDP(hostUDP, NWEndpoint.Port(hostPort!)!, measurements: secondsToPass * 2);
             return self.receivedData;
         }
     }
+    
     public func getResult() -> Array<UInt8>
     {
         return self.receivedData;
     }
+    
     public func endUDPConnection()
     {
         sendUDP("####");
         print("STOPPING CONNECTION")
     }
+
 }

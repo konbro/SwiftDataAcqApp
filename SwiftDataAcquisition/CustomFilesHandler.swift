@@ -11,10 +11,12 @@ class CustomFilesHandler {
     let fm = FileManager.default
     
     public func getDocumentDirectory() -> String {
-        let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory,
-                                                                    .userDomainMask,
-                                                                    true)
-        return documentDirectory[0]
+//        let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory,
+//                                                                    .userDomainMask,
+//                                                                    true)
+//
+//        return documentDirectory[0]
+        return NSHomeDirectory() + "/Documents";
     }
     
     public func saveDataBatch(dataToSave: [UInt8], timeOfMeasurement: String)
@@ -32,8 +34,9 @@ class CustomFilesHandler {
         framesCount = 0;
         while i < dataToSave.count{
 //                //TU ZACZYNA SIE SEPARATOR
-//                //index:      128   129 130  131  132  133  134  135
-//                //value:      0,    0,  171, 172, 173, 174, 171, 170
+                  //
+//                //index:      128   129 130  131  132  133  134  135  136
+//                //value:      0,    0,  171, 172, 173, 174, 171, 170  XYZ
 //                //CZYLI TRZEBA
             //PROBLEM WHEN I IS 8, 16, 24, 40, 48 ETC. IT ENTERS THIS
             if( ( i - framesCount * 8 ) % 32 == 0 && i != 0 && ( i - framesCount * 8 ) != 0 ){
@@ -41,6 +44,17 @@ class CustomFilesHandler {
                 //od 32 do 63 jest czuj 1
                 //od 64 do 95 jest czuj 2
                 //od 96 do 127 jest czuj 3
+                measurementDataA.append(dataToSave[i + 96])
+                measurementDataA.append(dataToSave[i + 97])
+                
+                measurementDataB.append(dataToSave[i + 96])
+                measurementDataB.append(dataToSave[i + 97])
+                
+                measurementDataC.append(dataToSave[i + 96])
+                measurementDataC.append(dataToSave[i + 97])
+                
+                measurementDataD.append(dataToSave[i + 96])
+                measurementDataD.append(dataToSave[i + 97])
                 i+=104;
                 framesCount += 1;
                 // i - 8*liczbaRamek % 32
@@ -67,10 +81,10 @@ class CustomFilesHandler {
         let dataD = Data(bytes: measurementDataD);
         
         let fileName = timeOfMeasurement + "_measurement_";
-        let fileNameA = fileName + "A.txt";
-        let fileNameB = fileName + "B.txt";
-        let fileNameC = fileName + "C.txt";
-        let fileNameD = fileName + "D.txt";
+        let fileNameA = fileName + "A.bin";
+        let fileNameB = fileName + "B.bin";
+        let fileNameC = fileName + "C.bin";
+        let fileNameD = fileName + "D.bin";
         
         saveDataToFile(ourData: dataA, targetDir: pathToDocumentsDir, targetFileName: fileNameA);
         saveDataToFile(ourData: dataB, targetDir: pathToDocumentsDir, targetFileName: fileNameB);
@@ -80,11 +94,12 @@ class CustomFilesHandler {
     
     private func saveDataToFile(ourData: Data, targetDir: String, targetFileName: String)
     {
-        let finalURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-            .appendingPathComponent(targetFileName, isDirectory: false)
+        let docDir = getDocumentDirectory()
+        let finalURL = "file://\(docDir)/\(targetFileName)";
+        
         print(finalURL)
         do {
-            try ourData.write(to: finalURL);
+            try ourData.write(to: URL(string: finalURL)!);
         }
         catch {
             print("Error", error)
@@ -132,7 +147,7 @@ class CustomFilesHandler {
             print("WARNING: other files found in docs dir")
         }
         for file in filesInDir{
-            if(!file.contains("_measurement_A.txt")){
+            if(!file.contains("_measurement_A.bin")){
                 //do nothing
             }
             else{
@@ -168,25 +183,27 @@ class CustomFilesHandler {
     
     public func getFilesInGroup(fileGroup: String) -> Set<URL>
     {
-//        var filesInDir = Array<NSString>();
-//        var filesInDir = [NSString]();
         var filesInDir = listFilesInDir();
-//        filesInDir.sort(by: <#T##(NSString, NSString) throws -> Bool#>);
+        let docDir = getDocumentDirectory();
         var filesInGroup = Set<URL>();
         for file in filesInDir{
+            print(file)
             if(file.contains(fileGroup)){
                 if(filesInGroup.count >= 4)
                 {
                     //found 4 files so theres no need to check further
                     break;
                 }
-                filesInGroup.insert(URL(string: file as String)!)
+                let tmp = "file://" + docDir + "/" + (file as String)
+                filesInGroup.insert(URL(string: tmp)!)
+//                filesInGroup.insert(URL(string: file as String)!)
             }
         }
         if(filesInGroup.count != 4)
         {
             print("ERROR: FOUND NUMBER DIFFERENT THAN 4 IN SET OF FILES")
         }
+        print("getFilesInGroup:")
         print(filesInGroup);
         return filesInGroup;
     }
