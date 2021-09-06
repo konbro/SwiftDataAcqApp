@@ -52,33 +52,49 @@ class MeasurmentsView: UIViewController {
     
     @IBAction func startMeasurements(_ sender: Any)
     {
-        StopTransmissionBtn.isEnabled = true;
-        StartMeasurementBtn.isEnabled = false;
-        TimeSlider.isEnabled = false;
-        
-        let now = getCurrentTime();
-        
-        //END MEASURING MAGIC
-        
-        if !isTimerOn
+        if(userDefaults.string(forKey: "DeviceIP") == nil || userDefaults.string(forKey: "DeviceIP") == "NOT SET" ||
+            userDefaults.string(forKey: "DevicePort") == nil || userDefaults.string(forKey: "DevicePort") == "NOT SET")
         {
-            labelTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(incrementTimer), userInfo: nil, repeats: true)
-            isTimerOn = true
+            showAlert()
+        }
+        else
+            {
+            StopTransmissionBtn.isEnabled = true;
+            StartMeasurementBtn.isEnabled = false;
+            TimeSlider.isEnabled = false;
+            
+            let now = getCurrentTime();
+            
+            //END MEASURING MAGIC
+            
+            if !isTimerOn
+            {
+                labelTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(incrementTimer), userInfo: nil, repeats: true)
+                isTimerOn = true
+            }
+        
+            let delaySeconds = timeTargetInMinutes * 60;
+            var dispatchAfter = DispatchTimeInterval.seconds(delaySeconds)
+       
+            wifiHandler.beginUDPConnection(secondsToPass: delaySeconds);
+            print("CALLED WIFI")
+            var receivedData = [UInt8]();
+            DispatchQueue.main.asyncAfter(deadline: .now() + dispatchAfter) {
+                receivedData = self.wifiHandler.getResult()
+                print("RECEIVED DATA FROM WIFI")
+                print(receivedData);
+                self.filesHandler.saveDataBatch(dataToSave: receivedData, timeOfMeasurement: now);
+            }
+            print("async work in progress...");
         }
         
-        let delaySeconds = timeTargetInMinutes * 60;
-        var dispatchAfter = DispatchTimeInterval.seconds(delaySeconds)
-        wifiHandler.beginUDPConnection(secondsToPass: delaySeconds);
-        print("CALLED WIFI")
-        var receivedData = [UInt8]();
-        DispatchQueue.main.asyncAfter(deadline: .now() + dispatchAfter) {
-            receivedData = self.wifiHandler.getResult()
-            print("RECEIVED DATA FROM WIFI")
-            print(receivedData);
-            self.filesHandler.saveDataBatch(dataToSave: receivedData, timeOfMeasurement: now);
-        }
-        print("async work in progress...");
-        
+    }
+    
+    private func showAlert()
+    {
+        let alert = UIAlertController(title: "ERROR", message: "DeviceIP or DevicePort is not defined. Please go to setting screen to set missing value.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
     
     @objc func incrementTimer()
