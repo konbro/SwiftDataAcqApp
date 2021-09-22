@@ -42,9 +42,6 @@ class MeasurmentsView: UIViewController {
     var pathToDocumentsDir: String = "";
     let userDefaults = UserDefaults.standard;
     var labelTimer = Timer();
-    
-    let semaphore = DispatchSemaphore(value: 0)
-    
     var timeLeft = 0;
     var seconds = 0;
     var timeTargetInMinutes = 0;
@@ -99,21 +96,17 @@ class MeasurmentsView: UIViewController {
     
     @objc func incrementTimer()
     {
-        //TODO: change to +=1
         seconds += 1
         let (_, minutesCount, secondsCount) = secondsToHoursMinutesSeconds(seconds: seconds);
         MeasurementTimeLabel.text = "\(minutesCount):\(secondsCount)"
         if(seconds >= timeTargetInMinutes * 60)
         {
-            semaphore.signal()
             print("AUTOMATIC END OF MEASUREMENT");
             wifiHandler.endUDPConnection();
             resetView()
         }
         
     }
-    
-//    @objc func decremnt
     
     @IBAction func StopBtnPressed(_ sender: UIButton) {
         print("MANUAL END OF MEASUREMENT");
