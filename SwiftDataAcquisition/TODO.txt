@@ -1,0 +1,9 @@
+TODO:
+    -create frame recognition
+    -create frame counter
+    -input of device ip to be changed to digits only keyboard
+    -add initiation of WiFi connection
+    -maybe prevent user from exiting the app or changing screens OR make sure that connection still works even when app is minimalized
+    -check how this ESP32 access point works
+    -fix contents of file - unnecessary saving of frames
+    -add option to stop measurement when pressing the STOP button

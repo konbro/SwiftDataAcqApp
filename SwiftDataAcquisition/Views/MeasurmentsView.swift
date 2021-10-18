@@ -56,33 +56,43 @@ class MeasurmentsView: UIViewController {
         }
         else
             {
-            StopTransmissionBtn.isEnabled = true;
-            StartMeasurementBtn.isEnabled = false;
-            TimeSlider.isEnabled = false;
+                StopTransmissionBtn.isEnabled = true;
+                StartMeasurementBtn.isEnabled = false;
+                TimeSlider.isEnabled = false;
+                
+                let now = getCurrentTime();
+                
+                //END MEASURING MAGIC
+                
+                if !isTimerOn
+                {
+                    labelTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(incrementTimer), userInfo: nil, repeats: true)
+                    isTimerOn = true
+                }
             
-            let now = getCurrentTime();
-            
-            //END MEASURING MAGIC
-            
-            if !isTimerOn
-            {
-                labelTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(incrementTimer), userInfo: nil, repeats: true)
-                isTimerOn = true
-            }
+                let delaySeconds = timeTargetInMinutes * 60;
+                var dispatchAfter = DispatchTimeInterval.seconds(delaySeconds)
+           
         
-            let delaySeconds = timeTargetInMinutes * 60;
-            var dispatchAfter = DispatchTimeInterval.seconds(delaySeconds)
-       
-            wifiHandler.beginUDPConnection(secondsToPass: delaySeconds);
-            print("CALLED WIFI")
-            var receivedData = [UInt8]();
-            DispatchQueue.main.asyncAfter(deadline: .now() + dispatchAfter) {
-                receivedData = self.wifiHandler.getResult()
-                print("RECEIVED DATA FROM WIFI")
-                print(receivedData);
-                self.filesHandler.saveDataBatch(dataToSave: receivedData, timeOfMeasurement: now);
-            }
-            print("async work in progress...");
+                //begin new WiFi UDP connection
+                wifiHandler.beginUDPConnection(secondsToPass: delaySeconds);
+                print("CALLED WIFI")
+                var receivedData = [UInt8]();
+                //wait for connection to finish before getting data from wifiHandler
+                //HOW TO RUN THIS WHEN STOP button is pressed?
+                DispatchQueue.main.asyncAfter(deadline: .now() + dispatchAfter) {
+                    //add global flag which will be checked?
+                    //i.e:
+                    if(true)
+                    {
+                        //do stuff
+                    }
+                    receivedData = self.wifiHandler.getResult()
+                    print("RECEIVED DATA FROM WIFI")
+                    print(receivedData);
+                    self.filesHandler.saveDataBatch(dataToSave: receivedData, timeOfMeasurement: now);
+                }
+                print("async work in progress...");
         }
         
     }

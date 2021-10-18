@@ -70,7 +70,7 @@ class WiFiHandler {
             if (isComplete) {
                   print("Receive is complete")
                   if (data != nil) {
-                    let backToString = String(decoding: data!, as: UTF8.self);
+                    //let backToString = String(decoding: data!, as: UTF8.self);
                     let decodedData = self.decodeData(inputData: data!)
                     self.receivedData.append(contentsOf: decodedData);
                   } else {
@@ -92,8 +92,8 @@ class WiFiHandler {
     
     public func beginUDPConnection(secondsToPass: Int) -> Array<UInt8>
     {
-        var hostIP = userDefaults.string(forKey: "DeviceIP");
-        var hostPort = userDefaults.string(forKey: "DevicePort");
+        let hostIP = userDefaults.string(forKey: "DeviceIP");
+        let hostPort = userDefaults.string(forKey: "DevicePort");
         if(hostIP == "NOT SET" || hostPort == "NOT SET" || hostIP == nil || hostPort == nil)
         {
             print("ERROR");
@@ -101,7 +101,7 @@ class WiFiHandler {
         }
         else
         {
-            var hostUDP: NWEndpoint.Host = .init(hostIP!)
+            let hostUDP: NWEndpoint.Host = .init(hostIP!)
             connectToUDP(hostUDP, NWEndpoint.Port(hostPort!)!, measurements: secondsToPass * 2);
             return self.receivedData;
         }
