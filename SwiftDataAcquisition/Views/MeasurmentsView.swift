@@ -19,6 +19,11 @@ class MeasurmentsView: UIViewController {
     
     @IBOutlet weak var StartMeasurementBtn: UIButton!
     
+    @IBAction func handleExit(_ segue:UIStoryboardSegue)
+    {
+        
+    }
+    
     
     @IBAction func TimeSliderValueChanged(_ sender: UISlider) {
         print("VALUE: \(sender.value) ROUNDED: \(sender.value.rounded())")

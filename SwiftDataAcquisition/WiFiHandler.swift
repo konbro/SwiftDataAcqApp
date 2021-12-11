@@ -10,18 +10,19 @@ import Foundation
 import UIKit
 import Network
 import CocoaAsyncSocket
+import NetworkExtension
 
 class WiFiHandler {
      
     let userDefaults = UserDefaults.standard;
     
     var connection: NWConnection?
-    var hostUDP: NWEndpoint.Host = ""
+    var hostUDP: Network.NWEndpoint.Host = ""
     
     var receivedData = Array<UInt8>();
     
     //MARK:- UDP
-        func connectToUDP(_ hostUDP: NWEndpoint.Host, _ portUDP: NWEndpoint.Port, measurements: Int) {
+    func connectToUDP(_ hostUDP: Network.NWEndpoint.Host, _ portUDP: Network.NWEndpoint.Port, measurements: Int) {
             
         let messageToUDP = "****"
         
@@ -101,7 +102,7 @@ class WiFiHandler {
         }
         else
         {
-            let hostUDP: NWEndpoint.Host = .init(hostIP!)
+            let hostUDP: Network.NWEndpoint.Host = .init(hostIP!)
             connectToUDP(hostUDP, NWEndpoint.Port(hostPort!)!, measurements: secondsToPass * 2);
             return self.receivedData;
         }
@@ -118,4 +119,25 @@ class WiFiHandler {
         print("STOPPING CONNECTION")
     }
 
+    public func connectToWifi() {
+        let wifiSSID = userDefaults.string(forKey: "DeviceWifi")
+        let wifiPassword = userDefaults.string(forKey: "DeviceWifiPassword")
+        if(wifiSSID == "NOT SET" || wifiPassword == "NOT SET" || wifiSSID == nil || wifiPassword == nil)
+        {
+            
+        }
+        else{
+            let wifiConfiguration = NEHotspotConfiguration(ssid: wifiSSID!, passphrase: wifiPassword!, isWEP: false)
+            
+            NEHotspotConfigurationManager.shared.apply(wifiConfiguration) { error in
+                if let error = error {
+                    print(error.localizedDescription)
+                }
+                else{
+//                    user confirmation for connecting to wifi received
+                }
+            }
+        }
+    }
+    
 }
