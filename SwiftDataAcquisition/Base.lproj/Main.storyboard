@@ -214,7 +214,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MQ7-nc-Daj" customClass="BarChartView" customModule="Charts">
+                            <view multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MQ7-nc-Daj" customClass="BarChartView" customModule="Charts">
                                 <rect key="frame" x="20" y="20" width="374" height="472"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
@@ -226,19 +226,25 @@
                                     <segue destination="M9k-h2-RSg" kind="unwind" unwindAction="handleExit:" id="ToN-4a-lyh"/>
                                 </connections>
                             </button>
-                            <slider opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="128" minValue="0.0" maxValue="256" translatesAutoresizingMaskIntoConstraints="NO" id="oEK-2F-eTm">
+                            <slider opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="128" translatesAutoresizingMaskIntoConstraints="NO" id="oEK-2F-eTm">
                                 <rect key="frame" x="55" y="536" width="304" height="30"/>
+                                <connections>
+                                    <action selector="minValChanged:" destination="UaX-8M-tzo" eventType="valueChanged" id="WVS-Dl-zLc"/>
+                                </connections>
                             </slider>
-                            <slider opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="128" minValue="0.0" maxValue="256" translatesAutoresizingMaskIntoConstraints="NO" id="Dur-MH-1Yx">
+                            <slider opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="255" minValue="128" maxValue="255" translatesAutoresizingMaskIntoConstraints="NO" id="Dur-MH-1Yx">
                                 <rect key="frame" x="55" y="609" width="304" height="30"/>
+                                <connections>
+                                    <action selector="maxValChanged:" destination="UaX-8M-tzo" eventType="valueChanged" id="Lsg-4u-HoN"/>
+                                </connections>
                             </slider>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Max threshold" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="URX-1P-RbQ">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Max value" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="URX-1P-RbQ">
                                 <rect key="frame" x="57" y="573" width="300" height="28"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Min threshold" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="nZY-WL-KRN">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Min value" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="nZY-WL-KRN">
                                 <rect key="frame" x="57" y="500" width="300" height="28"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <nil key="textColor"/>
@@ -273,6 +279,8 @@
                     </view>
                     <connections>
                         <outlet property="barChart" destination="MQ7-nc-Daj" id="zjF-F7-MUs"/>
+                        <outlet property="maxThresholdVal" destination="Dur-MH-1Yx" id="Dcz-cZ-zSM"/>
+                        <outlet property="minThresholdVal" destination="oEK-2F-eTm" id="dmc-Ty-6WP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B4E-i0-mHc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

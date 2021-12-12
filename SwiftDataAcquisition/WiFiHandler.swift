@@ -20,6 +20,7 @@ class WiFiHandler {
     var hostUDP: Network.NWEndpoint.Host = ""
     
     var receivedData = Array<UInt8>();
+    var receivedDataDecoded = Array<UInt16>();
     
     //MARK:- UDP
     func connectToUDP(_ hostUDP: Network.NWEndpoint.Host, _ portUDP: Network.NWEndpoint.Port, measurements: Int) {
@@ -73,6 +74,8 @@ class WiFiHandler {
                   if (data != nil) {
                     //let backToString = String(decoding: data!, as: UTF8.self);
                     let decodedData = self.decodeData(inputData: data!)
+                    let decodedDataMSB = self.bitShiftdecodedData(inputData: decodedData)
+                    self.receivedDataDecoded.append(contentsOf: decodedDataMSB);
                     self.receivedData.append(contentsOf: decodedData);
                   } else {
                       print("Data == nil")
@@ -86,6 +89,19 @@ class WiFiHandler {
         var resultArr = Array<UInt8>();
         for i in 0..<inputData.count{
             resultArr.append(inputData[i]);
+        }
+        return resultArr;
+    }
+    
+    private func bitShiftdecodedData(inputData: Array<UInt8>) -> Array<UInt16>
+    {
+        var resultArr = Array<UInt16>();
+        var tmpUInt16 = UInt16();
+        for i in stride(from: 0, to: inputData.count, by: 2){
+            tmpUInt16 = UInt16(inputData[i]);
+            tmpUInt16 = tmpUInt16 << 8;
+            tmpUInt16 = tmpUInt16|UInt16(inputData[i+1]);
+            resultArr.append(tmpUInt16);
         }
         return resultArr;
     }
@@ -140,4 +156,6 @@ class WiFiHandler {
         }
     }
     
+    
+//    regex [0-9]{,3}
 }

@@ -104,6 +104,7 @@ class MeasurmentsView: UIViewController {
     
     private func showAlert()
     {
+        //showing an alert to user informing him that device is not defined
         let alert = UIAlertController(title: "ERROR", message: "DeviceIP or DevicePort is not defined. Please go to setting screen to set missing value.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)

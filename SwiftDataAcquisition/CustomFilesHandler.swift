@@ -40,10 +40,10 @@ class CustomFilesHandler {
 //                //CZYLI TRZEBA
             //PROBLEM WHEN I IS 8, 16, 24, 40, 48 ETC. IT ENTERS THIS
             if( ( i - framesCount * 8 ) % 32 == 0 && i != 0 && ( i - framesCount * 8 ) != 0 ){
-                //od 0 do 31 jest czuj 0
-                //od 32 do 63 jest czuj 1
-                //od 64 do 95 jest czuj 2
-                //od 96 do 127 jest czuj 3
+                //od 0 do 31 jest czujnik 0
+                //od 32 do 63 jest czujnik 1
+                //od 64 do 95 jest czujnik 2
+                //od 96 do 127 jest czujnik 3
                 measurementDataA.append(dataToSave[i + 96])
                 measurementDataA.append(dataToSave[i + 97])
                 
