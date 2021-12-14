@@ -2,7 +2,7 @@
 //  ChartsViewController.swift
 //  SwiftDataAcquisition
 //
-//  Created by Konrad von Broen on 25/05/2021.
+//  Created by Konrad von Broen on 25/10/2021.
 //
 
 import UIKit
@@ -14,6 +14,15 @@ class ChartsViewController: UIViewController {
     var maxLimit = ChartLimitLine(limit: 255, label: "Max error")
     
     var minLimit = ChartLimitLine(limit:0, label: "Min error");
+    
+    var barchartXaxis: Array<UInt8>=[];
+    
+    var barchartYaxis: Array<UInt16>=[];
+    
+//    var barchartDataSet: BarChartDataSet!;
+    var barchartDataSet = BarChartDataSet(entries: [], label: "Example data in bar chart")
+    
+    
     
     @IBOutlet weak var barChart: BarChartView!
 
@@ -33,15 +42,27 @@ class ChartsViewController: UIViewController {
         barChartUpdateLimits()
     }
     
+    private func populateDataSet()
+    {
+        for i in barchartXaxis
+        {
+            barchartDataSet.append(BarChartDataEntry(x: Double(i), y: Double(barchartYaxis[Int(i)])))
+        }
+        barchartDataSet.label = "test data";
+    }
+    
+    
     
     func barChartUpdate()
     {
-        let entry1 = BarChartDataEntry(x: 1.0, y: 55.5)
-        let entry2 = BarChartDataEntry(x: 2.0, y: 200.0)
-        let entry3 = BarChartDataEntry(x: 3.0, y: 256.5)
-        
-        let dataSet = BarChartDataSet(entries: [entry1,entry2,entry3], label: "Example data in bar chart")
-        let data = BarChartData(dataSets: [dataSet])
+//        let entry1 = BarChartDataEntry(x: 1.0, y: 55.5)
+//        let entry2 = BarChartDataEntry(x: 2.0, y: 200.0)
+//        let entry3 = BarChartDataEntry(x: 3.0, y: 256.5)
+//
+//        let dataSet = BarChartDataSet(entries: [entry1,entry2,entry3], label: "Example data in bar chart")
+//        let data = BarChartData(dataSets: [dataSet])
+        populateDataSet();
+        let data = BarChartData(dataSets: [barchartDataSet])
         
         
         barChart.data = data

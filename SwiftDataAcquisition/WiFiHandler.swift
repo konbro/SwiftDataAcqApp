@@ -135,12 +135,16 @@ class WiFiHandler {
         print("STOPPING CONNECTION")
     }
 
-    public func connectToWifi() {
+    public func connectToWifi() throws {
         let wifiSSID = userDefaults.string(forKey: "DeviceWifi")
         let wifiPassword = userDefaults.string(forKey: "DeviceWifiPassword")
-        if(wifiSSID == "NOT SET" || wifiPassword == "NOT SET" || wifiSSID == nil || wifiPassword == nil)
+        if(wifiSSID == "NOT SET" || wifiSSID == nil)
         {
-            
+            throw WiFiHanlderError.wifiNetworkNotSet;
+        }
+        if(wifiPassword == "NOT SET")
+        {
+            throw WiFiHanlderError.wifiNetworkPasswordNotSet;
         }
         else{
             let wifiConfiguration = NEHotspotConfiguration(ssid: wifiSSID!, passphrase: wifiPassword!, isWEP: false)
@@ -156,6 +160,6 @@ class WiFiHandler {
         }
     }
     
-    
+//    public func conne
 //    regex [0-9]{,3}
 }

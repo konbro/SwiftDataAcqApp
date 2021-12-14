@@ -157,7 +157,9 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <state key="normal" title="Show Graph"/>
                                 <connections>
-                                    <segue destination="UaX-8M-tzo" kind="presentation" id="s1y-67-313"/>
+                                    <segue destination="UaX-8M-tzo" kind="popoverPresentation" identifier="chartsSegue" popoverAnchorView="Whv-I0-xmM" id="s1y-67-313">
+                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                    </segue>
                                 </connections>
                             </button>
                         </subviews>
@@ -226,13 +228,13 @@
                                     <segue destination="M9k-h2-RSg" kind="unwind" unwindAction="handleExit:" id="ToN-4a-lyh"/>
                                 </connections>
                             </button>
-                            <slider opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="128" translatesAutoresizingMaskIntoConstraints="NO" id="oEK-2F-eTm">
+                            <slider opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="32767" translatesAutoresizingMaskIntoConstraints="NO" id="oEK-2F-eTm">
                                 <rect key="frame" x="55" y="536" width="304" height="30"/>
                                 <connections>
                                     <action selector="minValChanged:" destination="UaX-8M-tzo" eventType="valueChanged" id="WVS-Dl-zLc"/>
                                 </connections>
                             </slider>
-                            <slider opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="255" minValue="128" maxValue="255" translatesAutoresizingMaskIntoConstraints="NO" id="Dur-MH-1Yx">
+                            <slider opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="65535" minValue="32767" maxValue="65535" translatesAutoresizingMaskIntoConstraints="NO" id="Dur-MH-1Yx">
                                 <rect key="frame" x="55" y="609" width="304" height="30"/>
                                 <connections>
                                     <action selector="maxValChanged:" destination="UaX-8M-tzo" eventType="valueChanged" id="Lsg-4u-HoN"/>

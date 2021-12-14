@@ -7,3 +7,5 @@ TODO:
     -check how this ESP32 access point works
     -fix contents of file - unnecessary saving of frames
     -add option to stop measurement when pressing the STOP button
+DONE:
+    -conversion from 8 bit MSB, LSB to 16 bit value

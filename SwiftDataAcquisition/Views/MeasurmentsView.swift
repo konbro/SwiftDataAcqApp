@@ -2,7 +2,7 @@
 //  MeasurmentsView.swift
 //  SwiftDataAcquisition
 //
-//  Created by Konrad von Broen on 14/05/2021.
+//  Created by Konrad von Broen on 14/10/2021.
 //
 
 import UIKit
@@ -22,6 +22,17 @@ class MeasurmentsView: UIViewController {
     @IBAction func handleExit(_ segue:UIStoryboardSegue)
     {
         
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if segue.identifier == "chartsSegue"
+        {
+//            let destination = segue.destination as! ChartsViewController
+//            destination.viewModel = viewModel
+            let destination = segue.destination as! ChartsViewController;
+            destination.barchartXaxis = [0,1,2,3,4];
+            destination.barchartYaxis = [10000,15000,12500,7550,10000];
+        }
     }
     
     
@@ -43,7 +54,7 @@ class MeasurmentsView: UIViewController {
     
     let filesHandler = CustomFilesHandler();
     let wifiHandler = WiFiHandler();
-    var viewModel: FilesHandlerViewModel!
+//    var viewModel: FilesHandlerViewModel!
     var pathToDocumentsDir: String = "";
     let userDefaults = UserDefaults.standard;
     var labelTimer = Timer();
@@ -54,58 +65,74 @@ class MeasurmentsView: UIViewController {
     
     @IBAction func startMeasurements(_ sender: Any)
     {
-        if(userDefaults.string(forKey: "DeviceIP") == nil || userDefaults.string(forKey: "DeviceIP") == "NOT SET" ||
-            userDefaults.string(forKey: "DevicePort") == nil || userDefaults.string(forKey: "DevicePort") == "NOT SET")
-        {
-            showAlert()
-        }
-        else
-            {
-                StopTransmissionBtn.isEnabled = true;
-                StartMeasurementBtn.isEnabled = false;
-                TimeSlider.isEnabled = false;
-                
-                let now = getCurrentTime();
-                
-                //END MEASURING MAGIC
-                
-                if !isTimerOn
-                {
-                    labelTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(incrementTimer), userInfo: nil, repeats: true)
-                    isTimerOn = true
-                }
+//        if(userDefaults.string(forKey: "DeviceIP") == nil || userDefaults.string(forKey: "DeviceIP") == "NOT SET" ||
+//            userDefaults.string(forKey: "DevicePort") == nil || userDefaults.string(forKey: "DevicePort") == "NOT SET")
+//        {
+//            showAlert()
+//        }
+//        else
+//            {
+        do {
+            try wifiHandler.connectToWifi();
+            StopTransmissionBtn.isEnabled = true;
+            StartMeasurementBtn.isEnabled = false;
+            TimeSlider.isEnabled = false;
             
-                let delaySeconds = timeTargetInMinutes * 60;
-                var dispatchAfter = DispatchTimeInterval.seconds(delaySeconds)
-           
+            let now = getCurrentTime();
+            
+            //END MEASURING MAGIC
+            
+            if !isTimerOn
+            {
+                labelTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(incrementTimer), userInfo: nil, repeats: true)
+                isTimerOn = true
+            }
         
-                //begin new WiFi UDP connection
-                wifiHandler.beginUDPConnection(secondsToPass: delaySeconds);
-                print("CALLED WIFI")
-                var receivedData = [UInt8]();
-                //wait for connection to finish before getting data from wifiHandler
-                //HOW TO RUN THIS WHEN STOP button is pressed?
-                DispatchQueue.main.asyncAfter(deadline: .now() + dispatchAfter) {
-                    //add global flag which will be checked?
-                    //i.e:
-                    if(true)
-                    {
-                        //do stuff
-                    }
-                    receivedData = self.wifiHandler.getResult()
-                    print("RECEIVED DATA FROM WIFI")
-                    print(receivedData);
-                    self.filesHandler.saveDataBatch(dataToSave: receivedData, timeOfMeasurement: now);
+            let delaySeconds = timeTargetInMinutes * 60;
+            let dispatchAfter = DispatchTimeInterval.seconds(delaySeconds)
+            
+            //begin new WiFi UDP connection
+            wifiHandler.beginUDPConnection(secondsToPass: delaySeconds);
+            print("CALLED WIFI")
+            print("Connecting to:" + userDefaults.string(forKey: "DeviceIP")!)
+            var receivedData = [UInt8]();
+            //wait for connection to finish before getting data from wifiHandler
+            //HOW TO RUN THIS WHEN STOP button is pressed?
+            DispatchQueue.main.asyncAfter(deadline: .now() + dispatchAfter)
+            {
+                //add global flag which will be checked?
+                //i.e:
+                if(true)
+                {
+                    //do stuff
                 }
-                print("async work in progress...");
+                receivedData = self.wifiHandler.getResult()
+                print("RECEIVED DATA FROM WIFI")
+                print(receivedData);
+                self.filesHandler.saveDataBatch(dataToSave: receivedData, timeOfMeasurement: now);
+            }
+            print("async work in progress...");
         }
+        catch WiFiHanlderError.wifiNetworkPasswordNotSet
+        {
+            showAlert(title:"Configuration error", errormsg: "Wifi password is not defined. Please go to settings screen to set missing password")
+        }
+        catch WiFiHanlderError.wifiNetworkNotSet
+        {
+            showAlert(title:"Configuration error", errormsg: "Wifi SSID is not defined. Please go to settings screen to set missing SSID")
+        }
+        catch
+        {
+            
+        }
+//            }
         
     }
     
-    private func showAlert()
+    private func showAlert(title: String, errormsg: String)
     {
         //showing an alert to user informing him that device is not defined
-        let alert = UIAlertController(title: "ERROR", message: "DeviceIP or DevicePort is not defined. Please go to setting screen to set missing value.", preferredStyle: .alert)
+        let alert = UIAlertController(title: title, message: errormsg, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
