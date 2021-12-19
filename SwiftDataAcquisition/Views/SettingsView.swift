@@ -37,22 +37,22 @@ class SettingsView: UIViewController
     
     @IBAction func DeviceWiFiEditBtnPressed(_ sender: UIButton) {
         let userDefaultsKey = "DeviceWiFi"
-        var deviceIP = self.userDefaults.string(forKey: userDefaultsKey)
-        if(deviceIP == nil)
+        var WiFiSSID = self.userDefaults.string(forKey: userDefaultsKey)
+        if(WiFiSSID == nil)
         {
-            deviceIP = "NOT SET"
+            WiFiSSID = "NOT SET"
         }
-        showEditAlert(alertTitle: "Edit device WiFi", alertMessage: "Please enter new device WiFi", alertTextFieldValue: deviceIP!, userDefaultsKey: userDefaultsKey)
+        showEditAlert(alertTitle: "Edit device WiFi", alertMessage: "Please enter new device WiFi", alertTextFieldValue: WiFiSSID!, userDefaultsKey: userDefaultsKey)
     }
     
     @IBAction func DeviceWifiPassEditBtnPressed(_ sender: UIButton) {
-        let userDefaultsKey = "DeviceWifiPassword"
-        var deviceWifiPass = self.userDefaults.string(forKey: userDefaultsKey)
-        if(deviceWifiPass == nil)
+        let userDefaultsKey = "DeviceWiFiPassword"
+        var WiFiPassword = self.userDefaults.string(forKey: userDefaultsKey)
+        if(WiFiPassword == nil)
         {
-            deviceWifiPass = "NOT SET"
+            WiFiPassword = ""
         }
-        showEditAlert(alertTitle: "Edit device wifi password", alertMessage: "Please enter new device wifi password", alertTextFieldValue: deviceWifiPass!, userDefaultsKey: userDefaultsKey)
+        showEditAlert(alertTitle: "Edit device wifi password", alertMessage: "Please enter new device wifi password", alertTextFieldValue: WiFiPassword!, userDefaultsKey: userDefaultsKey)
     }
     
     @IBAction func DeviceIPEditBtnPressed(_ sender: UIButton)
@@ -112,7 +112,7 @@ class SettingsView: UIViewController
         var devWifiPass = userDefaults.string(forKey: "DeviceWifiPassword")
         if(devWifiPass == nil)
         {
-            devWifiPass = "NOT SET"
+            devWifiPass = ""
         }
         DeviceWifiPasswordLabel.text = devWifiPass
         

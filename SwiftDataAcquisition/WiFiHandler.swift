@@ -15,12 +15,32 @@ import NetworkExtension
 class WiFiHandler {
      
     let userDefaults = UserDefaults.standard;
+    let beginTransmissionMsg = "****"
+    let endTransmissionMsg = "####"
     
+    var caller: MeasurmentsView!
+    var selectedProtocol: String;
     var connection: NWConnection?
     var hostUDP: Network.NWEndpoint.Host = ""
     
     var receivedData = Array<UInt8>();
     var receivedDataDecoded = Array<UInt16>();
+
+    init()
+    {
+        caller = nil;
+        selectedProtocol = "TCP"
+    }
+    public func setCaller(calledFrom: MeasurmentsView)
+    {
+        caller = calledFrom;
+    }
+    public func setProtocol(pickedProtocol: String)
+    {
+        selectedProtocol = pickedProtocol;
+        caller.showAlert(title: "Protocol selected", errormsg: "Currently selected protocol is: \(selectedProtocol)")
+        
+    }
     
     //MARK:- UDP
     func connectToUDP(_ hostUDP: Network.NWEndpoint.Host, _ portUDP: Network.NWEndpoint.Port, measurements: Int) {
@@ -54,7 +74,7 @@ class WiFiHandler {
       }
 
 
-      func sendUDP(_ content: String) {
+    func sendUDP(_ content: String) {
         let contentToSendUDP = content.data(using: String.Encoding.utf8)
           self.connection?.send(content: contentToSendUDP, completion: NWConnection.SendCompletion.contentProcessed(({ (NWError) in
               if (NWError == nil) {
@@ -64,7 +84,7 @@ class WiFiHandler {
                   print("ERROR! Error when data (Type: Data) sending. NWError: \n \(NWError!)")
               }
           })))
-      }
+    }
 
     func receiveUDP() {
           self.connection?.receiveMessage {
@@ -73,8 +93,8 @@ class WiFiHandler {
                   print("Receive is complete")
                   if (data != nil) {
                     //let backToString = String(decoding: data!, as: UTF8.self);
-                    let decodedData = self.decodeData(inputData: data!)
-                    let decodedDataMSB = self.bitShiftdecodedData(inputData: decodedData)
+                    let decodedData = self.appendData(inputData: data!)
+                    let decodedDataMSB = self.decodeData(inputData: decodedData)
                     self.receivedDataDecoded.append(contentsOf: decodedDataMSB);
                     self.receivedData.append(contentsOf: decodedData);
                   } else {
@@ -83,8 +103,32 @@ class WiFiHandler {
               }
           }
       }
+        
+    public func beginUDPConnection(secondsToPass: Int) -> Array<UInt8>
+    {
+        let hostIP = userDefaults.string(forKey: "DeviceIP");
+        let hostPort = userDefaults.string(forKey: "DevicePort");
+        if(hostIP == "NOT SET" || hostPort == "NOT SET" || hostIP == nil || hostPort == nil)
+        {
+            print("ERROR");
+            return Array<UInt8>();
+        }
+        else
+        {
+            let hostUDP: Network.NWEndpoint.Host = .init(hostIP!)
+            self.connectToUDP(hostUDP, NWEndpoint.Port(hostPort!) ?? 80, measurements: secondsToPass * 2);
+            
+            return self.receivedData;
+        }
+    }
+
+    public func endUDPConnection()
+    {
+        sendUDP("####");
+        print("STOPPING UDP CONNECTION")
+    }
     
-    private func decodeData(inputData: Data) -> Array<UInt8>
+    private func appendData(inputData: Data) -> Array<UInt8>
     {
         var resultArr = Array<UInt8>();
         for i in 0..<inputData.count{
@@ -93,7 +137,7 @@ class WiFiHandler {
         return resultArr;
     }
     
-    private func bitShiftdecodedData(inputData: Array<UInt8>) -> Array<UInt16>
+    private func decodeData(inputData: Array<UInt8>) -> Array<UInt16>
     {
         var resultArr = Array<UInt16>();
         var tmpUInt16 = UInt16();
@@ -107,37 +151,17 @@ class WiFiHandler {
     }
 
     
-    public func beginUDPConnection(secondsToPass: Int) -> Array<UInt8>
-    {
-        let hostIP = userDefaults.string(forKey: "DeviceIP");
-        let hostPort = userDefaults.string(forKey: "DevicePort");
-        if(hostIP == "NOT SET" || hostPort == "NOT SET" || hostIP == nil || hostPort == nil)
-        {
-            print("ERROR");
-            return Array<UInt8>();
-        }
-        else
-        {
-            let hostUDP: Network.NWEndpoint.Host = .init(hostIP!)
-            connectToUDP(hostUDP, NWEndpoint.Port(hostPort!)!, measurements: secondsToPass * 2);
-            return self.receivedData;
-        }
-    }
-    
     public func getResult() -> Array<UInt8>
     {
         return self.receivedData;
     }
     
-    public func endUDPConnection()
-    {
-        sendUDP("####");
-        print("STOPPING CONNECTION")
-    }
+
 
     public func connectToWifi() throws {
-        let wifiSSID = userDefaults.string(forKey: "DeviceWifi")
-        let wifiPassword = userDefaults.string(forKey: "DeviceWifiPassword")
+        var wifiConfiguration: NEHotspotConfiguration;
+        let wifiSSID = userDefaults.string(forKey: "DeviceWiFi")
+        let wifiPassword = userDefaults.string(forKey: "DeviceWiFiPassword")
         if(wifiSSID == "NOT SET" || wifiSSID == nil)
         {
             throw WiFiHanlderError.wifiNetworkNotSet;
@@ -146,20 +170,28 @@ class WiFiHandler {
         {
             throw WiFiHanlderError.wifiNetworkPasswordNotSet;
         }
-        else{
-            let wifiConfiguration = NEHotspotConfiguration(ssid: wifiSSID!, passphrase: wifiPassword!, isWEP: false)
-            
-            NEHotspotConfigurationManager.shared.apply(wifiConfiguration) { error in
-                if let error = error {
-                    print(error.localizedDescription)
+        if(wifiPassword == "")
+        {
+            wifiConfiguration = NEHotspotConfiguration(ssid: wifiSSID!);
+        }
+        else
+        {
+            wifiConfiguration = NEHotspotConfiguration(ssid: wifiSSID!, passphrase: wifiPassword!, isWEP: false)
+        }
+        NEHotspotConfigurationManager.shared.apply(wifiConfiguration) { error in
+        if let error = error{
+            print("ERROR CONNECTING TO WIFI")
+            print(error.localizedDescription)
                 }
-                else{
+            else{
 //                    user confirmation for connecting to wifi received
                 }
             }
-        }
+        
     }
     
-//    public func conne
-//    regex [0-9]{,3}
+    func callAlert()
+    {
+        caller.showAlert(title: "TEST", errormsg: "Testing if object was passed correctly")
+    }
 }

@@ -20,7 +20,7 @@ class ChartsViewController: UIViewController {
     var barchartYaxis: Array<UInt16>=[];
     
 //    var barchartDataSet: BarChartDataSet!;
-    var barchartDataSet = BarChartDataSet(entries: [], label: "Example data in bar chart")
+    var barchartDataSet = BarChartDataSet(entries: [], label: "")
     
     
     
@@ -48,7 +48,7 @@ class ChartsViewController: UIViewController {
         {
             barchartDataSet.append(BarChartDataEntry(x: Double(i), y: Double(barchartYaxis[Int(i)])))
         }
-        barchartDataSet.label = "test data";
+//        barchartDataSet.label = "test data";
     }
     
     
@@ -81,6 +81,7 @@ class ChartsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        maxThresholdVal.value = 65535;
         barChartUpdate()
 
         // Do any additional setup after loading the view.

@@ -68,27 +68,32 @@ class FilesView: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    
     @IBOutlet weak var DeleteBtn: UIButton!
     
     @IBAction func DeleteBtnPressed(_ sender: UIButton) {
         
         var deletedMeasurementGroups = [String]();
         var rowsToBeDeleted = [IndexPath]();
-        for id in selectedIdsList
+        if(selectedIdsList.isEmpty)
         {
-            deletedMeasurementGroups.append(measurementGroupsList[id] as String);
-            rowsToBeDeleted.append(IndexPath(row: id, section: 0));
-            measurementGroupsList.remove(at: id)
+            showAlert(title: "No items selected", errormsg: "Please select one or more of measurement groups to delete")
         }
-        
-        for mGroup in deletedMeasurementGroups{
-            fileHandler.deleteFilesInGroup(fileGroup: mGroup)
+        else
+        {
+            for id in selectedIdsList
+            {
+                deletedMeasurementGroups.append(measurementGroupsList[id] as String);
+                rowsToBeDeleted.append(IndexPath(row: id, section: 0));
+                measurementGroupsList.remove(at: id)
+            }
+            
+            for mGroup in deletedMeasurementGroups{
+                fileHandler.deleteFilesInGroup(fileGroup: mGroup)
+            }
+            selectedIdsList.removeAll();
+            fileTable.deleteRows(at: rowsToBeDeleted, with: .automatic);
+            updateResultList()
         }
-        selectedIdsList.removeAll();
-        fileTable.deleteRows(at: rowsToBeDeleted, with: .automatic);
-        updateResultList()
-        
     }
     
     @IBOutlet weak var ShareBtn: UIButton!
@@ -97,11 +102,18 @@ class FilesView: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBAction func ShareBtnPressed(_ sender: UIButton) {
         print("SHARE BUTTON PRESSED");
         var sharedMeasurementGroups = [String]();
-        for id in selectedIdsList
+        if(selectedIdsList.isEmpty)
         {
-            sharedMeasurementGroups.append(measurementGroupsList[id] as String);
+            showAlert(title: "No items selected", errormsg: "Please select one or more of measurement groups to share")
         }
-        displayShareSheet(measurementGroups: sharedMeasurementGroups);
+        else
+        {
+            for id in selectedIdsList
+            {
+                sharedMeasurementGroups.append(measurementGroupsList[id] as String);
+            }
+            displayShareSheet(measurementGroups: sharedMeasurementGroups);
+        }
     }
     
     override func viewDidLoad() {
@@ -115,6 +127,13 @@ class FilesView: UIViewController, UITableViewDelegate, UITableViewDataSource {
         measurementGroupsList = fileHandler.listFilesGroups();
     }
     
+    private func showAlert(title: String, errormsg: String)
+    {
+        //showing an alert to user informing him that device is not defined
+        let alert = UIAlertController(title: title, message: errormsg, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
 
     /*
     // MARK: - Navigation

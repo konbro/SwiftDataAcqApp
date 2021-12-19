@@ -162,6 +162,14 @@
                                     </segue>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QA8-2i-keb">
+                                <rect key="frame" x="181" y="354" width="52" height="42"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title=" TCP"/>
+                                <connections>
+                                    <action selector="toggleProtocolWithSender:" destination="KSU-bc-leI" eventType="touchUpInside" id="Sos-gp-Q66"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="rhN-Rm-K19"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -172,11 +180,14 @@
                             <constraint firstItem="Whv-I0-xmM" firstAttribute="centerX" secondItem="rhN-Rm-K19" secondAttribute="centerX" id="Fg6-AH-NDf"/>
                             <constraint firstItem="aXx-5B-kHN" firstAttribute="top" secondItem="SgN-1Z-naL" secondAttribute="bottom" constant="57" id="GRL-OG-aIq"/>
                             <constraint firstItem="rhN-Rm-K19" firstAttribute="trailing" secondItem="hhp-kQ-KIt" secondAttribute="trailing" constant="40" id="IOA-gJ-cQi"/>
+                            <constraint firstItem="rhN-Rm-K19" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="QA8-2i-keb" secondAttribute="trailing" constant="249" id="K02-8M-4EQ"/>
                             <constraint firstItem="4oF-AE-lLg" firstAttribute="top" relation="lessThanOrEqual" secondItem="aXx-5B-kHN" secondAttribute="bottom" constant="120" id="L1u-xZ-t4j"/>
                             <constraint firstItem="aXx-5B-kHN" firstAttribute="top" secondItem="hhp-kQ-KIt" secondAttribute="bottom" constant="57" id="Qcm-H0-iWE"/>
+                            <constraint firstItem="4oF-AE-lLg" firstAttribute="top" secondItem="QA8-2i-keb" secondAttribute="bottom" constant="8.6666666666667425" id="R2I-PG-iwv"/>
                             <constraint firstItem="hhp-kQ-KIt" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="SgN-1Z-naL" secondAttribute="trailing" constant="23" id="RDT-4q-Gtn"/>
                             <constraint firstItem="NC2-V5-AVG" firstAttribute="leading" secondItem="rhN-Rm-K19" secondAttribute="leading" constant="57" id="VlO-y6-ff1"/>
                             <constraint firstItem="NC2-V5-AVG" firstAttribute="top" secondItem="Whv-I0-xmM" secondAttribute="bottom" constant="26" id="W1M-td-c0o"/>
+                            <constraint firstItem="QA8-2i-keb" firstAttribute="centerX" secondItem="rhN-Rm-K19" secondAttribute="centerX" id="Ylh-VH-wdL"/>
                             <constraint firstItem="aXx-5B-kHN" firstAttribute="leading" secondItem="rhN-Rm-K19" secondAttribute="leading" constant="20" id="Ztz-5q-1Q4"/>
                             <constraint firstItem="SgN-1Z-naL" firstAttribute="top" secondItem="HFD-UA-ZJ6" secondAttribute="bottom" constant="9" id="aVq-w9-1BZ"/>
                             <constraint firstItem="HFD-UA-ZJ6" firstAttribute="leading" secondItem="rhN-Rm-K19" secondAttribute="leading" constant="20" id="dN9-0v-OoW"/>
@@ -186,10 +197,12 @@
                             <constraint firstItem="BXQ-KF-BV4" firstAttribute="top" secondItem="4oF-AE-lLg" secondAttribute="bottom" constant="17.333333333333258" id="nlk-Y9-CDw"/>
                             <constraint firstItem="rhN-Rm-K19" firstAttribute="trailing" secondItem="lTn-9M-t33" secondAttribute="trailing" constant="40" id="oO4-UO-aek"/>
                             <constraint firstItem="lTn-9M-t33" firstAttribute="top" secondItem="rhN-Rm-K19" secondAttribute="top" constant="21" id="owi-dm-aPt"/>
+                            <constraint firstItem="QA8-2i-keb" firstAttribute="top" relation="lessThanOrEqual" secondItem="aXx-5B-kHN" secondAttribute="bottom" constant="182.66666666666666" id="rUT-I4-esH"/>
                             <constraint firstItem="4oF-AE-lLg" firstAttribute="leading" relation="lessThanOrEqual" secondItem="rhN-Rm-K19" secondAttribute="leading" constant="57" id="svp-1o-JpG"/>
                             <constraint firstItem="SgN-1Z-naL" firstAttribute="leading" secondItem="rhN-Rm-K19" secondAttribute="leading" constant="20" id="tJ7-TH-Vnu"/>
                             <constraint firstItem="lTn-9M-t33" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="HFD-UA-ZJ6" secondAttribute="trailing" constant="23" id="uO7-wU-HSR"/>
                             <constraint firstItem="BXQ-KF-BV4" firstAttribute="centerX" secondItem="rhN-Rm-K19" secondAttribute="centerX" id="une-be-frz"/>
+                            <constraint firstItem="QA8-2i-keb" firstAttribute="leading" relation="lessThanOrEqual" secondItem="rhN-Rm-K19" secondAttribute="leading" constant="181" id="y7R-n0-7cu"/>
                             <constraint firstItem="hhp-kQ-KIt" firstAttribute="top" secondItem="lTn-9M-t33" secondAttribute="bottom" constant="8" symbolic="YES" id="yRW-89-StC"/>
                             <constraint firstItem="rhN-Rm-K19" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="4oF-AE-lLg" secondAttribute="trailing" constant="57" id="yRy-RD-ciy"/>
                         </constraints>
@@ -197,6 +210,7 @@
                     <navigationItem key="navigationItem" id="IoT-35-ocp"/>
                     <connections>
                         <outlet property="MeasurementTimeLabel" destination="lTn-9M-t33" id="E2f-Yt-BNG"/>
+                        <outlet property="ProtocolSelectBtn" destination="QA8-2i-keb" id="zD6-Co-15r"/>
                         <outlet property="StartMeasurementBtn" destination="4oF-AE-lLg" id="Y3z-8x-eYz"/>
                         <outlet property="StopTransmissionBtn" destination="BXQ-KF-BV4" id="4qv-Ut-JEW"/>
                         <outlet property="TimeSlider" destination="aXx-5B-kHN" id="1Pb-CL-bYB"/>
@@ -228,13 +242,13 @@
                                     <segue destination="M9k-h2-RSg" kind="unwind" unwindAction="handleExit:" id="ToN-4a-lyh"/>
                                 </connections>
                             </button>
-                            <slider opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="32767" translatesAutoresizingMaskIntoConstraints="NO" id="oEK-2F-eTm">
+                            <slider opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="65535" translatesAutoresizingMaskIntoConstraints="NO" id="oEK-2F-eTm">
                                 <rect key="frame" x="55" y="536" width="304" height="30"/>
                                 <connections>
                                     <action selector="minValChanged:" destination="UaX-8M-tzo" eventType="valueChanged" id="WVS-Dl-zLc"/>
                                 </connections>
                             </slider>
-                            <slider opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="65535" minValue="32767" maxValue="65535" translatesAutoresizingMaskIntoConstraints="NO" id="Dur-MH-1Yx">
+                            <slider opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="65535" minValue="0.0" maxValue="65535" translatesAutoresizingMaskIntoConstraints="NO" id="Dur-MH-1Yx">
                                 <rect key="frame" x="55" y="609" width="304" height="30"/>
                                 <connections>
                                     <action selector="maxValChanged:" destination="UaX-8M-tzo" eventType="valueChanged" id="Lsg-4u-HoN"/>

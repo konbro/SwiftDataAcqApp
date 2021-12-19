@@ -9,26 +9,59 @@ import UIKit
 
 class MeasurmentsView: UIViewController {
     
-    @IBOutlet weak var MeasurementTimeLabel: UILabel!
+    @IBOutlet weak private var MeasurementTimeLabel: UILabel!
     
-    @IBOutlet weak var TimeTargetLabel: UILabel!
+    @IBOutlet weak private var TimeTargetLabel: UILabel!
     
-    @IBOutlet weak var TimeSlider: UISlider!
+    @IBOutlet weak private var TimeSlider: UISlider!
     
-    @IBOutlet weak var StopTransmissionBtn: UIButton!
+    @IBOutlet weak private var StopTransmissionBtn: UIButton!
     
-    @IBOutlet weak var StartMeasurementBtn: UIButton!
+    @IBOutlet weak private var StartMeasurementBtn: UIButton!
+    
+    @IBOutlet weak private var ProtocolSelectBtn: UIButton!
+
+    
+    let filesHandler = CustomFilesHandler();
+    let wifiHandler = WiFiHandler();
+    var pathToDocumentsDir: String = "";
+    let userDefaults = UserDefaults.standard;
+    var labelTimer = Timer();
+    var timeLeft = 0;
+    var seconds = 0;
+    var timeTargetInMinutes = 0;
+    var isTimerOn = false;
+    var selectedProtocol = "TCP"
+    
+    required init(coder: NSCoder) {
+        super.init(coder: coder)!
+        wifiHandler.setCaller(calledFrom: self)
+    }
     
     @IBAction func handleExit(_ segue:UIStoryboardSegue)
     {
         
     }
+    
+    @IBAction func toggleProtocol(sender: UIButton)
+    {
+//        wifiHandler.callAlert()
+        if selectedProtocol == "TCP"
+        {
+            selectedProtocol = "UDP"
+        }
+        else
+        {
+            selectedProtocol = "TCP"
+        }
+        wifiHandler.setProtocol(pickedProtocol: selectedProtocol)
+        sender.setTitle(selectedProtocol, for: .normal)
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         if segue.identifier == "chartsSegue"
         {
-//            let destination = segue.destination as! ChartsViewController
-//            destination.viewModel = viewModel
             let destination = segue.destination as! ChartsViewController;
             destination.barchartXaxis = [0,1,2,3,4];
             destination.barchartYaxis = [10000,15000,12500,7550,10000];
@@ -52,28 +85,13 @@ class MeasurmentsView: UIViewController {
         }
     }
     
-    let filesHandler = CustomFilesHandler();
-    let wifiHandler = WiFiHandler();
-//    var viewModel: FilesHandlerViewModel!
-    var pathToDocumentsDir: String = "";
-    let userDefaults = UserDefaults.standard;
-    var labelTimer = Timer();
-    var timeLeft = 0;
-    var seconds = 0;
-    var timeTargetInMinutes = 0;
-    var isTimerOn = false;
-    
+
     @IBAction func startMeasurements(_ sender: Any)
     {
-//        if(userDefaults.string(forKey: "DeviceIP") == nil || userDefaults.string(forKey: "DeviceIP") == "NOT SET" ||
-//            userDefaults.string(forKey: "DevicePort") == nil || userDefaults.string(forKey: "DevicePort") == "NOT SET")
-//        {
-//            showAlert()
-//        }
-//        else
-//            {
+        ProtocolSelectBtn.setTitle("UCP", for: .normal)
+        
         do {
-            try wifiHandler.connectToWifi();
+//            try wifiHandler.connectToWifi();
             StopTransmissionBtn.isEnabled = true;
             StartMeasurementBtn.isEnabled = false;
             TimeSlider.isEnabled = false;
@@ -129,9 +147,13 @@ class MeasurmentsView: UIViewController {
         
     }
     
-    private func showAlert(title: String, errormsg: String)
+    /**
+     - Parameter title: title of alert that should be shown to user
+     - Parameter errormsg: description that should be shown to user
+     */
+    public func showAlert(title: String, errormsg: String)
     {
-        //showing an alert to user informing him that device is not defined
+        //showing an alert to user with given title and msg
         let alert = UIAlertController(title: title, message: errormsg, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
