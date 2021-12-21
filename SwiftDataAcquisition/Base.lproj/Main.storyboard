@@ -113,7 +113,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Start measurement"/>
                                 <connections>
-                                    <action selector="startMeasurements:" destination="KSU-bc-leI" eventType="touchUpInside" id="SNG-Vc-xzQ"/>
+                                    <action selector="startMeasurementsBtnPressed:" destination="KSU-bc-leI" eventType="touchUpInside" id="SNG-Vc-xzQ"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Measurement time:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="HFD-UA-ZJ6">

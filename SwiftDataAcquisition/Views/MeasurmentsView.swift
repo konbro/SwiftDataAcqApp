@@ -86,10 +86,8 @@ class MeasurmentsView: UIViewController {
     }
     
 
-    @IBAction func startMeasurements(_ sender: Any)
+    @IBAction func startMeasurementsBtnPressed(_ sender: Any)
     {
-        ProtocolSelectBtn.setTitle("UCP", for: .normal)
-        
         do {
 //            try wifiHandler.connectToWifi();
             StopTransmissionBtn.isEnabled = true;
@@ -110,8 +108,10 @@ class MeasurmentsView: UIViewController {
             let dispatchAfter = DispatchTimeInterval.seconds(delaySeconds)
             
             //begin new WiFi UDP connection
-            wifiHandler.beginUDPConnection(secondsToPass: delaySeconds);
-            print("CALLED WIFI")
+//            wifiHandler.beginUDPConnection(secondsToPass: delaySeconds);
+            wifiHandler.startConnection();
+            
+            print("Started connection via: \(selectedProtocol)")
             print("Connecting to:" + userDefaults.string(forKey: "DeviceIP")!)
             var receivedData = [UInt8]();
             //wait for connection to finish before getting data from wifiHandler
@@ -175,7 +175,8 @@ class MeasurmentsView: UIViewController {
     
     @IBAction func StopBtnPressed(_ sender: UIButton) {
         print("MANUAL END OF MEASUREMENT");
-        wifiHandler.endUDPConnection();
+//        wifiHandler.endUDPConnection();
+        wifiHandler.stopConnection();
         resetView()
     }
     

@@ -26,6 +26,7 @@ class WiFiHandler {
     var receivedData = Array<UInt8>();
     var receivedDataDecoded = Array<UInt16>();
 
+    //    initializer and setters
     init()
     {
         caller = nil;
@@ -42,31 +43,133 @@ class WiFiHandler {
         
     }
     
-    //MARK:- UDP
-    func connectToUDP(_ hostUDP: Network.NWEndpoint.Host, _ portUDP: Network.NWEndpoint.Port, measurements: Int) {
-            
-        let messageToUDP = "****"
+    func stopConnection() {
+        self.startSend(message: "####")
+        self.connection?.cancel()
+        NSLog("did stop")
+    }
+    
+    public func startConnection()
+    {
+        NSLog("Attempting to start connection")
+        self.connection?.stateUpdateHandler = self.didChange(state:)
+        self.startSend(message: "****")
+        self.startReceive()
+        self.connection?.start(queue: .main)
+    }
+    
+    private func didChange(state: NWConnection.State)
+    {
+        switch state
+        {
+            case .ready:
+                NSLog("Connection is ready")
+                
+            case .setup:
+                print("State: Setup\n")
+                
+            case .waiting(let error):
+                NSLog("is waiting: %@", "\(error)")
+                
+            case .cancelled:
+                NSLog("was cancelled")
+                print("State: Cancelled\n")
+                self.stopConnection()
+                
+            case .failed(let error):
+                NSLog("did fail, error: %@", "\(error)")
+                self.stopConnection()
+                
+            case .preparing:
+                print("State: Preparing\n")
+                
+            default:
+                print("ERROR! State not defined!\n")
+        }
         
-          self.connection = NWConnection(host: hostUDP, port: portUDP, using: .udp)
-          self.connection?.stateUpdateHandler = { (newState) in
-              print("This is stateUpdateHandler:")
-              switch (newState) {
-                  case .ready:
-                    print("State: Ready\n")
-                    self.sendUDP(messageToUDP)
-                    for _ in 0...measurements{
-                        self.receiveUDP()
-                    }
-                  case .setup:
-                      print("State: Setup\n")
-                  case .cancelled:
-                      print("State: Cancelled\n")
-                  case .preparing:
-                      print("State: Preparing\n")
-                  default:
-                      print("ERROR! State not defined!\n")
-              }
-          }
+    }
+    
+    private func startReceive()
+    {
+        self.connection?.receive(minimumIncompleteLength: 1, maximumLength: 65536) {
+            data, _, isDone, error in
+            if let data = data, !data.isEmpty {
+                NSLog("Received data: \(data)")
+                let decodedData = self.appendData(inputData: data)
+                let decodedDataMSB = self.decodeData(inputData: decodedData)
+                self.receivedDataDecoded.append(contentsOf: decodedDataMSB);
+                self.receivedData.append(contentsOf: decodedData);
+            }
+            if let error = error {
+                NSLog("Did receive, ERROR: %@", "\(error)")
+                self.stopConnection()
+                return
+            }
+            if isDone {
+                NSLog("did receive, EOF")
+               self.stopConnection()
+               return
+            }
+        }
+    }
+    
+    private func startSend(message: String)
+    {
+        let data = Data(message.utf8)
+        self.connection?.send(content: data, completion: NWConnection.SendCompletion.contentProcessed {
+            error in
+            if let error = error
+            {
+                NSLog("did send, error: %@", "\(error)")
+                self.stopConnection()
+            } else
+            {
+                NSLog("did send, data: %@", data as NSData)
+            }
+        })
+    }
+    
+    //MARK:- UDP
+    func connectToHost(_ networkHost: Network.NWEndpoint.Host, _ networkHostPort: Network.NWEndpoint.Port, measurements: Int)
+    {
+        let messageToHost = "****"
+        if selectedProtocol == "TCP"
+        {
+            self.connection = NWConnection(host: networkHost, port: networkHostPort, using: .tcp)
+        }
+        else
+        {
+            self.connection = NWConnection(host: networkHost, port: networkHostPort, using: .udp)
+        }
+        self.connection?.stateUpdateHandler =
+        { (newState) in
+            print("This is stateUpdateHandler:")
+            switch (newState)
+            {
+                case .ready:
+                print("State: Ready\n")
+                self.sendUDP(messageToHost)
+                for _ in 0...measurements
+                {
+                    self.receiveUDP()
+                }
+                case .setup:
+                    print("State: Setup\n")
+                case .waiting(let error):
+                    NSLog("is waiting: %@", "\(error)")
+                case .cancelled:
+                    NSLog("was cancelled")
+                    print("State: Cancelled\n")
+                    self.stopConnection()
+                case .failed(let error):
+                    NSLog("did fail, error: %@", "\(error)")
+                    self.stopConnection()
+                case .preparing:
+                    print("State: Preparing\n")
+                default:
+                    print("ERROR! State not defined!\n")
+            }
+        }
 
         print("START KJU")
         self.connection?.start(queue: .global())
@@ -78,8 +181,8 @@ class WiFiHandler {
         let contentToSendUDP = content.data(using: String.Encoding.utf8)
           self.connection?.send(content: contentToSendUDP, completion: NWConnection.SendCompletion.contentProcessed(({ (NWError) in
               if (NWError == nil) {
-                  print("Data was sent to UDP")
-                 DispatchQueue.main.async { print("Data was sent to UDP") }
+                  print("Data was sent to host")
+                 DispatchQueue.main.async { print("Data was sent to host") }
               } else {
                   print("ERROR! Error when data (Type: Data) sending. NWError: \n \(NWError!)")
               }
@@ -116,7 +219,7 @@ class WiFiHandler {
         else
         {
             let hostUDP: Network.NWEndpoint.Host = .init(hostIP!)
-            self.connectToUDP(hostUDP, NWEndpoint.Port(hostPort!) ?? 80, measurements: secondsToPass * 2);
+            self.connectToHost(hostUDP, NWEndpoint.Port(hostPort!) ?? 80, measurements: secondsToPass * 2);
             
             return self.receivedData;
         }
@@ -188,10 +291,5 @@ class WiFiHandler {
                 }
             }
         
-    }
-    
-    func callAlert()
-    {
-        caller.showAlert(title: "TEST", errormsg: "Testing if object was passed correctly")
     }
 }
