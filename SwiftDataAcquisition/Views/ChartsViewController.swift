@@ -22,24 +22,77 @@ class ChartsViewController: UIViewController {
 //    var barchartDataSet: BarChartDataSet!;
     var barchartDataSet = BarChartDataSet(entries: [], label: "")
     
-    
-    
     @IBOutlet weak var barChart: BarChartView!
 
     @IBOutlet weak var minThresholdVal: UISlider!
         
     @IBOutlet weak var maxThresholdVal: UISlider!
+
+    @IBOutlet weak var minValueTextField: UITextField!
     
-    @IBAction func maxValChanged(_ sender: UISlider) {
-        print("VALUE: \(sender.value) ROUNDED: \(sender.value.rounded())")
-        maxLimit = ChartLimitLine(limit: Double(sender.value.rounded()), label: "Max error")
+    @IBOutlet weak var maxValueTextField: UITextField!
+    
+    
+    @IBAction func maxValTextFieldValueEntered(_ sender: UITextField) {
+        let senderValue = sender.text;
+        if !(senderValue?.isEmpty ?? true)
+        {
+            maxLimit = ChartLimitLine(limit: Double(senderValue!)!, label: "Max error");
+            maxThresholdVal.value = Float(senderValue!)!;
+            barChartUpdateLimits();
+        }
+    }
+    
+    @IBAction func minValTextFieldValueEntered(_ sender: UITextField) {
+        let senderValue = sender.text;
+        if !(senderValue?.isEmpty ?? true)
+        {
+            minLimit = ChartLimitLine(limit: Double(senderValue!)!, label: "Min error");
+            minThresholdVal.value = Float(senderValue!)!;
+            barChartUpdateLimits();
+        }
+    }
+    
+    @IBAction func maxValSliderValueChanged(_ sender: UISlider) {
+        let senderValue = sender.value;
+        print("VALUE: \(senderValue) ROUNDED: \(senderValue.rounded())")
+        maxLimit = ChartLimitLine(limit: Double(senderValue.rounded()), label: "Max error")
+        maxValueTextField.text?.removeAll();
+        var maxVal = String(senderValue.rounded())
+        maxVal.remove(at: maxVal.index(before: maxVal.endIndex))
+        maxVal.remove(at: maxVal.index(before: maxVal.endIndex))
+        maxValueTextField.text? = maxVal;
         barChartUpdateLimits()
     }
     
-    @IBAction func minValChanged(_ sender: UISlider) {
-        print("VALUE: \(sender.value) ROUNDED: \(sender.value.rounded())")
-        minLimit = ChartLimitLine(limit: Double(sender.value.rounded()), label: "Min error")
+    @IBAction func minValSliderValueChanged(_ sender: UISlider) {
+        let senderValue = sender.value;
+        print("VALUE: \(senderValue) ROUNDED: \(senderValue.rounded())")
+        minLimit = ChartLimitLine(limit: Double(senderValue.rounded()), label: "Min error")
+        minValueTextField.text?.removeAll()
+        var minVal = String(senderValue.rounded());
+        minVal.remove(at: minVal.index(before: minVal.endIndex))
+        minVal.remove(at: minVal.index(before: minVal.endIndex))
+        minValueTextField.text? = minVal;
         barChartUpdateLimits()
+    }
+    
+    @IBAction func handleExit(_ segue:UIStoryboardSegue)
+    {
+        let value = UIInterfaceOrientation.portrait.rawValue
+        UIDevice.current.setValue(value, forKey: "orientation")
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if segue.identifier == "bigChartSegue"
+        {
+            let destination = segue.destination as! BigChartViewController
+            destination.chartXAxisValues = barchartXaxis;
+            destination.chartYAxisValues = barchartYaxis;
+            destination.maxValueLimit = maxLimit;
+            destination.minValueLimit = minLimit;
+        }
     }
     
     private func populateDataSet()
@@ -48,19 +101,12 @@ class ChartsViewController: UIViewController {
         {
             barchartDataSet.append(BarChartDataEntry(x: Double(i), y: Double(barchartYaxis[Int(i)])))
         }
-//        barchartDataSet.label = "test data";
     }
     
     
     
     func barChartUpdate()
     {
-//        let entry1 = BarChartDataEntry(x: 1.0, y: 55.5)
-//        let entry2 = BarChartDataEntry(x: 2.0, y: 200.0)
-//        let entry3 = BarChartDataEntry(x: 3.0, y: 256.5)
-//
-//        let dataSet = BarChartDataSet(entries: [entry1,entry2,entry3], label: "Example data in bar chart")
-//        let data = BarChartData(dataSets: [dataSet])
         populateDataSet();
         let data = BarChartData(dataSets: [barchartDataSet])
         

@@ -43,6 +43,16 @@ class MeasurmentsView: UIViewController {
         
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if segue.identifier == "chartsSegue"
+        {
+            let destination = segue.destination as! ChartsViewController;
+            destination.barchartXaxis = [0,1,2,3,4];
+            destination.barchartYaxis = [10000,15000,12500,7550,10000];
+        }
+    }
+    
     @IBAction func toggleProtocol(sender: UIButton)
     {
 //        wifiHandler.callAlert()
@@ -56,16 +66,6 @@ class MeasurmentsView: UIViewController {
         }
         wifiHandler.setProtocol(pickedProtocol: selectedProtocol)
         sender.setTitle(selectedProtocol, for: .normal)
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-    {
-        if segue.identifier == "chartsSegue"
-        {
-            let destination = segue.destination as! ChartsViewController;
-            destination.barchartXaxis = [0,1,2,3,4];
-            destination.barchartYaxis = [10000,15000,12500,7550,10000];
-        }
     }
     
     

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -231,7 +232,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MQ7-nc-Daj" customClass="BarChartView" customModule="Charts">
-                                <rect key="frame" x="20" y="20" width="374" height="472"/>
+                                <rect key="frame" x="20" y="20" width="374" height="422"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="YNv-n8-roW">
@@ -242,67 +243,148 @@
                                     <segue destination="M9k-h2-RSg" kind="unwind" unwindAction="handleExit:" id="ToN-4a-lyh"/>
                                 </connections>
                             </button>
-                            <slider opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="65535" translatesAutoresizingMaskIntoConstraints="NO" id="oEK-2F-eTm">
-                                <rect key="frame" x="55" y="536" width="304" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="lxB-X7-tjN">
+                                <rect key="frame" x="109" y="596" width="197" height="42"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="Show bigger chart"/>
                                 <connections>
-                                    <action selector="minValChanged:" destination="UaX-8M-tzo" eventType="valueChanged" id="WVS-Dl-zLc"/>
+                                    <segue destination="kfV-x5-KOU" kind="presentation" identifier="bigChartSegue" id="zsE-2m-moL"/>
+                                </connections>
+                            </button>
+                            <slider opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="65535" translatesAutoresizingMaskIntoConstraints="NO" id="oEK-2F-eTm">
+                                <rect key="frame" x="55" y="486" width="304" height="30"/>
+                                <connections>
+                                    <action selector="minValSliderValueChanged:" destination="UaX-8M-tzo" eventType="valueChanged" id="mhZ-th-Lvm"/>
                                 </connections>
                             </slider>
                             <slider opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="65535" minValue="0.0" maxValue="65535" translatesAutoresizingMaskIntoConstraints="NO" id="Dur-MH-1Yx">
-                                <rect key="frame" x="55" y="609" width="304" height="30"/>
+                                <rect key="frame" x="55" y="559" width="304" height="30"/>
                                 <connections>
-                                    <action selector="maxValChanged:" destination="UaX-8M-tzo" eventType="valueChanged" id="Lsg-4u-HoN"/>
+                                    <action selector="maxValSliderValueChanged:" destination="UaX-8M-tzo" eventType="valueChanged" id="F07-UB-JF9"/>
                                 </connections>
                             </slider>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Max value" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="URX-1P-RbQ">
-                                <rect key="frame" x="57" y="573" width="300" height="28"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <rect key="frame" x="56.999999999999993" y="523" width="124.33333333333331" height="28"/>
+                                <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="23"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Min value" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="nZY-WL-KRN">
-                                <rect key="frame" x="57" y="500" width="300" height="28"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <rect key="frame" x="56.999999999999993" y="450" width="124.33333333333331" height="28"/>
+                                <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="23"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="R5j-5J-mJ2">
+                                <rect key="frame" x="205.33333333333337" y="450" width="151.66666666666663" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <connections>
+                                    <action selector="minValTextFieldValueEntered:" destination="UaX-8M-tzo" eventType="editingDidEnd" id="fyw-o8-7GZ"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="65 535" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RlV-Zh-Gbr">
+                                <rect key="frame" x="205.33333333333337" y="520" width="151.66666666666663" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <textInputTraits key="textInputTraits" spellCheckingType="no" keyboardType="numberPad"/>
+                                <connections>
+                                    <action selector="maxValTextFieldValueEntered:" destination="UaX-8M-tzo" eventType="editingDidEnd" id="UAm-sQ-6gl"/>
+                                </connections>
+                            </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="XTR-Sz-H8G"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="XTR-Sz-H8G" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="R5j-5J-mJ2" secondAttribute="trailing" priority="997" constant="57" id="1Og-6B-mHS"/>
                             <constraint firstItem="XTR-Sz-H8G" firstAttribute="trailing" secondItem="Dur-MH-1Yx" secondAttribute="trailing" constant="57" id="4Tp-Up-eem"/>
-                            <constraint firstItem="nZY-WL-KRN" firstAttribute="centerX" secondItem="XTR-Sz-H8G" secondAttribute="centerX" id="6VL-ZX-u4z"/>
                             <constraint firstItem="Dur-MH-1Yx" firstAttribute="top" secondItem="URX-1P-RbQ" secondAttribute="bottom" constant="8" symbolic="YES" id="7Eo-Ze-6DD"/>
+                            <constraint firstItem="lxB-X7-tjN" firstAttribute="top" secondItem="Dur-MH-1Yx" secondAttribute="bottom" constant="8" symbolic="YES" id="7hZ-gj-XBc"/>
+                            <constraint firstItem="oEK-2F-eTm" firstAttribute="top" secondItem="R5j-5J-mJ2" secondAttribute="bottom" constant="2" id="7xM-XW-2N8"/>
+                            <constraint firstItem="XTR-Sz-H8G" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="lxB-X7-tjN" secondAttribute="trailing" constant="160" id="95E-nG-f4g"/>
                             <constraint firstItem="URX-1P-RbQ" firstAttribute="top" secondItem="oEK-2F-eTm" secondAttribute="bottom" constant="16" id="C9H-GY-Xq1"/>
-                            <constraint firstItem="URX-1P-RbQ" firstAttribute="leading" secondItem="XTR-Sz-H8G" secondAttribute="leading" constant="57" id="EEJ-n1-vMe"/>
+                            <constraint firstItem="URX-1P-RbQ" firstAttribute="leading" relation="lessThanOrEqual" secondItem="XTR-Sz-H8G" secondAttribute="leading" priority="997" constant="57" id="EEJ-n1-vMe"/>
                             <constraint firstItem="Dur-MH-1Yx" firstAttribute="leading" secondItem="XTR-Sz-H8G" secondAttribute="leading" constant="57" id="EQK-CP-5vo"/>
-                            <constraint firstItem="XTR-Sz-H8G" firstAttribute="trailing" secondItem="nZY-WL-KRN" secondAttribute="trailing" constant="57" id="LV8-Y7-Dae"/>
+                            <constraint firstItem="Dur-MH-1Yx" firstAttribute="top" secondItem="RlV-Zh-Gbr" secondAttribute="bottom" constant="5" id="HUX-rl-jQ4"/>
+                            <constraint firstItem="YNv-n8-roW" firstAttribute="top" secondItem="lxB-X7-tjN" secondAttribute="bottom" constant="8" symbolic="YES" id="Im0-Bb-Ydu"/>
                             <constraint firstItem="XTR-Sz-H8G" firstAttribute="trailing" secondItem="oEK-2F-eTm" secondAttribute="trailing" constant="57" id="MBO-SI-chv"/>
                             <constraint firstItem="YNv-n8-roW" firstAttribute="leading" secondItem="XTR-Sz-H8G" secondAttribute="leading" constant="57" id="SIE-z7-DAi"/>
-                            <constraint firstItem="nZY-WL-KRN" firstAttribute="leading" secondItem="XTR-Sz-H8G" secondAttribute="leading" constant="57" id="TVK-ic-8z0"/>
+                            <constraint firstItem="nZY-WL-KRN" firstAttribute="leading" relation="lessThanOrEqual" secondItem="XTR-Sz-H8G" secondAttribute="leading" priority="997" constant="57" id="TVK-ic-8z0"/>
+                            <constraint firstItem="lxB-X7-tjN" firstAttribute="leading" relation="lessThanOrEqual" secondItem="XTR-Sz-H8G" secondAttribute="leading" constant="57" id="YhC-a3-rEn"/>
+                            <constraint firstItem="RlV-Zh-Gbr" firstAttribute="leading" relation="lessThanOrEqual" secondItem="URX-1P-RbQ" secondAttribute="trailing" constant="24" id="aBX-v3-qo1"/>
                             <constraint firstItem="XTR-Sz-H8G" firstAttribute="bottom" relation="lessThanOrEqual" secondItem="YNv-n8-roW" secondAttribute="bottom" constant="94" id="aku-Qx-6lw"/>
                             <constraint firstItem="YNv-n8-roW" firstAttribute="top" secondItem="Dur-MH-1Yx" secondAttribute="bottom" constant="62" id="bNh-qO-uuT"/>
+                            <constraint firstItem="R5j-5J-mJ2" firstAttribute="top" secondItem="MQ7-nc-Daj" secondAttribute="bottom" constant="8" symbolic="YES" id="cAo-ZL-LRP"/>
                             <constraint firstItem="MQ7-nc-Daj" firstAttribute="leading" relation="lessThanOrEqual" secondItem="XTR-Sz-H8G" secondAttribute="leading" constant="20" id="cqs-KH-BDa"/>
                             <constraint firstItem="MQ7-nc-Daj" firstAttribute="top" secondItem="XTR-Sz-H8G" secondAttribute="top" constant="20" id="ehm-cX-97B"/>
-                            <constraint firstItem="XTR-Sz-H8G" firstAttribute="trailing" secondItem="URX-1P-RbQ" secondAttribute="trailing" constant="57" id="gL9-Cz-Bjn"/>
+                            <constraint firstItem="nZY-WL-KRN" firstAttribute="width" secondItem="URX-1P-RbQ" secondAttribute="width" id="iwW-uh-cZm"/>
+                            <constraint firstItem="lxB-X7-tjN" firstAttribute="centerX" secondItem="XTR-Sz-H8G" secondAttribute="centerX" id="kYo-e1-UxV"/>
+                            <constraint firstItem="XTR-Sz-H8G" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="RlV-Zh-Gbr" secondAttribute="trailing" priority="997" constant="57" id="l7I-Xu-1xO"/>
                             <constraint firstItem="XTR-Sz-H8G" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="MQ7-nc-Daj" secondAttribute="trailing" constant="20" id="lhH-GX-9JC"/>
+                            <constraint firstItem="R5j-5J-mJ2" firstAttribute="leading" relation="lessThanOrEqual" secondItem="nZY-WL-KRN" secondAttribute="trailing" constant="24" id="lxB-Wf-DIp"/>
                             <constraint firstItem="oEK-2F-eTm" firstAttribute="leading" secondItem="XTR-Sz-H8G" secondAttribute="leading" constant="57" id="nI2-gV-XRf"/>
                             <constraint firstItem="oEK-2F-eTm" firstAttribute="top" secondItem="nZY-WL-KRN" secondAttribute="bottom" constant="8" symbolic="YES" id="rXV-fm-wx9"/>
                             <constraint firstItem="XTR-Sz-H8G" firstAttribute="trailing" secondItem="YNv-n8-roW" secondAttribute="trailing" constant="57" id="sgT-x5-HZa"/>
+                            <constraint firstItem="RlV-Zh-Gbr" firstAttribute="top" secondItem="oEK-2F-eTm" secondAttribute="bottom" constant="5" id="vLR-RE-s8x"/>
                             <constraint firstItem="nZY-WL-KRN" firstAttribute="top" secondItem="MQ7-nc-Daj" secondAttribute="bottom" constant="8" symbolic="YES" id="w9E-nR-QfH"/>
+                            <constraint firstItem="R5j-5J-mJ2" firstAttribute="width" secondItem="RlV-Zh-Gbr" secondAttribute="width" id="xUq-cs-KBT"/>
                             <constraint firstItem="oEK-2F-eTm" firstAttribute="centerX" secondItem="XTR-Sz-H8G" secondAttribute="centerX" id="yWp-jN-sEY"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="barChart" destination="MQ7-nc-Daj" id="zjF-F7-MUs"/>
                         <outlet property="maxThresholdVal" destination="Dur-MH-1Yx" id="Dcz-cZ-zSM"/>
+                        <outlet property="maxValueTextField" destination="RlV-Zh-Gbr" id="Pce-Ea-rbH"/>
                         <outlet property="minThresholdVal" destination="oEK-2F-eTm" id="dmc-Ty-6WP"/>
+                        <outlet property="minValueTextField" destination="R5j-5J-mJ2" id="Jaj-Y6-XMP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B4E-i0-mHc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="M9k-h2-RSg" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-136.23188405797103" y="-334.23913043478262"/>
+        </scene>
+        <!--Big Chart View Controller-->
+        <scene sceneID="8t5-tc-4nR">
+            <objects>
+                <viewController id="kfV-x5-KOU" customClass="BigChartViewController" customModule="SwiftDataAcquisition" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="fO9-Ge-smC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="gNz-oa-OSR">
+                                <rect key="frame" x="20" y="654" width="374" height="42"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="Back"/>
+                                <connections>
+                                    <segue destination="bDR-Oe-QJV" kind="unwind" unwindAction="handleExit:" id="40o-ME-nEL"/>
+                                </connections>
+                            </button>
+                            <view multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gMa-ND-N7a" customClass="BarChartView" customModule="Charts">
+                                <rect key="frame" x="20" y="20" width="374" height="626"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="xPV-xQ-eHa"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="gNz-oa-OSR" firstAttribute="leading" secondItem="xPV-xQ-eHa" secondAttribute="leading" constant="20" id="859-CD-sUh"/>
+                            <constraint firstItem="xPV-xQ-eHa" firstAttribute="bottom" secondItem="gNz-oa-OSR" secondAttribute="bottom" constant="20" id="FUY-p3-Z1v"/>
+                            <constraint firstItem="xPV-xQ-eHa" firstAttribute="trailing" secondItem="gNz-oa-OSR" secondAttribute="trailing" constant="20" id="XIH-ze-jSb"/>
+                            <constraint firstItem="gNz-oa-OSR" firstAttribute="top" relation="lessThanOrEqual" secondItem="gMa-ND-N7a" secondAttribute="bottom" constant="8" symbolic="YES" id="fKC-EG-gOS"/>
+                            <constraint firstItem="gMa-ND-N7a" firstAttribute="leading" relation="lessThanOrEqual" secondItem="xPV-xQ-eHa" secondAttribute="leading" constant="20" id="ruk-mr-l03"/>
+                            <constraint firstItem="gMa-ND-N7a" firstAttribute="top" relation="lessThanOrEqual" secondItem="xPV-xQ-eHa" secondAttribute="top" constant="20" id="rwP-am-d8D"/>
+                            <constraint firstItem="xPV-xQ-eHa" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="gMa-ND-N7a" secondAttribute="trailing" constant="20" id="uQA-5t-NpJ"/>
+                            <constraint firstItem="gNz-oa-OSR" firstAttribute="centerX" secondItem="xPV-xQ-eHa" secondAttribute="centerX" id="xRY-B6-c1S"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="bigChart" destination="gMa-ND-N7a" id="lgo-C9-O2a"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6DZ-yr-qn1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="bDR-Oe-QJV" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1161" y="-249"/>
         </scene>
         <!--Files View-->
         <scene sceneID="wWk-tT-HXH">
@@ -317,7 +399,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MyCell" id="ZYm-92-d0o">
-                                        <rect key="frame" x="0.0" y="24.333333969116211" width="374" height="43.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="44.666666030883789" width="374" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZYm-92-d0o" id="Khr-bE-cWY">
                                             <rect key="frame" x="0.0" y="0.0" width="374" height="43.666667938232422"/>

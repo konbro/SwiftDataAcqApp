@@ -25,6 +25,7 @@
 		6580DE742655444700EC8EB9 /* FilesHandlerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6580DE732655444700EC8EB9 /* FilesHandlerViewModel.swift */; };
 		6580DE772655B42100EC8EB9 /* FilesGroupModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6580DE762655B42100EC8EB9 /* FilesGroupModel.swift */; };
 		65BA843B271DC7AA00835C69 /* TODO.txt in Resources */ = {isa = PBXBuildFile; fileRef = 65BA843A271DC7AA00835C69 /* TODO.txt */; };
+		65FA8A432775318D00971592 /* BigChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FA8A422775318D00971592 /* BigChartViewController.swift */; };
 		A8D2C057F1A8FD6984AF089E /* Pods_SwiftDataAcquisition.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C21265EF47BF8FBAD6969BB /* Pods_SwiftDataAcquisition.framework */; };
 /* End PBXBuildFile section */
 
@@ -77,6 +78,7 @@
 		6580DE732655444700EC8EB9 /* FilesHandlerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesHandlerViewModel.swift; sourceTree = "<group>"; };
 		6580DE762655B42100EC8EB9 /* FilesGroupModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesGroupModel.swift; sourceTree = "<group>"; };
 		65BA843A271DC7AA00835C69 /* TODO.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = TODO.txt; sourceTree = "<group>"; };
+		65FA8A422775318D00971592 /* BigChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigChartViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +167,7 @@
 				6580DE6F2651A94100EC8EB9 /* AboutView.swift */,
 				651C5A4A265CDEC40031B7C0 /* ChartsViewController.swift */,
 				6553B8A526E0E87D008EAA32 /* SettingsView.swift */,
+				65FA8A422775318D00971592 /* BigChartViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -354,6 +357,7 @@
 				6580DE6B264ED64E00EC8EB9 /* FilesView.swift in Sources */,
 				6580DE6D264ED66000EC8EB9 /* MeasurmentsView.swift in Sources */,
 				6553B8A626E0E87D008EAA32 /* SettingsView.swift in Sources */,
+				65FA8A432775318D00971592 /* BigChartViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
