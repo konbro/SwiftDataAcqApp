@@ -234,6 +234,9 @@ class WiFiHandler {
     private func appendData(inputData: Data) -> Array<UInt8>
     {
         var resultArr = Array<UInt8>();
+        //TODO
+        //here check for those frames
+        
         for i in 0..<inputData.count{
             resultArr.append(inputData[i]);
         }

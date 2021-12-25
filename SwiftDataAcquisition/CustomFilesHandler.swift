@@ -11,11 +11,6 @@ class CustomFilesHandler {
     let fm = FileManager.default
     
     public func getDocumentDirectory() -> String {
-//        let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory,
-//                                                                    .userDomainMask,
-//                                                                    true)
-//
-//        return documentDirectory[0]
         return NSHomeDirectory() + "/Documents";
     }
     
@@ -27,13 +22,13 @@ class CustomFilesHandler {
         var measurementDataB = Array<UInt8>();
         var measurementDataC = Array<UInt8>();
         var measurementDataD = Array<UInt8>();
-        //licznik na 128 i 129 indeksie
+        //Frame counter on 128 and 129 index
         var i: Int;
         var framesCount: Int;
         i = 0;
         framesCount = 0;
         while i < dataToSave.count{
-//                //TU ZACZYNA SIE SEPARATOR
+//                //Here begins the separator
                   //
 //                //index:      128   129 130  131  132  133  134  135  136
 //                //value:      0,    0,  171, 172, 173, 174, 171, 170  XYZ
@@ -107,6 +102,7 @@ class CustomFilesHandler {
         }
         print("Successufull save of file \(targetFileName)");
     }
+    
     /**
      
      

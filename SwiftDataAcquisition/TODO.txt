@@ -7,5 +7,10 @@ TODO:
     -check how this ESP32 access point works
     -fix contents of file - unnecessary saving of frames
     -add option to stop measurement when pressing the STOP button
+    -add option to select measurement device? and to pick data from this device to display on charts?
 DONE:
     -conversion from 8 bit MSB, LSB to 16 bit value
+    -Big graph view
+    -Text fields to add desired max and min values
+    -
+    
