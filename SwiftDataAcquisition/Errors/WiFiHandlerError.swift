@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum WiFiHanlderError: Error {
+enum WiFiHandlerError: Error {
     case wifiNetworkNotFound
     case wifiNetworkNotSet
     case wifiNetworkPasswordWrong

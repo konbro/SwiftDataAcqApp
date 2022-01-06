@@ -13,6 +13,8 @@ class MeasurmentsView: UIViewController {
     
     @IBOutlet weak private var TimeTargetLabel: UILabel!
     
+    @IBOutlet weak var FramesCountLabel: UILabel!
+    
     @IBOutlet weak private var TimeSlider: UISlider!
     
     @IBOutlet weak private var StopTransmissionBtn: UIButton!
@@ -108,12 +110,14 @@ class MeasurmentsView: UIViewController {
             let dispatchAfter = DispatchTimeInterval.seconds(delaySeconds)
             
             //begin new WiFi UDP connection
-//            wifiHandler.beginUDPConnection(secondsToPass: delaySeconds);
-            wifiHandler.startConnection();
+            wifiHandler.beginUDPConnection(secondsToPass: delaySeconds);
+//            wifiHandler.startConnection();
             
             print("Started connection via: \(selectedProtocol)")
             print("Connecting to:" + userDefaults.string(forKey: "DeviceIP")!)
+            
             var receivedData = [UInt8]();
+            var receivedDataDecoded = [UInt16]();
             //wait for connection to finish before getting data from wifiHandler
             //HOW TO RUN THIS WHEN STOP button is pressed?
             DispatchQueue.main.asyncAfter(deadline: .now() + dispatchAfter)
@@ -124,18 +128,22 @@ class MeasurmentsView: UIViewController {
                 {
                     //do stuff
                 }
-                receivedData = self.wifiHandler.getResult()
-                print("RECEIVED DATA FROM WIFI")
-                print(receivedData);
+                self.wifiHandler.endUDPConnection();
+                receivedData = self.wifiHandler.getResult();
+                receivedDataDecoded = self.wifiHandler.getResultUInt16();
+                print("RECEIVED DATA FROM WIFI");
+                print(receivedDataDecoded);
+//                print(receivedData);
+                //REMEMBER TO UNCOMMENT THIS
                 self.filesHandler.saveDataBatch(dataToSave: receivedData, timeOfMeasurement: now);
             }
             print("async work in progress...");
         }
-        catch WiFiHanlderError.wifiNetworkPasswordNotSet
+        catch WiFiHandlerError.wifiNetworkPasswordNotSet
         {
             showAlert(title:"Configuration error", errormsg: "Wifi password is not defined. Please go to settings screen to set missing password")
         }
-        catch WiFiHanlderError.wifiNetworkNotSet
+        catch WiFiHandlerError.wifiNetworkNotSet
         {
             showAlert(title:"Configuration error", errormsg: "Wifi SSID is not defined. Please go to settings screen to set missing SSID")
         }
@@ -159,6 +167,11 @@ class MeasurmentsView: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
+    public func updateFrameCounter(frameCount: Int)
+    {
+        self.FramesCountLabel.text = String(frameCount);
+    }
+    
     @objc func incrementTimer()
     {
         seconds += 1
@@ -175,8 +188,8 @@ class MeasurmentsView: UIViewController {
     
     @IBAction func StopBtnPressed(_ sender: UIButton) {
         print("MANUAL END OF MEASUREMENT");
-//        wifiHandler.endUDPConnection();
-        wifiHandler.stopConnection();
+        wifiHandler.endUDPConnection();
+//        wifiHandler.stopConnection();
         resetView()
     }
     

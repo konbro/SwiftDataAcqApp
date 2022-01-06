@@ -23,6 +23,8 @@ class WiFiHandler {
     var connection: NWConnection?
     var hostUDP: Network.NWEndpoint.Host = ""
     
+    var frameOffset: Int = 0;
+    
     var receivedData = Array<UInt8>();
     var receivedDataDecoded = Array<UInt16>();
 
@@ -170,10 +172,7 @@ class WiFiHandler {
                     print("ERROR! State not defined!\n")
             }
         }
-
-        print("START KJU")
         self.connection?.start(queue: .global())
-        print("STOP KJU");
       }
 
 
@@ -194,6 +193,7 @@ class WiFiHandler {
             (data, context, isComplete, error) in
             if (isComplete) {
                   print("Receive is complete")
+                //check frame counters
                   if (data != nil) {
                     //let backToString = String(decoding: data!, as: UTF8.self);
                     let decodedData = self.appendData(inputData: data!)
@@ -236,10 +236,13 @@ class WiFiHandler {
         var resultArr = Array<UInt8>();
         //TODO
         //here check for those frames
-        
+
         for i in 0..<inputData.count{
             resultArr.append(inputData[i]);
         }
+//        let (framesCount, missedFramesCount) = decodeFrameCounters(inputData: resultArr);
+//        print(resultArr[128], resultArr[129]);
+//        print(resultArr);
         return resultArr;
     }
     
@@ -253,9 +256,28 @@ class WiFiHandler {
             tmpUInt16 = tmpUInt16|UInt16(inputData[i+1]);
             resultArr.append(tmpUInt16);
         }
+//        print(resultArr[64], resultArr[128+4], resultArr[192+8]);
+        var maxValOfI = 0;
+//        for i in stride(from: 1, to: 10, by: 2) {
+//            print(i)
+//        }
+        for i in stride(from: 64 + (frameOffset), to: resultArr.count, by: 68)
+        {
+            print(resultArr[i], i, resultArr.count)
+            self.caller.updateFrameCounter(frameCount: Int(resultArr[i]));
+            maxValOfI = i;
+//            print(i)
+        }
+        self.frameOffset = maxValOfI - resultArr.count + 4;
+        print(resultArr.count, maxValOfI, self.frameOffset)
+//        print(resultArr)
         return resultArr;
     }
 
+    public func getResultUInt16() -> Array<UInt16>
+    {
+        return self.receivedDataDecoded;
+    }
     
     public func getResult() -> Array<UInt8>
     {
@@ -270,11 +292,11 @@ class WiFiHandler {
         let wifiPassword = userDefaults.string(forKey: "DeviceWiFiPassword")
         if(wifiSSID == "NOT SET" || wifiSSID == nil)
         {
-            throw WiFiHanlderError.wifiNetworkNotSet;
+            throw WiFiHandlerError.wifiNetworkNotSet;
         }
         if(wifiPassword == "NOT SET")
         {
-            throw WiFiHanlderError.wifiNetworkPasswordNotSet;
+            throw WiFiHandlerError.wifiNetworkPasswordNotSet;
         }
         if(wifiPassword == "")
         {
@@ -294,5 +316,18 @@ class WiFiHandler {
                 }
             }
         
+    }
+    
+    private func decodeFrameCounters(inputData: Array<UInt8>) -> (Int, Int)
+    {
+        var biggestFrameIndex: Int = 0;
+        var missingFramesCounter: Int = 0;
+        
+//        if Data.contains(<#T##self: Data##Data#>)
+//        let index = Data.firstIndex(<#T##self: Data##Data#>)
+    
+        
+        
+        return (biggestFrameIndex, missingFramesCounter);
     }
 }
