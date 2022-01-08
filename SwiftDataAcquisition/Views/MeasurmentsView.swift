@@ -34,6 +34,8 @@ class MeasurmentsView: UIViewController {
     var timeTargetInMinutes = 0;
     var isTimerOn = false;
     var selectedProtocol = "TCP"
+    var timer = Timer()
+//    var isTimerOn = false
     
     required init(coder: NSCoder) {
         super.init(coder: coder)!
@@ -155,6 +157,14 @@ class MeasurmentsView: UIViewController {
         
     }
     
+    @IBAction func StopBtnPressed(_ sender: UIButton)
+    {
+        print("MANUAL END OF MEASUREMENT");
+        wifiHandler.endUDPConnection();
+//        wifiHandler.stopConnection();
+        resetView()
+    }
+    
     /**
      - Parameter title: title of alert that should be shown to user
      - Parameter errormsg: description that should be shown to user
@@ -167,7 +177,7 @@ class MeasurmentsView: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    public func updateFrameCounter(frameCount: Int)
+    private func updateFrameCounter(frameCount: Int)
     {
         self.FramesCountLabel.text = String(frameCount);
     }
@@ -177,6 +187,8 @@ class MeasurmentsView: UIViewController {
         seconds += 1
         let (_, minutesCount, secondsCount) = secondsToHoursMinutesSeconds(seconds: seconds);
         MeasurementTimeLabel.text = "\(minutesCount):\(secondsCount)"
+        var frameCount = self.wifiHandler.getCurrentFrameCount()
+        self.FramesCountLabel.text = String(frameCount)
         if(seconds >= timeTargetInMinutes * 60)
         {
             print("AUTOMATIC END OF MEASUREMENT");
@@ -184,13 +196,6 @@ class MeasurmentsView: UIViewController {
             resetView()
         }
         
-    }
-    
-    @IBAction func StopBtnPressed(_ sender: UIButton) {
-        print("MANUAL END OF MEASUREMENT");
-        wifiHandler.endUDPConnection();
-//        wifiHandler.stopConnection();
-        resetView()
     }
     
     private func resetView()
@@ -204,7 +209,8 @@ class MeasurmentsView: UIViewController {
         MeasurementTimeLabel.text = "00:00"
     }
     
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
         StartMeasurementBtn.setTitleColor(.darkGray, for: .disabled);
         StopTransmissionBtn.setTitleColor(.darkGray, for: .disabled);
@@ -214,14 +220,12 @@ class MeasurmentsView: UIViewController {
         labelTimer.invalidate();
     }
     
-
-    
     //hours, minutes, seconds
-    func secondsToHoursMinutesSeconds (seconds : Int) -> (Int, Int, Int) {
+    private func secondsToHoursMinutesSeconds (seconds : Int) -> (Int, Int, Int)
+    {
       return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
     }
 
-    
     /**
      This method gets time when called
      

@@ -24,9 +24,13 @@ class WiFiHandler {
     var hostUDP: Network.NWEndpoint.Host = ""
     
     var frameOffset: Int = 0;
-    
+    var currentFrameCount: Int = 0;
     var receivedData = Array<UInt8>();
     var receivedDataDecoded = Array<UInt16>();
+    
+    var indexesArr = Array<UInt16>();
+    var receivedDataByMeasuringStation = [[UInt16]]();
+    
 
     //    initializer and setters
     init()
@@ -50,71 +54,71 @@ class WiFiHandler {
         self.connection?.cancel()
         NSLog("did stop")
     }
-    
-    public func startConnection()
-    {
-        NSLog("Attempting to start connection")
-        self.connection?.stateUpdateHandler = self.didChange(state:)
-        self.startSend(message: "****")
-        self.startReceive()
-        self.connection?.start(queue: .main)
-    }
-    
-    private func didChange(state: NWConnection.State)
-    {
-        switch state
-        {
-            case .ready:
-                NSLog("Connection is ready")
-                
-            case .setup:
-                print("State: Setup\n")
-                
-            case .waiting(let error):
-                NSLog("is waiting: %@", "\(error)")
-                
-            case .cancelled:
-                NSLog("was cancelled")
-                print("State: Cancelled\n")
-                self.stopConnection()
-                
-            case .failed(let error):
-                NSLog("did fail, error: %@", "\(error)")
-                self.stopConnection()
-                
-            case .preparing:
-                print("State: Preparing\n")
-                
-            default:
-                print("ERROR! State not defined!\n")
-        }
-        
-    }
-    
-    private func startReceive()
-    {
-        self.connection?.receive(minimumIncompleteLength: 1, maximumLength: 65536) {
-            data, _, isDone, error in
-            if let data = data, !data.isEmpty {
-                NSLog("Received data: \(data)")
-                let decodedData = self.appendData(inputData: data)
-                let decodedDataMSB = self.decodeData(inputData: decodedData)
-                self.receivedDataDecoded.append(contentsOf: decodedDataMSB);
-                self.receivedData.append(contentsOf: decodedData);
-            }
-            if let error = error {
-                NSLog("Did receive, ERROR: %@", "\(error)")
-                self.stopConnection()
-                return
-            }
-            if isDone {
-                NSLog("did receive, EOF")
-               self.stopConnection()
-               return
-            }
-        }
-    }
-    
+//
+//    public func startConnection()
+//    {
+//        NSLog("Attempting to start connection")
+//        self.connection?.stateUpdateHandler = self.didChange(state:)
+//        self.startSend(message: "****")
+//        self.startReceive()
+//        self.connection?.start(queue: .main)
+//    }
+//
+//    private func didChange(state: NWConnection.State)
+//    {
+//        switch state
+//        {
+//            case .ready:
+//                NSLog("Connection is ready")
+//
+//            case .setup:
+//                print("State: Setup\n")
+//
+//            case .waiting(let error):
+//                NSLog("is waiting: %@", "\(error)")
+//
+//            case .cancelled:
+//                NSLog("was cancelled")
+//                print("State: Cancelled\n")
+//                self.stopConnection()
+//
+//            case .failed(let error):
+//                NSLog("did fail, error: %@", "\(error)")
+//                self.stopConnection()
+//
+//            case .preparing:
+//                print("State: Preparing\n")
+//
+//            default:
+//                print("ERROR! State not defined!\n")
+//        }
+//
+//    }
+//
+//    private func startReceive()
+//    {
+//        self.connection?.receive(minimumIncompleteLength: 1, maximumLength: 65536) {
+//            data, _, isDone, error in
+//            if let data = data, !data.isEmpty {
+//                NSLog("Received data: \(data)")
+//                let decodedData = self.appendData(inputData: data)
+//                let decodedDataMSB = self.decodeData(inputData: decodedData)
+//                self.receivedDataDecoded.append(contentsOf: decodedDataMSB);
+//                self.receivedData.append(contentsOf: decodedData);
+//            }
+//            if let error = error {
+//                NSLog("Did receive, ERROR: %@", "\(error)")
+//                self.stopConnection()
+//                return
+//            }
+//            if isDone {
+//                NSLog("did receive, EOF")
+//               self.stopConnection()
+//               return
+//            }
+//        }
+//    }
+//
     private func startSend(message: String)
     {
         let data = Data(message.utf8)
@@ -209,6 +213,11 @@ class WiFiHandler {
         
     public func beginUDPConnection(secondsToPass: Int) -> Array<UInt8>
     {
+        self.currentFrameCount = 0;
+        self.frameOffset = 0;
+        self.receivedData.removeAll();
+        self.receivedDataDecoded.removeAll();
+        
         let hostIP = userDefaults.string(forKey: "DeviceIP");
         let hostPort = userDefaults.string(forKey: "DevicePort");
         if(hostIP == "NOT SET" || hostPort == "NOT SET" || hostIP == nil || hostPort == nil)
@@ -231,18 +240,15 @@ class WiFiHandler {
         print("STOPPING UDP CONNECTION")
     }
     
+    
+    // Data manipulation
     private func appendData(inputData: Data) -> Array<UInt8>
     {
         var resultArr = Array<UInt8>();
         //TODO
-        //here check for those frames
-
         for i in 0..<inputData.count{
             resultArr.append(inputData[i]);
         }
-//        let (framesCount, missedFramesCount) = decodeFrameCounters(inputData: resultArr);
-//        print(resultArr[128], resultArr[129]);
-//        print(resultArr);
         return resultArr;
     }
     
@@ -256,24 +262,59 @@ class WiFiHandler {
             tmpUInt16 = tmpUInt16|UInt16(inputData[i+1]);
             resultArr.append(tmpUInt16);
         }
-//        print(resultArr[64], resultArr[128+4], resultArr[192+8]);
         var maxValOfI = 0;
-//        for i in stride(from: 1, to: 10, by: 2) {
-//            print(i)
-//        }
         for i in stride(from: 64 + (frameOffset), to: resultArr.count, by: 68)
         {
             print(resultArr[i], i, resultArr.count)
-            self.caller.updateFrameCounter(frameCount: Int(resultArr[i]));
+            if(i != 0)
+            {
+                if(indexesArr[i-1] != resultArr[i]-1)
+                {
+                    //ERROR PREVIOUS FRAME VALUE IS WRONG
+//                    resultArr.firstIndex(of: 43948)
+                    let indexesOf0 = resultArr.enumerated().filter
+                    {
+                        $0.element == 43948
+                    }.map{$0.offset}
+                    let indexesOf1 = resultArr.enumerated().filter
+                    {
+                        $0.element == 44462
+                    }.map{$0.offset}
+                    let indexesOf2 = resultArr.enumerated().filter
+                    {
+                        $0.element == 43946
+                    }.map{$0.offset}
+                    if(indexesOf0.count == indexesOf1.count && indexesOf1.count == indexesOf2.count)
+                    {
+                        //sizes of found special frame markers match.
+                        //perfect would be like:
+                        /*
+                         indexesOf0[0] = 65
+                         indexesOf1[0] = 66
+                         indexesOf2[0] = 67
+                         */
+                        //then the val at index 64 is our frame
+//                        min
+                    }
+                }
+                else
+                {
+                    indexesArr.append(resultArr[i]);
+                }
+            }
+            else
+            {
+                indexesArr.append(resultArr[i]);
+            }
+            self.currentFrameCount = Int(resultArr[i]);
             maxValOfI = i;
-//            print(i)
         }
         self.frameOffset = maxValOfI - resultArr.count + 4;
         print(resultArr.count, maxValOfI, self.frameOffset)
-//        print(resultArr)
         return resultArr;
     }
 
+    // getters
     public func getResultUInt16() -> Array<UInt16>
     {
         return self.receivedDataDecoded;
@@ -284,50 +325,43 @@ class WiFiHandler {
         return self.receivedData;
     }
     
-
-
-    public func connectToWifi() throws {
-        var wifiConfiguration: NEHotspotConfiguration;
-        let wifiSSID = userDefaults.string(forKey: "DeviceWiFi")
-        let wifiPassword = userDefaults.string(forKey: "DeviceWiFiPassword")
-        if(wifiSSID == "NOT SET" || wifiSSID == nil)
-        {
-            throw WiFiHandlerError.wifiNetworkNotSet;
-        }
-        if(wifiPassword == "NOT SET")
-        {
-            throw WiFiHandlerError.wifiNetworkPasswordNotSet;
-        }
-        if(wifiPassword == "")
-        {
-            wifiConfiguration = NEHotspotConfiguration(ssid: wifiSSID!);
-        }
-        else
-        {
-            wifiConfiguration = NEHotspotConfiguration(ssid: wifiSSID!, passphrase: wifiPassword!, isWEP: false)
-        }
-        NEHotspotConfigurationManager.shared.apply(wifiConfiguration) { error in
-        if let error = error{
-            print("ERROR CONNECTING TO WIFI")
-            print(error.localizedDescription)
-                }
-            else{
-//                    user confirmation for connecting to wifi received
-                }
-            }
-        
-    }
-    
-    private func decodeFrameCounters(inputData: Array<UInt8>) -> (Int, Int)
+    public func getCurrentFrameCount() -> Int
     {
-        var biggestFrameIndex: Int = 0;
-        var missingFramesCounter: Int = 0;
-        
-//        if Data.contains(<#T##self: Data##Data#>)
-//        let index = Data.firstIndex(<#T##self: Data##Data#>)
-    
-        
-        
-        return (biggestFrameIndex, missingFramesCounter);
+        return self.currentFrameCount;
     }
+    
+
+// Disabled due to apple's stupid policy
+//    public func connectToWifi() throws {
+//        var wifiConfiguration: NEHotspotConfiguration;
+//        let wifiSSID = userDefaults.string(forKey: "DeviceWiFi")
+//        let wifiPassword = userDefaults.string(forKey: "DeviceWiFiPassword")
+//        if(wifiSSID == "NOT SET" || wifiSSID == nil)
+//        {
+//            throw WiFiHandlerError.wifiNetworkNotSet;
+//        }
+//        if(wifiPassword == "NOT SET")
+//        {
+//            throw WiFiHandlerError.wifiNetworkPasswordNotSet;
+//        }
+//        if(wifiPassword == "")
+//        {
+//            wifiConfiguration = NEHotspotConfiguration(ssid: wifiSSID!);
+//        }
+//        else
+//        {
+//            wifiConfiguration = NEHotspotConfiguration(ssid: wifiSSID!, passphrase: wifiPassword!, isWEP: false)
+//        }
+//        NEHotspotConfigurationManager.shared.apply(wifiConfiguration) { error in
+//        if let error = error{
+//            print("ERROR CONNECTING TO WIFI")
+//            print(error.localizedDescription)
+//                }
+//            else{
+////                    user confirmation for connecting to wifi received
+//                }
+//            }
+//
+//    }
+    
 }
