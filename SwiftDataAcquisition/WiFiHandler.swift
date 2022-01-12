@@ -15,26 +15,29 @@ import NetworkExtension
 class WiFiHandler {
      
     let userDefaults = UserDefaults.standard;
-    let beginTransmissionMsg = "****"
-    let endTransmissionMsg = "####"
+    let transmissionMsgStart = "****"
+    let transmissionMsgEnd = "####"
     
-    var caller: MeasurmentsView!
+    var caller: MeasurmentsView!;
+    var dataHandler: MeasurementDataModel!;
     var selectedProtocol: String;
-    var connection: NWConnection?
-    var hostUDP: Network.NWEndpoint.Host = ""
+    var connection: NWConnection?;
+    var hostUDP: Network.NWEndpoint.Host = "";
     
     var frameOffset: Int = 0;
-    var currentFrameCount: Int = 0;
+    var frameCurrentIndex: Int = 0;
+    var framesMissedCount: Int = 0;
     var receivedData = Array<UInt8>();
     var receivedDataDecoded = Array<UInt16>();
     
     var indexesArr = Array<UInt16>();
-    var receivedDataByMeasuringStation = [[UInt16]]();
+    var receivedDataFromMeasuringStations = [[UInt16]]();
     
 
     //    initializer and setters
-    init()
+    init(measurementDataModel: MeasurementDataModel)
     {
+        dataHandler = measurementDataModel;
         caller = nil;
         selectedProtocol = "TCP"
     }
@@ -50,7 +53,7 @@ class WiFiHandler {
     }
     
     func stopConnection() {
-        self.startSend(message: "####")
+        self.startSend(message: self.transmissionMsgEnd)
         self.connection?.cancel()
         NSLog("did stop")
     }
@@ -138,7 +141,6 @@ class WiFiHandler {
     //MARK:- UDP
     func connectToHost(_ networkHost: Network.NWEndpoint.Host, _ networkHostPort: Network.NWEndpoint.Port, measurements: Int)
     {
-        let messageToHost = "****"
         if selectedProtocol == "TCP"
         {
             self.connection = NWConnection(host: networkHost, port: networkHostPort, using: .tcp)
@@ -154,7 +156,7 @@ class WiFiHandler {
             {
                 case .ready:
                 print("State: Ready\n")
-                self.sendUDP(messageToHost)
+                self.sendUDP(self.transmissionMsgStart)
                 for _ in 0...measurements
                 {
                     self.receiveUDP()
@@ -213,7 +215,7 @@ class WiFiHandler {
         
     public func beginUDPConnection(secondsToPass: Int) -> Array<UInt8>
     {
-        self.currentFrameCount = 0;
+        self.frameCurrentIndex = 0;
         self.frameOffset = 0;
         self.receivedData.removeAll();
         self.receivedDataDecoded.removeAll();
@@ -236,7 +238,7 @@ class WiFiHandler {
 
     public func endUDPConnection()
     {
-        sendUDP("####");
+        sendUDP(transmissionMsgEnd);
         print("STOPPING UDP CONNECTION")
     }
     
@@ -263,11 +265,16 @@ class WiFiHandler {
             resultArr.append(tmpUInt16);
         }
         var maxValOfI = 0;
+        var framesMissedIndexOffset = 0; //TODO make class-wide variable
         for i in stride(from: 64 + (frameOffset), to: resultArr.count, by: 68)
         {
             print(resultArr[i], i, resultArr.count)
-            if(i != 0)
+            print(resultArr[i+framesMissedIndexOffset], i+framesMissedIndexOffset, "Frames missed index offset: \(framesMissedIndexOffset)")
+            var indexWithMissingFrames = i + framesMissedIndexOffset;
+            if(indexesArr.count != 0)
             {
+                //check if previous found frame index is not smaller by one
+                //Rework here needed badly
                 if(indexesArr[i-1] != resultArr[i]-1)
                 {
                     //ERROR PREVIOUS FRAME VALUE IS WRONG
@@ -292,9 +299,36 @@ class WiFiHandler {
                          indexesOf0[0] = 65
                          indexesOf1[0] = 66
                          indexesOf2[0] = 67
+                         
+                         then the val at index 64 is our frame counter
                          */
-                        //then the val at index 64 is our frame
-//                        min
+                        /*TODO
+                         Add check if those frames are actually next to each other (Possibility of data having value of this flag!!
+                        */
+                        for flagIndex in indexesOf0
+                        {
+                            let probableFrameIndex = flagIndex - 1
+                            if(probableFrameIndex > i)
+                            {
+                                //j index is bigger than i
+                                if(resultArr[probableFrameIndex] > self.frameCurrentIndex)
+                                {
+                                    //difference between those indexes should be added to variable which counts missing frames
+//                                    i = probableFrameIndex;//NOT A VIABLE METHOD AS i IS A LET CONSTANT
+                                    //
+                                    self.framesMissedCount += Int(resultArr[probableFrameIndex]) - self.frameCurrentIndex;
+                                }
+                                break; //end this for loop as we've found our new value of index i
+                            }
+                            else
+                            {
+                                continue
+                            }
+                        }
+                    }
+                    else
+                    {
+                        //sad part where we have to do magic and remove elements that don't fit
                     }
                 }
                 else
@@ -306,7 +340,7 @@ class WiFiHandler {
             {
                 indexesArr.append(resultArr[i]);
             }
-            self.currentFrameCount = Int(resultArr[i]);
+            self.frameCurrentIndex = Int(resultArr[i]);
             maxValOfI = i;
         }
         self.frameOffset = maxValOfI - resultArr.count + 4;
@@ -327,7 +361,7 @@ class WiFiHandler {
     
     public func getCurrentFrameCount() -> Int
     {
-        return self.currentFrameCount;
+        return self.frameCurrentIndex;
     }
     
 

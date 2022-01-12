@@ -25,7 +25,8 @@ class MeasurmentsView: UIViewController {
 
     
     let filesHandler = CustomFilesHandler();
-    let wifiHandler = WiFiHandler();
+    let dataHandler = MeasurementDataModel();
+    let wifiHandler: WiFiHandler!;
     var pathToDocumentsDir: String = "";
     let userDefaults = UserDefaults.standard;
     var labelTimer = Timer();
@@ -38,8 +39,10 @@ class MeasurmentsView: UIViewController {
 //    var isTimerOn = false
     
     required init(coder: NSCoder) {
-        super.init(coder: coder)!
+        wifiHandler = WiFiHandler(measurementDataModel: self.dataHandler);
+        super.init(coder: coder)!;
         wifiHandler.setCaller(calledFrom: self)
+        
     }
     
     @IBAction func handleExit(_ segue:UIStoryboardSegue)
