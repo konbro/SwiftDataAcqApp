@@ -8,35 +8,56 @@
 import UIKit
 import Charts
 
-class BigChartViewController: UIViewController {
+class BigChartView: UIViewController {
 
     @IBOutlet weak var bigChart: BarChartView!
     
     // values presented on chart
-    public var chartXAxisValues: Array<UInt8>=[];
-    public var chartYAxisValues: Array<UInt16>=[];
+    public var chartXAxisValues: Array<Int>=[];
+    public var chartYAxisData: Array<UInt16>=[];
+    var dataHandler: MeasurementDataModel!;
     public var maxValueLimit: ChartLimitLine!;
     public var minValueLimit: ChartLimitLine!;
     
+    var chartUpdateTimer = Timer();
+    
     private var chartDataSet = BarChartDataSet(entries: [], label: "");
     
-
+    private func startTimer()
+    {
+        self.chartUpdateTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(incrementTimer), userInfo: nil, repeats: true)
+    }
+        
+    @objc func incrementTimer()
+    {
+        self.chartYAxisData.removeAll();
+        self.chartYAxisData.append(contentsOf: dataHandler.getLastFrame());
+        self.barChartUpdate();
+    }
     
     override var shouldAutorotate: Bool {
         return false;
     }
     
-    private func fillDataSet()
+    private func populateDataSet()
     {
         for entry in chartXAxisValues
         {
-            chartDataSet.append(BarChartDataEntry(x: Double(entry), y: Double(chartYAxisValues[Int(entry)])));
+            chartDataSet.append(BarChartDataEntry(x: Double(entry), y: Double(chartYAxisData[Int(entry)])));
         }
+    }
+    
+    func barChartUpdate()
+    {
+        populateDataSet();
+        let data = BarChartData(dataSets: [chartDataSet])
+        bigChart.data = data
+
     }
     
     private func populateChart()
     {
-        fillDataSet()
+        populateDataSet()
         let chartData = BarChartData(dataSets: [chartDataSet])
         bigChart.dragXEnabled = true;
         bigChart.dragYEnabled = true;

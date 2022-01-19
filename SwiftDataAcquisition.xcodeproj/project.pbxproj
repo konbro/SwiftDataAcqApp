@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		651C5A4B265CDEC40031B7C0 /* ChartsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651C5A4A265CDEC40031B7C0 /* ChartsViewController.swift */; };
+		651C5A4B265CDEC40031B7C0 /* ChartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651C5A4A265CDEC40031B7C0 /* ChartsView.swift */; };
 		652F98B726DBCE400072E8E5 /* CustomFilesHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652F98B626DBCE400072E8E5 /* CustomFilesHandler.swift */; };
 		6537336026E3D808006B3307 /* WiFiHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6537335F26E3D808006B3307 /* WiFiHandler.swift */; };
 		6553B8A626E0E87D008EAA32 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6553B8A526E0E87D008EAA32 /* SettingsView.swift */; };
@@ -22,10 +22,9 @@
 		6580DE6B264ED64E00EC8EB9 /* FilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6580DE6A264ED64D00EC8EB9 /* FilesView.swift */; };
 		6580DE6D264ED66000EC8EB9 /* MeasurmentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6580DE6C264ED66000EC8EB9 /* MeasurmentsView.swift */; };
 		6580DE702651A94100EC8EB9 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6580DE6F2651A94100EC8EB9 /* AboutView.swift */; };
-		6580DE742655444700EC8EB9 /* FilesHandlerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6580DE732655444700EC8EB9 /* FilesHandlerViewModel.swift */; };
 		6580DE772655B42100EC8EB9 /* FilesGroupModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6580DE762655B42100EC8EB9 /* FilesGroupModel.swift */; };
 		65BA843B271DC7AA00835C69 /* TODO.txt in Resources */ = {isa = PBXBuildFile; fileRef = 65BA843A271DC7AA00835C69 /* TODO.txt */; };
-		65FA8A432775318D00971592 /* BigChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FA8A422775318D00971592 /* BigChartViewController.swift */; };
+		65FA8A432775318D00971592 /* BigChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FA8A422775318D00971592 /* BigChartView.swift */; };
 		A8D2C057F1A8FD6984AF089E /* Pods_SwiftDataAcquisition.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C21265EF47BF8FBAD6969BB /* Pods_SwiftDataAcquisition.framework */; };
 /* End PBXBuildFile section */
 
@@ -57,7 +56,7 @@
 		46371620BD58896A3A4DE3EF /* Pods-SwiftDataAcquisition.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftDataAcquisition.release.xcconfig"; path = "Target Support Files/Pods-SwiftDataAcquisition/Pods-SwiftDataAcquisition.release.xcconfig"; sourceTree = "<group>"; };
 		4AEC4B8AF8EAE14E73611C2A /* Pods-SwiftDataAcquisition.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftDataAcquisition.debug.xcconfig"; path = "Target Support Files/Pods-SwiftDataAcquisition/Pods-SwiftDataAcquisition.debug.xcconfig"; sourceTree = "<group>"; };
 		5C21265EF47BF8FBAD6969BB /* Pods_SwiftDataAcquisition.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftDataAcquisition.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		651C5A4A265CDEC40031B7C0 /* ChartsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsViewController.swift; sourceTree = "<group>"; };
+		651C5A4A265CDEC40031B7C0 /* ChartsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsView.swift; sourceTree = "<group>"; };
 		652F98B626DBCE400072E8E5 /* CustomFilesHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFilesHandler.swift; sourceTree = "<group>"; };
 		6537335F26E3D808006B3307 /* WiFiHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WiFiHandler.swift; sourceTree = "<group>"; };
 		6553B8A526E0E87D008EAA32 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -75,10 +74,9 @@
 		6580DE6A264ED64D00EC8EB9 /* FilesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesView.swift; sourceTree = "<group>"; };
 		6580DE6C264ED66000EC8EB9 /* MeasurmentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurmentsView.swift; sourceTree = "<group>"; };
 		6580DE6F2651A94100EC8EB9 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
-		6580DE732655444700EC8EB9 /* FilesHandlerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesHandlerViewModel.swift; sourceTree = "<group>"; };
 		6580DE762655B42100EC8EB9 /* FilesGroupModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesGroupModel.swift; sourceTree = "<group>"; };
 		65BA843A271DC7AA00835C69 /* TODO.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = TODO.txt; sourceTree = "<group>"; };
-		65FA8A422775318D00971592 /* BigChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigChartViewController.swift; sourceTree = "<group>"; };
+		65FA8A422775318D00971592 /* BigChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigChartView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,9 +129,9 @@
 		6580DE46264C144900EC8EB9 /* SwiftDataAcquisition */ = {
 			isa = PBXGroup;
 			children = (
+				65CAFDAC27944DCE006871AA /* Controllers */,
 				657511522768CC8800BBEE95 /* Errors */,
 				6580DE722655428200EC8EB9 /* Model */,
-				6580DE712655427900EC8EB9 /* ViewModels */,
 				6580DE6E2651A91600EC8EB9 /* Views */,
 				6580DE47264C144900EC8EB9 /* AppDelegate.swift */,
 				6580DE49264C144900EC8EB9 /* SceneDelegate.swift */,
@@ -141,8 +139,6 @@
 				6580DE50264C144A00EC8EB9 /* Assets.xcassets */,
 				6580DE52264C144A00EC8EB9 /* LaunchScreen.storyboard */,
 				6580DE55264C144A00EC8EB9 /* Info.plist */,
-				652F98B626DBCE400072E8E5 /* CustomFilesHandler.swift */,
-				6537335F26E3D808006B3307 /* WiFiHandler.swift */,
 				65BA843A271DC7AA00835C69 /* TODO.txt */,
 			);
 			path = SwiftDataAcquisition;
@@ -165,19 +161,11 @@
 				6580DE6A264ED64D00EC8EB9 /* FilesView.swift */,
 				6580DE6C264ED66000EC8EB9 /* MeasurmentsView.swift */,
 				6580DE6F2651A94100EC8EB9 /* AboutView.swift */,
-				651C5A4A265CDEC40031B7C0 /* ChartsViewController.swift */,
+				651C5A4A265CDEC40031B7C0 /* ChartsView.swift */,
 				6553B8A526E0E87D008EAA32 /* SettingsView.swift */,
-				65FA8A422775318D00971592 /* BigChartViewController.swift */,
+				65FA8A422775318D00971592 /* BigChartView.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		6580DE712655427900EC8EB9 /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-				6580DE732655444700EC8EB9 /* FilesHandlerViewModel.swift */,
-			);
-			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		6580DE722655428200EC8EB9 /* Model */ = {
@@ -187,6 +175,15 @@
 				6575114D2768C9F000BBEE95 /* MeasurementData.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		65CAFDAC27944DCE006871AA /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				6537335F26E3D808006B3307 /* WiFiHandler.swift */,
+				652F98B626DBCE400072E8E5 /* CustomFilesHandler.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		E111C1674519A1BD74C756B9 /* Frameworks */ = {
@@ -346,18 +343,17 @@
 				652F98B726DBCE400072E8E5 /* CustomFilesHandler.swift in Sources */,
 				6537336026E3D808006B3307 /* WiFiHandler.swift in Sources */,
 				6580DE772655B42100EC8EB9 /* FilesGroupModel.swift in Sources */,
-				651C5A4B265CDEC40031B7C0 /* ChartsViewController.swift in Sources */,
+				651C5A4B265CDEC40031B7C0 /* ChartsView.swift in Sources */,
 				6580DE4C264C144900EC8EB9 /* MainView.swift in Sources */,
 				6580DE702651A94100EC8EB9 /* AboutView.swift in Sources */,
 				657511542768CCA100BBEE95 /* WiFiHandlerError.swift in Sources */,
 				6580DE48264C144900EC8EB9 /* AppDelegate.swift in Sources */,
-				6580DE742655444700EC8EB9 /* FilesHandlerViewModel.swift in Sources */,
 				6580DE4A264C144900EC8EB9 /* SceneDelegate.swift in Sources */,
 				6575114E2768C9F000BBEE95 /* MeasurementData.swift in Sources */,
 				6580DE6B264ED64E00EC8EB9 /* FilesView.swift in Sources */,
 				6580DE6D264ED66000EC8EB9 /* MeasurmentsView.swift in Sources */,
 				6553B8A626E0E87D008EAA32 /* SettingsView.swift in Sources */,
-				65FA8A432775318D00971592 /* BigChartViewController.swift in Sources */,
+				65FA8A432775318D00971592 /* BigChartView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

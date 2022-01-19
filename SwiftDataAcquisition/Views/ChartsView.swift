@@ -8,16 +8,20 @@
 import UIKit
 import Charts
 
-class ChartsViewController: UIViewController {
+class ChartsView: UIViewController {
 
     
     var maxLimit = ChartLimitLine(limit: 255, label: "Max error")
     
     var minLimit = ChartLimitLine(limit:0, label: "Min error");
     
-    var barchartXaxis: Array<UInt8>=[];
+    var barchartXAxisData: Array<Int>=[];
     
-    var barchartYaxis: Array<UInt16>=[];
+    var barchartYAxisData: Array<UInt16>=[];
+    
+    var dataHandler: MeasurementDataModel!;
+    
+    var chartUpdateTimer = Timer();
     
 //    var barchartDataSet: BarChartDataSet!;
     var barchartDataSet = BarChartDataSet(entries: [], label: "")
@@ -32,6 +36,17 @@ class ChartsViewController: UIViewController {
     
     @IBOutlet weak var maxValueTextField: UITextField!
     
+    private func startTimer()
+    {
+        self.chartUpdateTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(incrementTimer), userInfo: nil, repeats: true)
+    }
+        
+    @objc func incrementTimer()
+    {
+        self.barchartYAxisData.removeAll();
+        self.barchartYAxisData.append(contentsOf: dataHandler.getLastFrame());
+        self.barChartUpdate();
+    }
     
     @IBAction func maxValTextFieldValueEntered(_ sender: UITextField) {
         let senderValue = sender.text;
@@ -87,19 +102,24 @@ class ChartsViewController: UIViewController {
     {
         if segue.identifier == "bigChartSegue"
         {
-            let destination = segue.destination as! BigChartViewController
-            destination.chartXAxisValues = barchartXaxis;
-            destination.chartYAxisValues = barchartYaxis;
+            let destination = segue.destination as! BigChartView
+            destination.chartXAxisValues = barchartXAxisData;
+            destination.chartYAxisData = barchartYAxisData;
             destination.maxValueLimit = maxLimit;
             destination.minValueLimit = minLimit;
         }
     }
     
+
+    
     private func populateDataSet()
     {
-        for i in barchartXaxis
+        for i in barchartXAxisData
         {
-            barchartDataSet.append(BarChartDataEntry(x: Double(i), y: Double(barchartYaxis[Int(i)])))
+            if(i<barchartYAxisData.count)
+            {
+                barchartDataSet.append(BarChartDataEntry(x: Double(i), y: Double(barchartYAxisData[Int(i)])))
+            }
         }
     }
     
@@ -109,10 +129,7 @@ class ChartsViewController: UIViewController {
     {
         populateDataSet();
         let data = BarChartData(dataSets: [barchartDataSet])
-        
-        
         barChart.data = data
-//        barChartUpdateLimits()
 
     }
     func barChartUpdateLimits()
@@ -127,6 +144,7 @@ class ChartsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.startTimer();
         maxThresholdVal.value = 65535;
         barChartUpdate()
 

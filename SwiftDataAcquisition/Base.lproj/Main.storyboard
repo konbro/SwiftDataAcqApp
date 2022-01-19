@@ -230,6 +230,7 @@
                         <outlet property="FramesCountLabel" destination="nuH-Qv-AQU" id="hyc-iz-0V2"/>
                         <outlet property="MeasurementTimeLabel" destination="lTn-9M-t33" id="E2f-Yt-BNG"/>
                         <outlet property="ProtocolSelectBtn" destination="QA8-2i-keb" id="zD6-Co-15r"/>
+                        <outlet property="ShowGraphBtn" destination="Whv-I0-xmM" id="FXf-fr-TWm"/>
                         <outlet property="StartMeasurementBtn" destination="4oF-AE-lLg" id="Y3z-8x-eYz"/>
                         <outlet property="StopTransmissionBtn" destination="BXQ-KF-BV4" id="4qv-Ut-JEW"/>
                         <outlet property="TimeSlider" destination="aXx-5B-kHN" id="1Pb-CL-bYB"/>
@@ -241,10 +242,10 @@
             </objects>
             <point key="canvasLocation" x="-1030.4347826086957" y="-334.23913043478262"/>
         </scene>
-        <!--Charts View Controller-->
+        <!--Charts View-->
         <scene sceneID="hgt-cK-qjo">
             <objects>
-                <viewController id="UaX-8M-tzo" customClass="ChartsViewController" customModule="SwiftDataAcquisition" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="UaX-8M-tzo" customClass="ChartsView" customModule="SwiftDataAcquisition" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="84g-CD-bWh">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -361,10 +362,10 @@
             </objects>
             <point key="canvasLocation" x="-136.23188405797103" y="-334.23913043478262"/>
         </scene>
-        <!--Big Chart View Controller-->
+        <!--Big Chart View-->
         <scene sceneID="8t5-tc-4nR">
             <objects>
-                <viewController id="kfV-x5-KOU" customClass="BigChartViewController" customModule="SwiftDataAcquisition" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="kfV-x5-KOU" customClass="BigChartView" customModule="SwiftDataAcquisition" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fO9-Ge-smC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

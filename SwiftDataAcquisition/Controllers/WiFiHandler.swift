@@ -19,7 +19,7 @@ class WiFiHandler {
     let transmissionMsgEnd = "####"
     
     var caller: MeasurmentsView!;
-    var dataHandler: MeasurementDataModel!;
+    var measurementDataModel: MeasurementDataModel!;
     var selectedProtocol: String;
     var connection: NWConnection?;
     var hostUDP: Network.NWEndpoint.Host = "";
@@ -37,7 +37,7 @@ class WiFiHandler {
     //    initializer and setters
     init(measurementDataModel: MeasurementDataModel)
     {
-        dataHandler = measurementDataModel;
+        self.measurementDataModel = measurementDataModel;
         caller = nil;
         selectedProtocol = "TCP"
     }
@@ -57,71 +57,6 @@ class WiFiHandler {
         self.connection?.cancel()
         NSLog("did stop")
     }
-//
-//    public func startConnection()
-//    {
-//        NSLog("Attempting to start connection")
-//        self.connection?.stateUpdateHandler = self.didChange(state:)
-//        self.startSend(message: "****")
-//        self.startReceive()
-//        self.connection?.start(queue: .main)
-//    }
-//
-//    private func didChange(state: NWConnection.State)
-//    {
-//        switch state
-//        {
-//            case .ready:
-//                NSLog("Connection is ready")
-//
-//            case .setup:
-//                print("State: Setup\n")
-//
-//            case .waiting(let error):
-//                NSLog("is waiting: %@", "\(error)")
-//
-//            case .cancelled:
-//                NSLog("was cancelled")
-//                print("State: Cancelled\n")
-//                self.stopConnection()
-//
-//            case .failed(let error):
-//                NSLog("did fail, error: %@", "\(error)")
-//                self.stopConnection()
-//
-//            case .preparing:
-//                print("State: Preparing\n")
-//
-//            default:
-//                print("ERROR! State not defined!\n")
-//        }
-//
-//    }
-//
-//    private func startReceive()
-//    {
-//        self.connection?.receive(minimumIncompleteLength: 1, maximumLength: 65536) {
-//            data, _, isDone, error in
-//            if let data = data, !data.isEmpty {
-//                NSLog("Received data: \(data)")
-//                let decodedData = self.appendData(inputData: data)
-//                let decodedDataMSB = self.decodeData(inputData: decodedData)
-//                self.receivedDataDecoded.append(contentsOf: decodedDataMSB);
-//                self.receivedData.append(contentsOf: decodedData);
-//            }
-//            if let error = error {
-//                NSLog("Did receive, ERROR: %@", "\(error)")
-//                self.stopConnection()
-//                return
-//            }
-//            if isDone {
-//                NSLog("did receive, EOF")
-//               self.stopConnection()
-//               return
-//            }
-//        }
-//    }
-//
     private func startSend(message: String)
     {
         let data = Data(message.utf8)
@@ -202,10 +137,11 @@ class WiFiHandler {
                 //check frame counters
                   if (data != nil) {
                     //let backToString = String(decoding: data!, as: UTF8.self);
-                    let decodedData = self.appendData(inputData: data!)
-                    let decodedDataMSB = self.decodeData(inputData: decodedData)
-                    self.receivedDataDecoded.append(contentsOf: decodedDataMSB);
-                    self.receivedData.append(contentsOf: decodedData);
+                      self.measurementDataModel.appendData(inputData: data!)
+//                    let decodedData = self.appendData(inputData: data!)
+//                    let decodedDataMSB = self.decodeData(inputData: decodedData)
+//                    self.receivedDataDecoded.append(contentsOf: decodedDataMSB);
+//                    self.receivedData.append(contentsOf: decodedData);
                   } else {
                       print("Data == nil")
                   }
@@ -365,7 +301,7 @@ class WiFiHandler {
     }
     
 
-// Disabled due to apple's stupid policy
+// Disabled due to apple's silly policy
 //    public func connectToWifi() throws {
 //        var wifiConfiguration: NEHotspotConfiguration;
 //        let wifiSSID = userDefaults.string(forKey: "DeviceWiFi")

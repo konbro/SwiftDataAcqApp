@@ -23,11 +23,13 @@ class MeasurmentsView: UIViewController {
     
     @IBOutlet weak private var ProtocolSelectBtn: UIButton!
 
+    @IBOutlet weak var ShowGraphBtn: UIButton!
     
     let filesHandler = CustomFilesHandler();
     let dataHandler = MeasurementDataModel();
     let wifiHandler: WiFiHandler!;
     var pathToDocumentsDir: String = "";
+    var selectedMeasurementStation = 0;
     let userDefaults = UserDefaults.standard;
     var labelTimer = Timer();
     var timeLeft = 0;
@@ -36,6 +38,7 @@ class MeasurmentsView: UIViewController {
     var isTimerOn = false;
     var selectedProtocol = "TCP"
     var timer = Timer()
+    var measurementStarted = false;
 //    var isTimerOn = false
     
     required init(coder: NSCoder) {
@@ -54,9 +57,17 @@ class MeasurmentsView: UIViewController {
     {
         if segue.identifier == "chartsSegue"
         {
-            let destination = segue.destination as! ChartsViewController;
-            destination.barchartXaxis = [0,1,2,3,4];
-            destination.barchartYaxis = [10000,15000,12500,7550,10000];
+            var indexes = Array<Int>();
+            for i in 0...64
+            {
+                indexes.append(i);
+            }
+            //TODO
+            //periodically update the chart via getting values from dataHandler
+//            let (_, stationsValues) = dataHandler.getIndexesAndValues(); //commented for debugging
+            let destination = segue.destination as! ChartsView;
+            destination.barchartXAxisData = indexes;
+            destination.dataHandler = self.dataHandler;
         }
     }
     
@@ -95,6 +106,7 @@ class MeasurmentsView: UIViewController {
 
     @IBAction func startMeasurementsBtnPressed(_ sender: Any)
     {
+        self.ShowGraphBtn.isEnabled = true;
         do {
 //            try wifiHandler.connectToWifi();
             StopTransmissionBtn.isEnabled = true;
@@ -115,7 +127,7 @@ class MeasurmentsView: UIViewController {
             let dispatchAfter = DispatchTimeInterval.seconds(delaySeconds)
             
             //begin new WiFi UDP connection
-            wifiHandler.beginUDPConnection(secondsToPass: delaySeconds);
+            let _ = wifiHandler.beginUDPConnection(secondsToPass: delaySeconds);
 //            wifiHandler.startConnection();
             
             print("Started connection via: \(selectedProtocol)")
@@ -127,18 +139,11 @@ class MeasurmentsView: UIViewController {
             //HOW TO RUN THIS WHEN STOP button is pressed?
             DispatchQueue.main.asyncAfter(deadline: .now() + dispatchAfter)
             {
-                //add global flag which will be checked?
-                //i.e:
-                if(true)
-                {
-                    //do stuff
-                }
                 self.wifiHandler.endUDPConnection();
                 receivedData = self.wifiHandler.getResult();
                 receivedDataDecoded = self.wifiHandler.getResultUInt16();
                 print("RECEIVED DATA FROM WIFI");
                 print(receivedDataDecoded);
-//                print(receivedData);
                 //REMEMBER TO UNCOMMENT THIS
                 self.filesHandler.saveDataBatch(dataToSave: receivedData, timeOfMeasurement: now);
             }
@@ -165,6 +170,7 @@ class MeasurmentsView: UIViewController {
         print("MANUAL END OF MEASUREMENT");
         wifiHandler.endUDPConnection();
 //        wifiHandler.stopConnection();
+        self.showAlert(title: "Measurement stopped", errormsg: "User has cancelled measurement manually")
         resetView()
     }
     
@@ -190,12 +196,14 @@ class MeasurmentsView: UIViewController {
         seconds += 1
         let (_, minutesCount, secondsCount) = secondsToHoursMinutesSeconds(seconds: seconds);
         MeasurementTimeLabel.text = "\(minutesCount):\(secondsCount)"
-        var frameCount = self.wifiHandler.getCurrentFrameCount()
+//        var frameCount = self.wifiHandler.getCurrentFrameCount()
+        let frameCount = self.dataHandler.getLastFrameIndex();
         self.FramesCountLabel.text = String(frameCount)
         if(seconds >= timeTargetInMinutes * 60)
         {
             print("AUTOMATIC END OF MEASUREMENT");
             wifiHandler.endUDPConnection();
+            self.showAlert(title: "Measuerement is finished", errormsg: "Measurement time has passed and is finished")
             resetView()
         }
         
